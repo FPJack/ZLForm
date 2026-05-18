@@ -1,0 +1,27 @@
+PODS:
+  - FBSnapshotTestCase (2.1.4):
+    - FBSnapshotTestCase/SwiftSupport (= 2.1.4)
+  - FBSnapshotTestCase/Core (2.1.4)
+  - FBSnapshotTestCase/SwiftSupport (2.1.4):
+    - FBSnapshotTestCase/Core
+  - ZLForm (0.1.0)
+
+DEPENDENCIES:
+  - FBSnapshotTestCase
+  - ZLForm (from `../`)
+
+SPEC REPOS:
+  trunk:
+    - FBSnapshotTestCase
+
+EXTERNAL SOURCES:
+  ZLForm:
+    :path: "../"
+
+SPEC CHECKSUMS:
+  FBSnapshotTestCase: 094f9f314decbabe373b87cc339bea235a63e07a
+  ZLForm: 139701c9fe0245e976e4856c5b0f7c66a575ef82
+
+PODFILE CHECKSUM: a3558c350c3c4c5cccdaeae5c1adb98f5853edbf
+
+COCOAPODS: 1.16.2

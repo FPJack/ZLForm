@@ -1,0 +1,1119 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		033FFE190475F86C455130A6929D620D /* ZLFormDescriptor.h in Headers */ = {isa = PBXBuildFile; fileRef = F0312E07073D2083E80126506842F25E /* ZLFormDescriptor.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		0701CEC5201EA160479719F90DF4B893 /* Pods-ZLForm_Tests-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 4804EB6371A2704890D06A7F90F7899F /* Pods-ZLForm_Tests-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		0AE1FFAA4390B36294D9A3C1E9A2D181 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 26BC96F34E43FA0A3AE93B3C2C4595E5 /* XCTest.framework */; };
+		12C8FD3D06F867281B3C87497145DC65 /* FBSnapshotTestCase.h in Headers */ = {isa = PBXBuildFile; fileRef = FEE661E58CA6655B39AA49AA4C021C33 /* FBSnapshotTestCase.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1DC55A87C0DE4EEA9BB1DD2770375D10 /* ZLForm-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = E82C545F63176D359E7B585E85DEF063 /* ZLForm-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		221DF43D1BDB035DDF5416056A935809 /* ZLFormBaseCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D6A2183CE976787AB157CCF772808B03 /* ZLFormBaseCell.m */; };
+		235600AE307BD8E0B1D3FA374B779A02 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 692D29656528FA94A71ECFB8FEB6DC0B /* Foundation.framework */; };
+		23EE499CE0242070F516BB043837601D /* ZLFormRowDescriptor.h in Headers */ = {isa = PBXBuildFile; fileRef = C59D611F49AB325C137420B863DDE611 /* ZLFormRowDescriptor.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		267AEE0BF1514767DD64B50559013EB3 /* FBSnapshotTestController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7E1B7EA746BF6557FD565BAE12AF9198 /* FBSnapshotTestController.m */; };
+		33E349E32C64A93B3CAC6A2667583E98 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E6B5E773973965C73BC40D4388B4C07 /* QuartzCore.framework */; };
+		36D7EA449EFC88C536316B2637F3E15A /* ZLFormDescriptor.m in Sources */ = {isa = PBXBuildFile; fileRef = 2503E36422F4A87CB97D65B57B4F218F /* ZLFormDescriptor.m */; };
+		3777A70A61ED49FCDDB07BE5F0A1C4B4 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4138A0A13FF7F7B73435E87E54C56C18 /* UIKit.framework */; };
+		3BF27A2A6F27DCE9645039383FCE19F0 /* FBSnapshotTestCase-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 8E5923010B02074CAA9AAF6EA02D66AA /* FBSnapshotTestCase-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3D7417FF345BCC38F6B1EDC2890F94E8 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 692D29656528FA94A71ECFB8FEB6DC0B /* Foundation.framework */; };
+		403AD1A1D1F744DDE87B0C765D8A152A /* Pods-ZLForm_Example-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 791023CA404833C2CEEA2A11D8FF49C6 /* Pods-ZLForm_Example-dummy.m */; };
+		55D9D4D1609F1F4929E1BA1A1B562445 /* FBSnapshotTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 277B6BE10C665F515606A22FD60C6DCC /* FBSnapshotTestCase.m */; };
+		593CC778281D0C5DAFD70A5E285DA86A /* UIImage+Compare.m in Sources */ = {isa = PBXBuildFile; fileRef = 235A78CFFA6D8B8D86CACD733531CB13 /* UIImage+Compare.m */; };
+		64066CA793C90CA645A6D2031654D2CC /* UIImage+Snapshot.h in Headers */ = {isa = PBXBuildFile; fileRef = 284833D18C244D2B42966B6EE425AA59 /* UIImage+Snapshot.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		757FAC5CDB95A8ADADE4456FD28E6BD1 /* ZLForm.h in Headers */ = {isa = PBXBuildFile; fileRef = F479F3DF0968099EFF9FC3D0A0F01BD7 /* ZLForm.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		76085620117E839C450E794DB3773D79 /* FBSnapshotTestCasePlatform.h in Headers */ = {isa = PBXBuildFile; fileRef = 88B1DEEBF6316A84D7413645212492FF /* FBSnapshotTestCasePlatform.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		766F6429966FBFF2E2E6A2991BDAFDA9 /* UIImage+Diff.m in Sources */ = {isa = PBXBuildFile; fileRef = 4568279DE47DC3AB91598E1317503995 /* UIImage+Diff.m */; };
+		7CA66236CDA347ACA342DBCAA0F75C7A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 692D29656528FA94A71ECFB8FEB6DC0B /* Foundation.framework */; };
+		7CCC85DBF2AB09384C559B5DF979433B /* ReplaceMe.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E5FB2D9B7EA7F4CFF8382C5BE5AEC73 /* ReplaceMe.m */; };
+		8DC025667BB28717C0A3E92ADAAA203D /* ZLFormValidator.h in Headers */ = {isa = PBXBuildFile; fileRef = 3F4D7F4F24D283A267E3027034BC8A5A /* ZLFormValidator.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		8FD1AB468AF7F87112C3674006F6BC6E /* SwiftSupport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F0D66CF296ABBC57EC4D0452397E235 /* SwiftSupport.swift */; };
+		9646A95ECE9F29B132A9A21C79B4CF09 /* Pods-ZLForm_Tests-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F701B9EB552D22C25E83628E40FAA94 /* Pods-ZLForm_Tests-dummy.m */; };
+		98E6EFEC8144C428011F422FF6F3F3F2 /* ZLForm-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 9049FEFEFB7F2A839D940A529C350FC5 /* ZLForm-dummy.m */; };
+		A94FA2D8FFF210CD76F329F3DF42B591 /* Pods-ZLForm_Example-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 432BEE087F3F36EB6E33DAC71B3BCC33 /* Pods-ZLForm_Example-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		AA9C9BAF4A19DE1F5B39C23D5FE824DC /* ZLFormValidator.m in Sources */ = {isa = PBXBuildFile; fileRef = B614E0BCABCF67D9223D8BC7A2897611 /* ZLFormValidator.m */; };
+		AEFB700F9EE77EE9848A8AC8C3F00A7F /* FBSnapshotTestCasePlatform.m in Sources */ = {isa = PBXBuildFile; fileRef = 6ABB3EB3CCC5BCA82F40FE8DC87BB778 /* FBSnapshotTestCasePlatform.m */; };
+		B825099C3D050863F355C80AE91E1EF0 /* ZLFormRowDescriptor.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A2131E52D684BF44D39F46CAAB660B3 /* ZLFormRowDescriptor.m */; };
+		BDA43FAFB2A1267E80F9CAE49D28D5D5 /* ZLFormBaseCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 734FC2599D10360B290383AF5727DC59 /* ZLFormBaseCell.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C0CEF3163F6DFC9B838217EE5473DFA5 /* ZLForm.m in Sources */ = {isa = PBXBuildFile; fileRef = EF744C6E15BFA5DAD71D8CD8B8237D34 /* ZLForm.m */; };
+		CAA4C7F79F8939077CC191356F358DF1 /* ZLFormSectionDescriptor.h in Headers */ = {isa = PBXBuildFile; fileRef = E63E5BDA91EB3C610FD5C2816955751C /* ZLFormSectionDescriptor.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		CE0DC4614B4FF855B2101D7F74A710AC /* UIApplication+StrictKeyWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F538C426803AE34255FC6E35B408CCA /* UIApplication+StrictKeyWindow.m */; };
+		CF65A6A0F5F9A6A9FBF5501610AAD758 /* FBSnapshotTestController.h in Headers */ = {isa = PBXBuildFile; fileRef = AE9FF9459FBCDC4AF88FB6B5A4CC1439 /* FBSnapshotTestController.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		DA747A80391988F1202FF4989A0E12CF /* UIApplication+StrictKeyWindow.h in Headers */ = {isa = PBXBuildFile; fileRef = 99A67367E018411D614EC8536A8A1C5B /* UIApplication+StrictKeyWindow.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		DF056DCCC5488AC92E121203CB2296F8 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 692D29656528FA94A71ECFB8FEB6DC0B /* Foundation.framework */; };
+		E4F6CF5EA1B12C55385D3CDC6BD1F4D8 /* UIImage+Compare.h in Headers */ = {isa = PBXBuildFile; fileRef = 656116C8FA5458F45D4707110C9530EC /* UIImage+Compare.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		E759C2EC9B730E3C9C562BBB533B85DC /* FBSnapshotTestCase-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ADA6E655DC84D06359BD0ED5E36C783 /* FBSnapshotTestCase-dummy.m */; };
+		EA5924031A71EF807EC467903E26FAC0 /* UIImage+Snapshot.m in Sources */ = {isa = PBXBuildFile; fileRef = D872A3EE224412D4057C234FBC629F9C /* UIImage+Snapshot.m */; };
+		F822382AB9E7B343C04964B313B1743D /* UIImage+Diff.h in Headers */ = {isa = PBXBuildFile; fileRef = 96187BF3038121CC146335E9FF0B0AFF /* UIImage+Diff.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		FC424D8A6B02A9E78AC6D0AB714B6983 /* ZLFormSectionDescriptor.m in Sources */ = {isa = PBXBuildFile; fileRef = 85D15B4C74B98B8E5438F8B9C527231D /* ZLFormSectionDescriptor.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		1B5684171E54D610D43764C15D08968F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 98A98149697C80CEF8D5772791E92E66;
+			remoteInfo = FBSnapshotTestCase;
+		};
+		534E3ED5695E2D690B1A1CA39DC4244C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = FE2CC03FB9ADE129C841A755F101FDF5;
+			remoteInfo = "Pods-ZLForm_Example";
+		};
+		B6DFED6441699D3877D3C00A17914CB3 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 295A71988CB03468C3FFC5A26A3452A9;
+			remoteInfo = ZLForm;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		01CCF56790E68419BE466C6B21EF44C9 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; path = README.md; sourceTree = "<group>"; };
+		03DCA99D9FC55B024B55F6894F96C4F7 /* Pods-ZLForm_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-ZLForm_Example.debug.xcconfig"; sourceTree = "<group>"; };
+		0F538C426803AE34255FC6E35B408CCA /* UIApplication+StrictKeyWindow.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "UIApplication+StrictKeyWindow.m"; path = "FBSnapshotTestCase/Categories/UIApplication+StrictKeyWindow.m"; sourceTree = "<group>"; };
+		0F701B9EB552D22C25E83628E40FAA94 /* Pods-ZLForm_Tests-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-ZLForm_Tests-dummy.m"; sourceTree = "<group>"; };
+		104B26571A8CB21CB9569D385812F696 /* ZLForm.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; path = ZLForm.podspec; sourceTree = "<group>"; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		14C244567AB070CCA23774372A8E3573 /* Pods-ZLForm_Example-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-ZLForm_Example-acknowledgements.plist"; sourceTree = "<group>"; };
+		15FFDF4BB80DAC1E8648BA8DBDAE4E11 /* ZLForm.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = ZLForm.modulemap; sourceTree = "<group>"; };
+		1858DA534B4C1BCE3CC5C7D33CBB09A5 /* Pods-ZLForm_Example.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-ZLForm_Example.modulemap"; sourceTree = "<group>"; };
+		1ADA6E655DC84D06359BD0ED5E36C783 /* FBSnapshotTestCase-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "FBSnapshotTestCase-dummy.m"; sourceTree = "<group>"; };
+		1D8DC9DE3D6A9D6B1D646738156FA393 /* Pods-ZLForm_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-ZLForm_Example.release.xcconfig"; sourceTree = "<group>"; };
+		235A78CFFA6D8B8D86CACD733531CB13 /* UIImage+Compare.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "UIImage+Compare.m"; path = "FBSnapshotTestCase/Categories/UIImage+Compare.m"; sourceTree = "<group>"; };
+		2503E36422F4A87CB97D65B57B4F218F /* ZLFormDescriptor.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = ZLFormDescriptor.m; path = ZLForm/Classes/ZLFormDescriptor.m; sourceTree = "<group>"; };
+		26BC96F34E43FA0A3AE93B3C2C4595E5 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS18.0.sdk/System/Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
+		277B6BE10C665F515606A22FD60C6DCC /* FBSnapshotTestCase.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = FBSnapshotTestCase.m; path = FBSnapshotTestCase/FBSnapshotTestCase.m; sourceTree = "<group>"; };
+		284833D18C244D2B42966B6EE425AA59 /* UIImage+Snapshot.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "UIImage+Snapshot.h"; path = "FBSnapshotTestCase/Categories/UIImage+Snapshot.h"; sourceTree = "<group>"; };
+		3A72AA4828D766D9AD2C0F72E4685C8B /* Pods-ZLForm_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-ZLForm_Tests.release.xcconfig"; sourceTree = "<group>"; };
+		3F0D66CF296ABBC57EC4D0452397E235 /* SwiftSupport.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SwiftSupport.swift; path = FBSnapshotTestCase/SwiftSupport.swift; sourceTree = "<group>"; };
+		3F4D7F4F24D283A267E3027034BC8A5A /* ZLFormValidator.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = ZLFormValidator.h; path = ZLForm/Classes/ZLFormValidator.h; sourceTree = "<group>"; };
+		4138A0A13FF7F7B73435E87E54C56C18 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS18.0.sdk/System/Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
+		432BEE087F3F36EB6E33DAC71B3BCC33 /* Pods-ZLForm_Example-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-ZLForm_Example-umbrella.h"; sourceTree = "<group>"; };
+		43649363A8486352E8570C64A65FFEE9 /* ZLForm.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = ZLForm.release.xcconfig; sourceTree = "<group>"; };
+		4568279DE47DC3AB91598E1317503995 /* UIImage+Diff.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "UIImage+Diff.m"; path = "FBSnapshotTestCase/Categories/UIImage+Diff.m"; sourceTree = "<group>"; };
+		4804EB6371A2704890D06A7F90F7899F /* Pods-ZLForm_Tests-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-ZLForm_Tests-umbrella.h"; sourceTree = "<group>"; };
+		4C46EA21EDF928A11937F8F77C07188A /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; path = LICENSE; sourceTree = "<group>"; };
+		4C6513B09838318BD763CFD5390D1DE0 /* FBSnapshotTestCase.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = FBSnapshotTestCase.release.xcconfig; sourceTree = "<group>"; };
+		4E5FB2D9B7EA7F4CFF8382C5BE5AEC73 /* ReplaceMe.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = ReplaceMe.m; path = ZLForm/Classes/ReplaceMe.m; sourceTree = "<group>"; };
+		59779D4D754AF629844D152AF1D2B55D /* Pods-ZLForm_Example-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-ZLForm_Example-Info.plist"; sourceTree = "<group>"; };
+		59C6EA7391EA0DA592FD72DD5A5AB374 /* Pods-ZLForm_Example-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-ZLForm_Example-acknowledgements.markdown"; sourceTree = "<group>"; };
+		5C4F31330DFA99D699E4BDC8C3573D73 /* FBSnapshotTestCase */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = FBSnapshotTestCase; path = FBSnapshotTestCase.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		5E6B5E773973965C73BC40D4388B4C07 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS18.0.sdk/System/Library/Frameworks/QuartzCore.framework; sourceTree = DEVELOPER_DIR; };
+		656116C8FA5458F45D4707110C9530EC /* UIImage+Compare.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "UIImage+Compare.h"; path = "FBSnapshotTestCase/Categories/UIImage+Compare.h"; sourceTree = "<group>"; };
+		692D29656528FA94A71ECFB8FEB6DC0B /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS18.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
+		6ABB3EB3CCC5BCA82F40FE8DC87BB778 /* FBSnapshotTestCasePlatform.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = FBSnapshotTestCasePlatform.m; path = FBSnapshotTestCase/FBSnapshotTestCasePlatform.m; sourceTree = "<group>"; };
+		6CBF72F0847DAD1B3FBE5AD772E58F4D /* Pods-ZLForm_Example-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-ZLForm_Example-frameworks.sh"; sourceTree = "<group>"; };
+		734FC2599D10360B290383AF5727DC59 /* ZLFormBaseCell.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = ZLFormBaseCell.h; path = ZLForm/Classes/ZLFormBaseCell.h; sourceTree = "<group>"; };
+		791023CA404833C2CEEA2A11D8FF49C6 /* Pods-ZLForm_Example-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-ZLForm_Example-dummy.m"; sourceTree = "<group>"; };
+		7E1B7EA746BF6557FD565BAE12AF9198 /* FBSnapshotTestController.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = FBSnapshotTestController.m; path = FBSnapshotTestCase/FBSnapshotTestController.m; sourceTree = "<group>"; };
+		84230A3FD10CAC7F79DAB9E010F084CF /* Pods-ZLForm_Example */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = "Pods-ZLForm_Example"; path = Pods_ZLForm_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		85D15B4C74B98B8E5438F8B9C527231D /* ZLFormSectionDescriptor.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = ZLFormSectionDescriptor.m; path = ZLForm/Classes/ZLFormSectionDescriptor.m; sourceTree = "<group>"; };
+		88B1DEEBF6316A84D7413645212492FF /* FBSnapshotTestCasePlatform.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FBSnapshotTestCasePlatform.h; path = FBSnapshotTestCase/FBSnapshotTestCasePlatform.h; sourceTree = "<group>"; };
+		8A2131E52D684BF44D39F46CAAB660B3 /* ZLFormRowDescriptor.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = ZLFormRowDescriptor.m; path = ZLForm/Classes/ZLFormRowDescriptor.m; sourceTree = "<group>"; };
+		8E5923010B02074CAA9AAF6EA02D66AA /* FBSnapshotTestCase-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "FBSnapshotTestCase-umbrella.h"; sourceTree = "<group>"; };
+		9049FEFEFB7F2A839D940A529C350FC5 /* ZLForm-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "ZLForm-dummy.m"; sourceTree = "<group>"; };
+		9468E867498BBAF36F9AFFE4845F8B09 /* FBSnapshotTestCase.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = FBSnapshotTestCase.debug.xcconfig; sourceTree = "<group>"; };
+		96187BF3038121CC146335E9FF0B0AFF /* UIImage+Diff.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "UIImage+Diff.h"; path = "FBSnapshotTestCase/Categories/UIImage+Diff.h"; sourceTree = "<group>"; };
+		99A67367E018411D614EC8536A8A1C5B /* UIApplication+StrictKeyWindow.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "UIApplication+StrictKeyWindow.h"; path = "FBSnapshotTestCase/Categories/UIApplication+StrictKeyWindow.h"; sourceTree = "<group>"; };
+		9D30B5F3C12516B583314AEE8BEE63E1 /* ZLForm.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = ZLForm.debug.xcconfig; sourceTree = "<group>"; };
+		9D940727FF8FB9C785EB98E56350EF41 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		A42AFF8E8C977E512FA50A7EB3D0C2C4 /* ZLForm */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = ZLForm; path = ZLForm.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		A5102F7DE39E381EC1951CB15FB61A14 /* Pods-ZLForm_Tests-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-ZLForm_Tests-acknowledgements.plist"; sourceTree = "<group>"; };
+		AE9FF9459FBCDC4AF88FB6B5A4CC1439 /* FBSnapshotTestController.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FBSnapshotTestController.h; path = FBSnapshotTestCase/FBSnapshotTestController.h; sourceTree = "<group>"; };
+		B122CBC8AD84E983B031F40F18D88C2D /* Pods-ZLForm_Tests */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = "Pods-ZLForm_Tests"; path = Pods_ZLForm_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		B614E0BCABCF67D9223D8BC7A2897611 /* ZLFormValidator.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = ZLFormValidator.m; path = ZLForm/Classes/ZLFormValidator.m; sourceTree = "<group>"; };
+		B7103CA00AED20722C5B69CA5B4F6938 /* FBSnapshotTestCase-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "FBSnapshotTestCase-Info.plist"; sourceTree = "<group>"; };
+		BC4380EC377766B8491CDED00E29CE5D /* Pods-ZLForm_Tests-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-ZLForm_Tests-Info.plist"; sourceTree = "<group>"; };
+		C0C72BB6541AFD4720E4F13F706E3C6F /* ZLForm-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "ZLForm-Info.plist"; sourceTree = "<group>"; };
+		C59D611F49AB325C137420B863DDE611 /* ZLFormRowDescriptor.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = ZLFormRowDescriptor.h; path = ZLForm/Classes/ZLFormRowDescriptor.h; sourceTree = "<group>"; };
+		C8BC5694A52E9F202EF2A56A5354C346 /* Pods-ZLForm_Tests.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-ZLForm_Tests.modulemap"; sourceTree = "<group>"; };
+		C9AE4293D72C2071170F69F66BE071F8 /* ZLForm-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "ZLForm-prefix.pch"; sourceTree = "<group>"; };
+		C9ED7018A80FDA16A32ACE7C8700F486 /* Pods-ZLForm_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-ZLForm_Tests.debug.xcconfig"; sourceTree = "<group>"; };
+		CBFF6C5FD9C3A84274A9314D3E940B6E /* FBSnapshotTestCase.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = FBSnapshotTestCase.modulemap; sourceTree = "<group>"; };
+		CE9B35734728457BC50741CAD588059B /* Pods-ZLForm_Tests-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-ZLForm_Tests-acknowledgements.markdown"; sourceTree = "<group>"; };
+		D08CEBB9BDD9EF7A662ECFC0305C169E /* FBSnapshotTestCase-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "FBSnapshotTestCase-prefix.pch"; sourceTree = "<group>"; };
+		D6A2183CE976787AB157CCF772808B03 /* ZLFormBaseCell.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = ZLFormBaseCell.m; path = ZLForm/Classes/ZLFormBaseCell.m; sourceTree = "<group>"; };
+		D872A3EE224412D4057C234FBC629F9C /* UIImage+Snapshot.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "UIImage+Snapshot.m"; path = "FBSnapshotTestCase/Categories/UIImage+Snapshot.m"; sourceTree = "<group>"; };
+		E63E5BDA91EB3C610FD5C2816955751C /* ZLFormSectionDescriptor.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = ZLFormSectionDescriptor.h; path = ZLForm/Classes/ZLFormSectionDescriptor.h; sourceTree = "<group>"; };
+		E66F330CED63E316DA9664C7B56ACF60 /* Pods-ZLForm_Tests-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-ZLForm_Tests-frameworks.sh"; sourceTree = "<group>"; };
+		E82C545F63176D359E7B585E85DEF063 /* ZLForm-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "ZLForm-umbrella.h"; sourceTree = "<group>"; };
+		EF744C6E15BFA5DAD71D8CD8B8237D34 /* ZLForm.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = ZLForm.m; path = ZLForm/Classes/ZLForm.m; sourceTree = "<group>"; };
+		F0312E07073D2083E80126506842F25E /* ZLFormDescriptor.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = ZLFormDescriptor.h; path = ZLForm/Classes/ZLFormDescriptor.h; sourceTree = "<group>"; };
+		F479F3DF0968099EFF9FC3D0A0F01BD7 /* ZLForm.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = ZLForm.h; path = ZLForm/Classes/ZLForm.h; sourceTree = "<group>"; };
+		FEE661E58CA6655B39AA49AA4C021C33 /* FBSnapshotTestCase.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FBSnapshotTestCase.h; path = FBSnapshotTestCase/FBSnapshotTestCase.h; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		61BE4684AB8077D9F680F9D2564F0E8F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3D7417FF345BCC38F6B1EDC2890F94E8 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		854A304E511295502F2B8D0F961ABF01 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				235600AE307BD8E0B1D3FA374B779A02 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		98BC440CA96A0C74FE20742C26FF53BB /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7CA66236CDA347ACA342DBCAA0F75C7A /* Foundation.framework in Frameworks */,
+				33E349E32C64A93B3CAC6A2667583E98 /* QuartzCore.framework in Frameworks */,
+				3777A70A61ED49FCDDB07BE5F0A1C4B4 /* UIKit.framework in Frameworks */,
+				0AE1FFAA4390B36294D9A3C1E9A2D181 /* XCTest.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A1BB9F258A0D82CE9B2AD2E96BD42ACB /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DF056DCCC5488AC92E121203CB2296F8 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		0AF3532A4143165BF88F3ED154D8D51F /* Targets Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				D1960E0D34F74B96FE42BB1DD101A308 /* Pods-ZLForm_Example */,
+				F202ED6F5601CE2496B9FE9B8FC9A918 /* Pods-ZLForm_Tests */,
+			);
+			name = "Targets Support Files";
+			sourceTree = "<group>";
+		};
+		3F34A8995A8D512AD381FAC1BD7C5B5A /* ZLForm */ = {
+			isa = PBXGroup;
+			children = (
+				4E5FB2D9B7EA7F4CFF8382C5BE5AEC73 /* ReplaceMe.m */,
+				F479F3DF0968099EFF9FC3D0A0F01BD7 /* ZLForm.h */,
+				EF744C6E15BFA5DAD71D8CD8B8237D34 /* ZLForm.m */,
+				734FC2599D10360B290383AF5727DC59 /* ZLFormBaseCell.h */,
+				D6A2183CE976787AB157CCF772808B03 /* ZLFormBaseCell.m */,
+				F0312E07073D2083E80126506842F25E /* ZLFormDescriptor.h */,
+				2503E36422F4A87CB97D65B57B4F218F /* ZLFormDescriptor.m */,
+				C59D611F49AB325C137420B863DDE611 /* ZLFormRowDescriptor.h */,
+				8A2131E52D684BF44D39F46CAAB660B3 /* ZLFormRowDescriptor.m */,
+				E63E5BDA91EB3C610FD5C2816955751C /* ZLFormSectionDescriptor.h */,
+				85D15B4C74B98B8E5438F8B9C527231D /* ZLFormSectionDescriptor.m */,
+				3F4D7F4F24D283A267E3027034BC8A5A /* ZLFormValidator.h */,
+				B614E0BCABCF67D9223D8BC7A2897611 /* ZLFormValidator.m */,
+				FBF84667B59567C8CF8845D1E5BC0637 /* Pod */,
+				998E88B7A931E97163562A3A3FD58EC5 /* Support Files */,
+			);
+			name = ZLForm;
+			path = ../..;
+			sourceTree = "<group>";
+		};
+		4BA2479549DD918290454B1CDCD0B92B /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				FEE661E58CA6655B39AA49AA4C021C33 /* FBSnapshotTestCase.h */,
+				277B6BE10C665F515606A22FD60C6DCC /* FBSnapshotTestCase.m */,
+				88B1DEEBF6316A84D7413645212492FF /* FBSnapshotTestCasePlatform.h */,
+				6ABB3EB3CCC5BCA82F40FE8DC87BB778 /* FBSnapshotTestCasePlatform.m */,
+				AE9FF9459FBCDC4AF88FB6B5A4CC1439 /* FBSnapshotTestController.h */,
+				7E1B7EA746BF6557FD565BAE12AF9198 /* FBSnapshotTestController.m */,
+				99A67367E018411D614EC8536A8A1C5B /* UIApplication+StrictKeyWindow.h */,
+				0F538C426803AE34255FC6E35B408CCA /* UIApplication+StrictKeyWindow.m */,
+				656116C8FA5458F45D4707110C9530EC /* UIImage+Compare.h */,
+				235A78CFFA6D8B8D86CACD733531CB13 /* UIImage+Compare.m */,
+				96187BF3038121CC146335E9FF0B0AFF /* UIImage+Diff.h */,
+				4568279DE47DC3AB91598E1317503995 /* UIImage+Diff.m */,
+				284833D18C244D2B42966B6EE425AA59 /* UIImage+Snapshot.h */,
+				D872A3EE224412D4057C234FBC629F9C /* UIImage+Snapshot.m */,
+			);
+			name = Core;
+			sourceTree = "<group>";
+		};
+		5A770CF211826BD2D9DE1988FBFB1993 /* Development Pods */ = {
+			isa = PBXGroup;
+			children = (
+				3F34A8995A8D512AD381FAC1BD7C5B5A /* ZLForm */,
+			);
+			name = "Development Pods";
+			sourceTree = "<group>";
+		};
+		89736692DF329F0B9BF3EFFCEA69EA54 /* iOS */ = {
+			isa = PBXGroup;
+			children = (
+				692D29656528FA94A71ECFB8FEB6DC0B /* Foundation.framework */,
+				5E6B5E773973965C73BC40D4388B4C07 /* QuartzCore.framework */,
+				4138A0A13FF7F7B73435E87E54C56C18 /* UIKit.framework */,
+				26BC96F34E43FA0A3AE93B3C2C4595E5 /* XCTest.framework */,
+			);
+			name = iOS;
+			sourceTree = "<group>";
+		};
+		906402ECC4C6C5EB58DD365FD2C64E92 /* SwiftSupport */ = {
+			isa = PBXGroup;
+			children = (
+				3F0D66CF296ABBC57EC4D0452397E235 /* SwiftSupport.swift */,
+			);
+			name = SwiftSupport;
+			sourceTree = "<group>";
+		};
+		998E88B7A931E97163562A3A3FD58EC5 /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				15FFDF4BB80DAC1E8648BA8DBDAE4E11 /* ZLForm.modulemap */,
+				9049FEFEFB7F2A839D940A529C350FC5 /* ZLForm-dummy.m */,
+				C0C72BB6541AFD4720E4F13F706E3C6F /* ZLForm-Info.plist */,
+				C9AE4293D72C2071170F69F66BE071F8 /* ZLForm-prefix.pch */,
+				E82C545F63176D359E7B585E85DEF063 /* ZLForm-umbrella.h */,
+				9D30B5F3C12516B583314AEE8BEE63E1 /* ZLForm.debug.xcconfig */,
+				43649363A8486352E8570C64A65FFEE9 /* ZLForm.release.xcconfig */,
+			);
+			name = "Support Files";
+			path = "Example/Pods/Target Support Files/ZLForm";
+			sourceTree = "<group>";
+		};
+		B69B2ECE2D2C9A3924A9231138CE0BBC /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				CBFF6C5FD9C3A84274A9314D3E940B6E /* FBSnapshotTestCase.modulemap */,
+				1ADA6E655DC84D06359BD0ED5E36C783 /* FBSnapshotTestCase-dummy.m */,
+				B7103CA00AED20722C5B69CA5B4F6938 /* FBSnapshotTestCase-Info.plist */,
+				D08CEBB9BDD9EF7A662ECFC0305C169E /* FBSnapshotTestCase-prefix.pch */,
+				8E5923010B02074CAA9AAF6EA02D66AA /* FBSnapshotTestCase-umbrella.h */,
+				9468E867498BBAF36F9AFFE4845F8B09 /* FBSnapshotTestCase.debug.xcconfig */,
+				4C6513B09838318BD763CFD5390D1DE0 /* FBSnapshotTestCase.release.xcconfig */,
+			);
+			name = "Support Files";
+			path = "../Target Support Files/FBSnapshotTestCase";
+			sourceTree = "<group>";
+		};
+		B8FEE049A8F6C4ADF1666CBB71F39800 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				5C4F31330DFA99D699E4BDC8C3573D73 /* FBSnapshotTestCase */,
+				84230A3FD10CAC7F79DAB9E010F084CF /* Pods-ZLForm_Example */,
+				B122CBC8AD84E983B031F40F18D88C2D /* Pods-ZLForm_Tests */,
+				A42AFF8E8C977E512FA50A7EB3D0C2C4 /* ZLForm */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		BA4F31F07263C99FC76E66D632A59F09 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				89736692DF329F0B9BF3EFFCEA69EA54 /* iOS */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		BD2D60DE56CBB8C87BA07E0C1CCD0592 /* FBSnapshotTestCase */ = {
+			isa = PBXGroup;
+			children = (
+				4BA2479549DD918290454B1CDCD0B92B /* Core */,
+				B69B2ECE2D2C9A3924A9231138CE0BBC /* Support Files */,
+				906402ECC4C6C5EB58DD365FD2C64E92 /* SwiftSupport */,
+			);
+			name = FBSnapshotTestCase;
+			path = FBSnapshotTestCase;
+			sourceTree = "<group>";
+		};
+		CF1408CF629C7361332E53B88F7BD30C = {
+			isa = PBXGroup;
+			children = (
+				9D940727FF8FB9C785EB98E56350EF41 /* Podfile */,
+				5A770CF211826BD2D9DE1988FBFB1993 /* Development Pods */,
+				BA4F31F07263C99FC76E66D632A59F09 /* Frameworks */,
+				E81A37DBDE41E671312C56736544E2FA /* Pods */,
+				B8FEE049A8F6C4ADF1666CBB71F39800 /* Products */,
+				0AF3532A4143165BF88F3ED154D8D51F /* Targets Support Files */,
+			);
+			sourceTree = "<group>";
+		};
+		D1960E0D34F74B96FE42BB1DD101A308 /* Pods-ZLForm_Example */ = {
+			isa = PBXGroup;
+			children = (
+				1858DA534B4C1BCE3CC5C7D33CBB09A5 /* Pods-ZLForm_Example.modulemap */,
+				59C6EA7391EA0DA592FD72DD5A5AB374 /* Pods-ZLForm_Example-acknowledgements.markdown */,
+				14C244567AB070CCA23774372A8E3573 /* Pods-ZLForm_Example-acknowledgements.plist */,
+				791023CA404833C2CEEA2A11D8FF49C6 /* Pods-ZLForm_Example-dummy.m */,
+				6CBF72F0847DAD1B3FBE5AD772E58F4D /* Pods-ZLForm_Example-frameworks.sh */,
+				59779D4D754AF629844D152AF1D2B55D /* Pods-ZLForm_Example-Info.plist */,
+				432BEE087F3F36EB6E33DAC71B3BCC33 /* Pods-ZLForm_Example-umbrella.h */,
+				03DCA99D9FC55B024B55F6894F96C4F7 /* Pods-ZLForm_Example.debug.xcconfig */,
+				1D8DC9DE3D6A9D6B1D646738156FA393 /* Pods-ZLForm_Example.release.xcconfig */,
+			);
+			name = "Pods-ZLForm_Example";
+			path = "Target Support Files/Pods-ZLForm_Example";
+			sourceTree = "<group>";
+		};
+		E81A37DBDE41E671312C56736544E2FA /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				BD2D60DE56CBB8C87BA07E0C1CCD0592 /* FBSnapshotTestCase */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		F202ED6F5601CE2496B9FE9B8FC9A918 /* Pods-ZLForm_Tests */ = {
+			isa = PBXGroup;
+			children = (
+				C8BC5694A52E9F202EF2A56A5354C346 /* Pods-ZLForm_Tests.modulemap */,
+				CE9B35734728457BC50741CAD588059B /* Pods-ZLForm_Tests-acknowledgements.markdown */,
+				A5102F7DE39E381EC1951CB15FB61A14 /* Pods-ZLForm_Tests-acknowledgements.plist */,
+				0F701B9EB552D22C25E83628E40FAA94 /* Pods-ZLForm_Tests-dummy.m */,
+				E66F330CED63E316DA9664C7B56ACF60 /* Pods-ZLForm_Tests-frameworks.sh */,
+				BC4380EC377766B8491CDED00E29CE5D /* Pods-ZLForm_Tests-Info.plist */,
+				4804EB6371A2704890D06A7F90F7899F /* Pods-ZLForm_Tests-umbrella.h */,
+				C9ED7018A80FDA16A32ACE7C8700F486 /* Pods-ZLForm_Tests.debug.xcconfig */,
+				3A72AA4828D766D9AD2C0F72E4685C8B /* Pods-ZLForm_Tests.release.xcconfig */,
+			);
+			name = "Pods-ZLForm_Tests";
+			path = "Target Support Files/Pods-ZLForm_Tests";
+			sourceTree = "<group>";
+		};
+		FBF84667B59567C8CF8845D1E5BC0637 /* Pod */ = {
+			isa = PBXGroup;
+			children = (
+				4C46EA21EDF928A11937F8F77C07188A /* LICENSE */,
+				01CCF56790E68419BE466C6B21EF44C9 /* README.md */,
+				104B26571A8CB21CB9569D385812F696 /* ZLForm.podspec */,
+			);
+			name = Pod;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		00537C298E3054318895113AF8220950 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0701CEC5201EA160479719F90DF4B893 /* Pods-ZLForm_Tests-umbrella.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		0B28A728F2274A8D5F270FFE9374B0C2 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				757FAC5CDB95A8ADADE4456FD28E6BD1 /* ZLForm.h in Headers */,
+				1DC55A87C0DE4EEA9BB1DD2770375D10 /* ZLForm-umbrella.h in Headers */,
+				BDA43FAFB2A1267E80F9CAE49D28D5D5 /* ZLFormBaseCell.h in Headers */,
+				033FFE190475F86C455130A6929D620D /* ZLFormDescriptor.h in Headers */,
+				23EE499CE0242070F516BB043837601D /* ZLFormRowDescriptor.h in Headers */,
+				CAA4C7F79F8939077CC191356F358DF1 /* ZLFormSectionDescriptor.h in Headers */,
+				8DC025667BB28717C0A3E92ADAAA203D /* ZLFormValidator.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6A11A4ED6C92ACA1C089260BA3F0C776 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				12C8FD3D06F867281B3C87497145DC65 /* FBSnapshotTestCase.h in Headers */,
+				3BF27A2A6F27DCE9645039383FCE19F0 /* FBSnapshotTestCase-umbrella.h in Headers */,
+				76085620117E839C450E794DB3773D79 /* FBSnapshotTestCasePlatform.h in Headers */,
+				CF65A6A0F5F9A6A9FBF5501610AAD758 /* FBSnapshotTestController.h in Headers */,
+				DA747A80391988F1202FF4989A0E12CF /* UIApplication+StrictKeyWindow.h in Headers */,
+				E4F6CF5EA1B12C55385D3CDC6BD1F4D8 /* UIImage+Compare.h in Headers */,
+				F822382AB9E7B343C04964B313B1743D /* UIImage+Diff.h in Headers */,
+				64066CA793C90CA645A6D2031654D2CC /* UIImage+Snapshot.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		71C8BA46868493938EBD8AA1E9112252 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A94FA2D8FFF210CD76F329F3DF42B591 /* Pods-ZLForm_Example-umbrella.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		14D585E8785C71C9D53D28CB7D2B7BDD /* Pods-ZLForm_Tests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 9D5EA29A59FA6D919F2F29497A6558BF /* Build configuration list for PBXNativeTarget "Pods-ZLForm_Tests" */;
+			buildPhases = (
+				00537C298E3054318895113AF8220950 /* Headers */,
+				50B5C43ADBD080F94D8AD7FC6319DC6E /* Sources */,
+				854A304E511295502F2B8D0F961ABF01 /* Frameworks */,
+				9DA55A848BC9D4B6091F19F3162C8ADB /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				6C8F32825A510105FA91B42230D0B24F /* PBXTargetDependency */,
+				E68F2D2D699220AF9149445E6C292EFC /* PBXTargetDependency */,
+			);
+			name = "Pods-ZLForm_Tests";
+			productName = Pods_ZLForm_Tests;
+			productReference = B122CBC8AD84E983B031F40F18D88C2D /* Pods-ZLForm_Tests */;
+			productType = "com.apple.product-type.framework";
+		};
+		295A71988CB03468C3FFC5A26A3452A9 /* ZLForm */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 9F18BA8C57BD897CBA5F8E905FA70AC9 /* Build configuration list for PBXNativeTarget "ZLForm" */;
+			buildPhases = (
+				0B28A728F2274A8D5F270FFE9374B0C2 /* Headers */,
+				02CDA1803DBE429E377CE46E5BEE3111 /* Sources */,
+				61BE4684AB8077D9F680F9D2564F0E8F /* Frameworks */,
+				C29B5DB643847629E599FD0AAE4016E5 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = ZLForm;
+			productName = ZLForm;
+			productReference = A42AFF8E8C977E512FA50A7EB3D0C2C4 /* ZLForm */;
+			productType = "com.apple.product-type.framework";
+		};
+		98A98149697C80CEF8D5772791E92E66 /* FBSnapshotTestCase */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 2AC516C05B9400D8A84F4CE51D02E9A3 /* Build configuration list for PBXNativeTarget "FBSnapshotTestCase" */;
+			buildPhases = (
+				6A11A4ED6C92ACA1C089260BA3F0C776 /* Headers */,
+				7D9C35C9AB822511516CD6F4A5D159B8 /* Sources */,
+				98BC440CA96A0C74FE20742C26FF53BB /* Frameworks */,
+				DF3460C426E5BF623E72782B660ED260 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = FBSnapshotTestCase;
+			productName = FBSnapshotTestCase;
+			productReference = 5C4F31330DFA99D699E4BDC8C3573D73 /* FBSnapshotTestCase */;
+			productType = "com.apple.product-type.framework";
+		};
+		FE2CC03FB9ADE129C841A755F101FDF5 /* Pods-ZLForm_Example */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 32D726B2D983836331F75BC140145789 /* Build configuration list for PBXNativeTarget "Pods-ZLForm_Example" */;
+			buildPhases = (
+				71C8BA46868493938EBD8AA1E9112252 /* Headers */,
+				BEF62FFE42F4DA5D37BA142FCE516D1A /* Sources */,
+				A1BB9F258A0D82CE9B2AD2E96BD42ACB /* Frameworks */,
+				393F1902A19A5631FBE0CB8E8303D45A /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				F58548BB60EF07A83F37FE5E67ACB8E6 /* PBXTargetDependency */,
+			);
+			name = "Pods-ZLForm_Example";
+			productName = Pods_ZLForm_Example;
+			productReference = 84230A3FD10CAC7F79DAB9E010F084CF /* Pods-ZLForm_Example */;
+			productType = "com.apple.product-type.framework";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		BFDFE7DC352907FC980B868725387E98 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 1600;
+				LastUpgradeCheck = 1600;
+			};
+			buildConfigurationList = 4821239608C13582E20E6DA73FD5F1F9 /* Build configuration list for PBXProject "Pods" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				Base,
+				en,
+			);
+			mainGroup = CF1408CF629C7361332E53B88F7BD30C;
+			minimizedProjectReferenceProxies = 0;
+			preferredProjectObjectVersion = 77;
+			productRefGroup = B8FEE049A8F6C4ADF1666CBB71F39800 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				98A98149697C80CEF8D5772791E92E66 /* FBSnapshotTestCase */,
+				FE2CC03FB9ADE129C841A755F101FDF5 /* Pods-ZLForm_Example */,
+				14D585E8785C71C9D53D28CB7D2B7BDD /* Pods-ZLForm_Tests */,
+				295A71988CB03468C3FFC5A26A3452A9 /* ZLForm */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		393F1902A19A5631FBE0CB8E8303D45A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9DA55A848BC9D4B6091F19F3162C8ADB /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C29B5DB643847629E599FD0AAE4016E5 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DF3460C426E5BF623E72782B660ED260 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		02CDA1803DBE429E377CE46E5BEE3111 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7CCC85DBF2AB09384C559B5DF979433B /* ReplaceMe.m in Sources */,
+				C0CEF3163F6DFC9B838217EE5473DFA5 /* ZLForm.m in Sources */,
+				98E6EFEC8144C428011F422FF6F3F3F2 /* ZLForm-dummy.m in Sources */,
+				221DF43D1BDB035DDF5416056A935809 /* ZLFormBaseCell.m in Sources */,
+				36D7EA449EFC88C536316B2637F3E15A /* ZLFormDescriptor.m in Sources */,
+				B825099C3D050863F355C80AE91E1EF0 /* ZLFormRowDescriptor.m in Sources */,
+				FC424D8A6B02A9E78AC6D0AB714B6983 /* ZLFormSectionDescriptor.m in Sources */,
+				AA9C9BAF4A19DE1F5B39C23D5FE824DC /* ZLFormValidator.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		50B5C43ADBD080F94D8AD7FC6319DC6E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9646A95ECE9F29B132A9A21C79B4CF09 /* Pods-ZLForm_Tests-dummy.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7D9C35C9AB822511516CD6F4A5D159B8 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				55D9D4D1609F1F4929E1BA1A1B562445 /* FBSnapshotTestCase.m in Sources */,
+				E759C2EC9B730E3C9C562BBB533B85DC /* FBSnapshotTestCase-dummy.m in Sources */,
+				AEFB700F9EE77EE9848A8AC8C3F00A7F /* FBSnapshotTestCasePlatform.m in Sources */,
+				267AEE0BF1514767DD64B50559013EB3 /* FBSnapshotTestController.m in Sources */,
+				8FD1AB468AF7F87112C3674006F6BC6E /* SwiftSupport.swift in Sources */,
+				CE0DC4614B4FF855B2101D7F74A710AC /* UIApplication+StrictKeyWindow.m in Sources */,
+				593CC778281D0C5DAFD70A5E285DA86A /* UIImage+Compare.m in Sources */,
+				766F6429966FBFF2E2E6A2991BDAFDA9 /* UIImage+Diff.m in Sources */,
+				EA5924031A71EF807EC467903E26FAC0 /* UIImage+Snapshot.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BEF62FFE42F4DA5D37BA142FCE516D1A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				403AD1A1D1F744DDE87B0C765D8A152A /* Pods-ZLForm_Example-dummy.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		6C8F32825A510105FA91B42230D0B24F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = FBSnapshotTestCase;
+			target = 98A98149697C80CEF8D5772791E92E66 /* FBSnapshotTestCase */;
+			targetProxy = 1B5684171E54D610D43764C15D08968F /* PBXContainerItemProxy */;
+		};
+		E68F2D2D699220AF9149445E6C292EFC /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "Pods-ZLForm_Example";
+			target = FE2CC03FB9ADE129C841A755F101FDF5 /* Pods-ZLForm_Example */;
+			targetProxy = 534E3ED5695E2D690B1A1CA39DC4244C /* PBXContainerItemProxy */;
+		};
+		F58548BB60EF07A83F37FE5E67ACB8E6 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = ZLForm;
+			target = 295A71988CB03468C3FFC5A26A3452A9 /* ZLForm */;
+			targetProxy = B6DFED6441699D3877D3C00A17914CB3 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		0357AEC9A5361BE18FFC20DD28B46FCF /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 03DCA99D9FC55B024B55F6894F96C4F7 /* Pods-ZLForm_Example.debug.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_MODULE_VERIFIER = NO;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
+				INFOPLIST_FILE = "Target Support Files/Pods-ZLForm_Example/Pods-ZLForm_Example-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-ZLForm_Example/Pods-ZLForm_Example.modulemap";
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		15AF219B96DDE8A732726403E2191482 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 9D30B5F3C12516B583314AEE8BEE63E1 /* ZLForm.debug.xcconfig */;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_MODULE_VERIFIER = NO;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
+				GCC_PREFIX_HEADER = "Target Support Files/ZLForm/ZLForm-prefix.pch";
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = "Target Support Files/ZLForm/ZLForm-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/ZLForm/ZLForm.modulemap";
+				PRODUCT_MODULE_NAME = ZLForm;
+				PRODUCT_NAME = ZLForm;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_INSTALL_OBJC_HEADER = YES;
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		189B160941C76FA2A15D741807CCB47B /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4C6513B09838318BD763CFD5390D1DE0 /* FBSnapshotTestCase.release.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_MODULE_VERIFIER = NO;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
+				GCC_PREFIX_HEADER = "Target Support Files/FBSnapshotTestCase/FBSnapshotTestCase-prefix.pch";
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = "Target Support Files/FBSnapshotTestCase/FBSnapshotTestCase-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/FBSnapshotTestCase/FBSnapshotTestCase.modulemap";
+				PRODUCT_MODULE_NAME = FBSnapshotTestCase;
+				PRODUCT_NAME = FBSnapshotTestCase;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_INSTALL_OBJC_HEADER = YES;
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		47ED86B0C3199647CE3059DDED625FD6 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3A72AA4828D766D9AD2C0F72E4685C8B /* Pods-ZLForm_Tests.release.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_MODULE_VERIFIER = NO;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
+				INFOPLIST_FILE = "Target Support Files/Pods-ZLForm_Tests/Pods-ZLForm_Tests-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-ZLForm_Tests/Pods-ZLForm_Tests.modulemap";
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		48DE2ADA198DD6344F2EFF0C143E959B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 9468E867498BBAF36F9AFFE4845F8B09 /* FBSnapshotTestCase.debug.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_MODULE_VERIFIER = NO;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
+				GCC_PREFIX_HEADER = "Target Support Files/FBSnapshotTestCase/FBSnapshotTestCase-prefix.pch";
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = "Target Support Files/FBSnapshotTestCase/FBSnapshotTestCase-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/FBSnapshotTestCase/FBSnapshotTestCase.modulemap";
+				PRODUCT_MODULE_NAME = FBSnapshotTestCase;
+				PRODUCT_NAME = FBSnapshotTestCase;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_INSTALL_OBJC_HEADER = YES;
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		7EE7A78859F657F6BEFC651185B43192 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"POD_CONFIGURATION_RELEASE=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRIP_INSTALLED_PRODUCT = NO;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.0;
+				SYMROOT = "${SRCROOT}/../build";
+			};
+			name = Release;
+		};
+		8B5688247C1AF19CDBA02826C341821D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = C9ED7018A80FDA16A32ACE7C8700F486 /* Pods-ZLForm_Tests.debug.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_MODULE_VERIFIER = NO;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
+				INFOPLIST_FILE = "Target Support Files/Pods-ZLForm_Tests/Pods-ZLForm_Tests-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-ZLForm_Tests/Pods-ZLForm_Tests.modulemap";
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		90211F391616B347EFCDEAF6237CD318 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 43649363A8486352E8570C64A65FFEE9 /* ZLForm.release.xcconfig */;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_MODULE_VERIFIER = NO;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
+				GCC_PREFIX_HEADER = "Target Support Files/ZLForm/ZLForm-prefix.pch";
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = "Target Support Files/ZLForm/ZLForm-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/ZLForm/ZLForm.modulemap";
+				PRODUCT_MODULE_NAME = ZLForm;
+				PRODUCT_NAME = ZLForm;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_INSTALL_OBJC_HEADER = YES;
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		D299434AB35E7FD6F7921C8EF24742FF /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"POD_CONFIGURATION_DEBUG=1",
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRIP_INSTALLED_PRODUCT = NO;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				SYMROOT = "${SRCROOT}/../build";
+			};
+			name = Debug;
+		};
+		E0EEBD983F74D3FD450430AA0CBBF3E2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1D8DC9DE3D6A9D6B1D646738156FA393 /* Pods-ZLForm_Example.release.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_MODULE_VERIFIER = NO;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
+				INFOPLIST_FILE = "Target Support Files/Pods-ZLForm_Example/Pods-ZLForm_Example-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-ZLForm_Example/Pods-ZLForm_Example.modulemap";
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		2AC516C05B9400D8A84F4CE51D02E9A3 /* Build configuration list for PBXNativeTarget "FBSnapshotTestCase" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				48DE2ADA198DD6344F2EFF0C143E959B /* Debug */,
+				189B160941C76FA2A15D741807CCB47B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		32D726B2D983836331F75BC140145789 /* Build configuration list for PBXNativeTarget "Pods-ZLForm_Example" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0357AEC9A5361BE18FFC20DD28B46FCF /* Debug */,
+				E0EEBD983F74D3FD450430AA0CBBF3E2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		4821239608C13582E20E6DA73FD5F1F9 /* Build configuration list for PBXProject "Pods" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D299434AB35E7FD6F7921C8EF24742FF /* Debug */,
+				7EE7A78859F657F6BEFC651185B43192 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		9D5EA29A59FA6D919F2F29497A6558BF /* Build configuration list for PBXNativeTarget "Pods-ZLForm_Tests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8B5688247C1AF19CDBA02826C341821D /* Debug */,
+				47ED86B0C3199647CE3059DDED625FD6 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		9F18BA8C57BD897CBA5F8E905FA70AC9 /* Build configuration list for PBXNativeTarget "ZLForm" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				15AF219B96DDE8A732726403E2191482 /* Debug */,
+				90211F391616B347EFCDEAF6237CD318 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = BFDFE7DC352907FC980B868725387E98 /* Project object */;
+}
