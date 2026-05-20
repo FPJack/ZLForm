@@ -6,6 +6,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "ZLFormBaseCell.h"
 
 NS_ASSUME_NONNULL_BEGIN
 @class ZLFormSectionDescriptor,
@@ -22,7 +23,7 @@ typedef void(^ZLUpdateCellBlock)(UITableViewCell *cell, id value, ZLFormRowDescr
 
 @property (nonatomic,strong)Class cellClass;
 
-@property (nonatomic, strong,readonly) ZLFormBaseCell *cell;
+@property (nonatomic, strong,readonly) UITableViewCell<ZLFormDescriptorCell> *cell;
 
 @property (nonatomic,assign)CGFloat height;
 

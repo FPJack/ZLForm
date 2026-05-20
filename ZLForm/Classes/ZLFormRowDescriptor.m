@@ -73,21 +73,20 @@
     }
     return self;
 }
--(ZLFormBaseCell *)cellForFormController:(UIViewController *)formController {
+-(UITableViewCell<ZLFormDescriptorCell> *)cellForFormController:(UIViewController *)formController {
     return self.cell;
 }
 
 - (id )valueForDisplay {
-    if (self.value) {
-        id emptyDisplayValue = self.emptyDisplayValue;
-        if (emptyDisplayValue) {
-            return emptyDisplayValue;
-        }
-    }
+    id value;
     if (self.valueMapperToDisplay) {
-        return self.valueMapperToDisplay(self.value);
+        value = self.valueMapperToDisplay(self.value);
     }
-    return self.value;
+    if (!value) {
+        id emptyDisplayValue = self.emptyDisplayValue;
+        value = emptyDisplayValue;
+    }
+    return value ?: self.value;
 }
 - (id )valueForStorage {
     if (self.storageValueMapper) {

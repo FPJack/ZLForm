@@ -120,6 +120,7 @@
     yearsRow.height = 50;
     yearsRow.cellClass = [ZLFormTextFieldCell class];
     yearsRow.emptyDisplayValue = @"请输入";
+    yearsRow.value = @"50";
     yearsRow.valueMapperToDisplay = ^id(id value) {
         if (value) {
             return [NSString stringWithFormat:@"%@ 年", value];
