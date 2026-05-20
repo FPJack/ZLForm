@@ -64,7 +64,7 @@ typedef void(^ZLUpdateCellBlock)(UITableViewCell *cell, id value, ZLFormRowDescr
 
 - (id)valueForStorage;
 
-@property (nonatomic,copy) id emptyDisplayValue;
+@property (nonatomic,copy) id placeholderValue;
 
 +(instancetype)formRowDescriptorWithTag:(NSString *)tag;
 

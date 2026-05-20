@@ -78,15 +78,10 @@
 }
 
 - (id )valueForDisplay {
-    id value;
     if (self.valueMapperToDisplay) {
-        value = self.valueMapperToDisplay(self.value);
+        return  self.valueMapperToDisplay(self.value);
     }
-    if (!value) {
-        id emptyDisplayValue = self.emptyDisplayValue;
-        value = emptyDisplayValue;
-    }
-    return value ?: self.value;
+    return self.value;
 }
 - (id )valueForStorage {
     if (self.storageValueMapper) {

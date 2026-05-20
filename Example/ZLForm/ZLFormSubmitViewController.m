@@ -51,7 +51,7 @@
     nameRow.height = 50;
     nameRow.cellClass = [ZLFormTextFieldCell class];
    
-    nameRow.emptyDisplayValue = @"请输入";
+    nameRow.placeholderValue = @"请输入";
     [nameRow addValidator:@"姓名不能为空" validationBlock:^BOOL(id value) {
         return value && [value length] > 0;
     }];
@@ -62,7 +62,7 @@
     phoneRow.title = @"手机号";
     phoneRow.height = 50;
     phoneRow.cellClass = [ZLFormTextFieldCell class];
-    phoneRow.emptyDisplayValue = @"请输入";
+    phoneRow.placeholderValue = @"请输入";
     [phoneRow addValidator:@"请输入正确的手机号" validationBlock:^BOOL(id value) {
         if (![value isKindOfClass:[NSString class]]) return NO;
         NSString *str = (NSString *)value;
@@ -75,7 +75,7 @@
     emailRow.title = @"邮箱";
     emailRow.height = 50;
     emailRow.cellClass = [ZLFormTextFieldCell class];
-    emailRow.emptyDisplayValue = @"请输入";
+    emailRow.placeholderValue = @"请输入";
     [emailRow addValidator:@"请输入正确的邮箱" validationBlock:^BOOL(id value) {
         if (![value isKindOfClass:[NSString class]]) return NO;
         NSString *str = (NSString *)value;
@@ -100,7 +100,7 @@
     companyRow.title = @"公司";
     companyRow.height = 50;
     companyRow.cellClass = [ZLFormTextFieldCell class];
-    companyRow.emptyDisplayValue = @"请输入";
+    companyRow.placeholderValue = @"请输入";
     [companyRow addValidator:@"请输入公司名称" validationBlock:^BOOL(id value) {
         return value && [value length] > 0;
     }];
@@ -111,7 +111,7 @@
     positionRow.title = @"职位";
     positionRow.height = 50;
     positionRow.cellClass = [ZLFormTextFieldCell class];
-    positionRow.emptyDisplayValue = @"请输入";
+    positionRow.placeholderValue = @"请输入";
     [workSection addFormRow:positionRow];
     
     // 工作年限
@@ -119,7 +119,7 @@
     yearsRow.title = @"工作年限";
     yearsRow.height = 50;
     yearsRow.cellClass = [ZLFormTextFieldCell class];
-    yearsRow.emptyDisplayValue = @"请输入";
+    yearsRow.placeholderValue = @"请输入";
     yearsRow.value = @"50";
     yearsRow.valueMapperToDisplay = ^id(id value) {
         if (value) {
@@ -145,7 +145,7 @@
     remarkRow.title = @"备注";
     remarkRow.height = 50;
     remarkRow.cellClass = [ZLFormTextFieldCell class];
-    remarkRow.emptyDisplayValue = @"选填";
+    remarkRow.placeholderValue = @"选填";
     remarkRow.ignoreValue = NO;
     remarkRow.cellClass = [ZLFormTextFieldCell class];
     [remarkSection addFormRow:remarkRow];

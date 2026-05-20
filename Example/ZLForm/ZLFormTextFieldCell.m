@@ -52,7 +52,7 @@
     [super update];
     self.titleLabel.text = self.rowDescriptor.title;
     self.textField.text = [self.rowDescriptor valueForDisplay];
-    self.textField.placeholder = self.rowDescriptor.emptyDisplayValue;
+    self.textField.placeholder = self.rowDescriptor.placeholderValue;
     self.textField.enabled = !self.rowDescriptor.disabled;
 }
 
