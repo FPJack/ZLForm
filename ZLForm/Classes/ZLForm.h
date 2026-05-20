@@ -10,6 +10,7 @@
 #import "ZLFormDescriptor.h"
 #import "ZLFormRowDescriptor.h"
 #import "ZLFormSectionDescriptor.h"
+#import "ZLFormValidator.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

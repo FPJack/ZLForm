@@ -7,6 +7,7 @@
 //
 
 #import "ZLViewController.h"
+#import "ZLFormSubmitViewController.h"
 #if __has_include(<ZLForm/ZLForm.h>)
 #import <ZLForm/ZLForm.h>
 #else
@@ -16,6 +17,8 @@
 @interface ZLViewController ()<UITableViewDelegate, UITableViewDataSource>
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) ZLFormDescriptor *formDescriptor;
+@property (nonatomic, assign) NSInteger sectionCounter;
+@property (nonatomic, assign) NSInteger rowCounter;
 @end
 
 @implementation ZLViewController
@@ -24,8 +27,95 @@
 {
     [super viewDidLoad];
     self.title = @"ZLForm Demo";
+    self.sectionCounter = 0;
+    self.rowCounter = 0;
     [self setupForm];
     [self setupTableView];
+    [self setupNavigationBar];
+}
+
+- (void)setupNavigationBar {
+    UIBarButtonItem *submitBtn = [[UIBarButtonItem alloc] initWithTitle:@"表单提交" style:UIBarButtonItemStylePlain target:self action:@selector(pushSubmitForm)];
+    UIBarButtonItem *addSectionBtn = [[UIBarButtonItem alloc] initWithTitle:@"＋Section" style:UIBarButtonItemStylePlain target:self action:@selector(addSectionAction)];
+    UIBarButtonItem *addRowBtn = [[UIBarButtonItem alloc] initWithTitle:@"＋Row" style:UIBarButtonItemStylePlain target:self action:@selector(addRowAction)];
+    self.navigationItem.rightBarButtonItems = @[submitBtn, addSectionBtn, addRowBtn];
+    
+    UIBarButtonItem *removeSectionBtn = [[UIBarButtonItem alloc] initWithTitle:@"－Section" style:UIBarButtonItemStylePlain target:self action:@selector(removeSectionAction)];
+    UIBarButtonItem *removeRowBtn = [[UIBarButtonItem alloc] initWithTitle:@"－Row" style:UIBarButtonItemStylePlain target:self action:@selector(removeRowAction)];
+    self.navigationItem.leftBarButtonItems = @[removeSectionBtn, removeRowBtn];
+}
+
+- (void)pushSubmitForm {
+    ZLFormSubmitViewController *vc = [[ZLFormSubmitViewController alloc] init];
+    [self.navigationController pushViewController:vc animated:YES];
+}
+
+#pragma mark - Dynamic Add/Remove
+
+- (void)addSectionAction {
+    self.sectionCounter++;
+    NSString *tag = [NSString stringWithFormat:@"newSection_%ld", (long)self.sectionCounter];
+    ZLFormSectionDescriptor *section = [[ZLFormSectionDescriptor alloc] initWithTag:tag];
+    section.headerHeight = 40;
+    section.headerViewBlock = ^UIView * _Nullable(ZLFormSectionDescriptor * _Nonnull sectionDescriptor) {
+        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(15, 0, [UIScreen mainScreen].bounds.size.width - 30, 40)];
+        label.text = [NSString stringWithFormat:@"新增Section - %@", sectionDescriptor.tag];
+        label.font = [UIFont boldSystemFontOfSize:16];
+        return label;
+    };
+    
+    // 默认添加一行
+    ZLFormRowDescriptor *row = [ZLFormRowDescriptor formRowDescriptorWithTag:[NSString stringWithFormat:@"newRow_s%ld_0", (long)self.sectionCounter]];
+    row.title = [NSString stringWithFormat:@"新增行 (Section %ld)", (long)self.sectionCounter];
+    row.value = @"默认值";
+    row.height = 50;
+    [section addFormRow:row];
+    
+    [self.formDescriptor addFormSection:section];
+    [self.tableView reloadData];
+}
+
+- (void)addRowAction {
+    // 在最后一个section中添加一行
+    if (self.formDescriptor.formSections.count == 0) {
+        NSLog(@"没有Section，请先添加Section");
+        return;
+    }
+    ZLFormSectionDescriptor *lastSection = self.formDescriptor.formSections.lastObject;
+    self.rowCounter++;
+    NSString *tag = [NSString stringWithFormat:@"dynamicRow_%ld", (long)self.rowCounter];
+    ZLFormRowDescriptor *row = [ZLFormRowDescriptor formRowDescriptorWithTag:tag];
+    row.title = [NSString stringWithFormat:@"动态行 %ld", (long)self.rowCounter];
+    row.value = [NSString stringWithFormat:@"值_%ld", (long)self.rowCounter];
+    row.height = 50;
+    [lastSection addFormRow:row];
+    [self.tableView reloadData];
+}
+
+- (void)removeSectionAction {
+    if (self.formDescriptor.formSections.count == 0) {
+        NSLog(@"已经没有Section可以删除");
+        return;
+    }
+    ZLFormSectionDescriptor *lastSection = self.formDescriptor.formSections.lastObject;
+    [self.formDescriptor removeFormSection:lastSection];
+    [self.tableView reloadData];
+}
+
+- (void)removeRowAction {
+    // 删除最后一个section的最后一行
+    if (self.formDescriptor.formSections.count == 0) {
+        NSLog(@"没有Section");
+        return;
+    }
+    ZLFormSectionDescriptor *lastSection = self.formDescriptor.formSections.lastObject;
+    if (lastSection.formRows.count == 0) {
+        NSLog(@"该Section没有Row可删除");
+        return;
+    }
+    ZLFormRowDescriptor *lastRow = lastSection.formRows.lastObject;
+    [lastSection removeFormRow:lastRow];
+    [self.tableView reloadData];
 }
 
 - (void)setupForm {
@@ -45,14 +135,12 @@
     nameRow.title = @"姓名";
     nameRow.value = @"张三";
     nameRow.height = 50;
-    nameRow.required = YES;
     nameRow.valueMapperToDisplay = ^id _Nonnull(id  _Nonnull value) {
         if ([value isKindOfClass:[NSString class]]) {
             return [NSString stringWithFormat:@"%@ (必填)", value];
         }
         return value;
     };
-    nameRow.requireMsg = @"请输入姓名";
     nameRow.onChangeBlock = ^(id oldValue, id newValue, ZLFormRowDescriptor *rowDescriptor) {
         NSLog(@"姓名变更: %@ -> %@", oldValue, newValue);
     };
@@ -77,7 +165,13 @@
     
     // Section 2 - 其他信息
     ZLFormSectionDescriptor *section2 = [[ZLFormSectionDescriptor alloc] initWithTag:@"otherInfo"];
-    
+    section2.headerHeight = 40;
+    section2.headerViewBlock = ^UIView * _Nullable(ZLFormSectionDescriptor * _Nonnull sectionDescriptor) {
+        UILabel *headerLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 0, [UIScreen mainScreen].bounds.size.width - 30, 40)];
+        headerLabel.text = @"公司信息";
+        headerLabel.font = [UIFont boldSystemFontOfSize:16];
+        return headerLabel;
+    };
     ZLFormRowDescriptor *addressRow = [ZLFormRowDescriptor formRowDescriptorWithTag:@"address"];
     addressRow.title = @"地址";
     addressRow.value = @"北京市朝阳区";

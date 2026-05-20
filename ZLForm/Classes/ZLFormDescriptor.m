@@ -10,6 +10,7 @@
 #import "ZLFormRowDescriptor.h"
 #import "ZLFormBaseCell.h"
 #import "ZLFormValidator.h"
+NSString * const ZLFormSectionsKey = @"formSections";
 
 @interface ZLFormDescriptor ()
 
@@ -18,6 +19,17 @@
 @end
 
 @implementation ZLFormDescriptor
+- (instancetype)init
+{
+    self = [super init];
+    if (self) {
+        [self addObserver:self
+               forKeyPath:ZLFormSectionsKey
+                  options:(NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld)
+                  context:0];
+    }
+    return self;
+}
 - (NSMutableArray<ZLFormSectionDescriptor *> *)formSections {
     if (!_formSections) {
         _formSections = [NSMutableArray array];
@@ -31,14 +43,14 @@
 -(void)addFormSection:(ZLFormSectionDescriptor *)formSection {
     if (![self.formSections containsObject:formSection]) {
         formSection.formDescriptor = self;
-        [self.formSections addObject:formSection];
+        [self insertObject:formSection inFormSectionsAtIndex:self.formSections.count];
     }
 }
 -(void)addFormSection:(ZLFormSectionDescriptor *)formSection afterSection:(ZLFormSectionDescriptor *)afterSection {
     NSInteger index = [self.formSections indexOfObject:afterSection];
     if (index != NSNotFound) {
         formSection.formDescriptor = self;
-        [self.formSections insertObject:formSection atIndex:index + 1];
+        [self insertObject:formSection inFormSectionsAtIndex:index + 1];
     }
 }
 
@@ -46,7 +58,7 @@
     NSInteger index = [self.formSections indexOfObject:afterSection];
     if (index != NSNotFound) {
         formSection.formDescriptor = self;
-        [self.formSections insertObject:formSection atIndex:index];
+        [self insertObject:formSection inFormSectionsAtIndex:index];
     }
 }
 -(void)addFormRow:(ZLFormRowDescriptor *)formRow beforeRow:(ZLFormRowDescriptor *)afterRow {
@@ -75,11 +87,14 @@
 }
 -(void)removeFormSectionAtIndex:(NSUInteger)index {
     if (index < self.formSections.count) {
-        [self.formSections removeObjectAtIndex:index];
+        [self removeObjectFromFormSectionsAtIndex:index];
     }
 }
 -(void)removeFormSection:(ZLFormSectionDescriptor *)formSection {
-    [self.formSections removeObject:formSection];
+    NSInteger index = [self.formSections indexOfObject:formSection];
+    if (index != NSNotFound) {
+        [self removeObjectFromFormSectionsAtIndex:index];
+    }
 }
 -(void)removeFormRow:(ZLFormRowDescriptor *)formRow {
     ZLFormSectionDescriptor *section = formRow.sectionDescriptor;
@@ -224,9 +239,12 @@
     NSMutableDictionary *result = [NSMutableDictionary dictionary];
     for (ZLFormSectionDescriptor *section in self.formSections) {
         for (ZLFormRowDescriptor *row in section.formRows) {
-            id value = [row valueForStorage];
-            if (row.tag.length > 0 && value != nil) {
-                [result setObject:value forKey:row.tag];
+            if (!row.ignoreValue) {
+                id value = [row valueForStorage];
+                NSString *key = row.key ?: row.tag;
+                if (key.length > 0 && value != nil) {
+                    [result setValue:value forKey:key];
+                }
             }
         }
     }
@@ -236,6 +254,7 @@
     NSMutableArray *result = [NSMutableArray array];
     for (ZLFormSectionDescriptor *section in self.formSections) {
         for (ZLFormRowDescriptor *row in section.formRows) {
+            if (row.ignoreValue) continue;
             ZLFormValidationStatus *status = [row doValidation];
             if (status != nil && (![status isValid])) {
                 [result addObject:status];
@@ -245,15 +264,23 @@
     return result;
 }
 -(void )validation {
+    BOOL hasError = NO;
     for (ZLFormSectionDescriptor *section in self.formSections) {
         for (ZLFormRowDescriptor *row in section.formRows) {
+            if (row.ignoreValue) continue;
             ZLFormValidationStatus *status = [row doValidation];
             if (status != nil && (![status isValid])) {
+                hasError = YES;
                 if ([self.delegate respondsToSelector:@selector(formDescriptor:showFormValidationError:)]) {
                     [self.delegate formDescriptor:self showFormValidationError:status];
                 }
                 break;
             }
+        }
+    }
+    if (!hasError) {
+        if ([self.delegate respondsToSelector:@selector(validationSuccessForFormDescriptor:)]) {
+            [self.delegate validationSuccessForFormDescriptor:self];
         }
     }
 }
@@ -262,6 +289,85 @@
     NSArray *errors = [self formValidationErrors];
     if (errors.count > 0 && [self.delegate respondsToSelector:@selector(formDescriptor:showFormValidationErrors:)]) {
         [self.delegate formDescriptor:self showFormValidationErrors:errors];
+    }
+    else if (errors.count == 0 && [self.delegate respondsToSelector:@selector(validationSuccessForFormDescriptor:)]) {
+        [self.delegate validationSuccessForFormDescriptor:self];
+    }
+}
+
+#pragma mark - KVC
+
+-(NSUInteger)countOfFormSections
+{
+    return self.formSections.count;
+}
+
+- (id)objectInFormSectionsAtIndex:(NSUInteger)index
+{
+    return [self.formSections objectAtIndex:index];
+}
+
+- (NSArray *)formSectionsAtIndexes:(NSIndexSet *)indexes
+{
+    return [self.formSections objectsAtIndexes:indexes];
+}
+
+- (void)insertObject:(ZLFormSectionDescriptor *)formSection inFormSectionsAtIndex:(NSUInteger)index
+{
+    [self.formSections insertObject:formSection atIndex:index];
+}
+
+- (void)removeObjectFromFormSectionsAtIndex:(NSUInteger)index
+{
+    [self.formSections removeObjectAtIndex:index];
+}
+
+#pragma mark - KVO
+
+- (void)observeValueForKeyPath:(nullable NSString *)keyPath
+                      ofObject:(nullable id)object
+                        change:(nullable NSDictionary<NSKeyValueChangeKey, id> *)change
+                       context:(nullable void *)context
+{
+    
+     if ([keyPath isEqualToString:ZLFormSectionsKey]) {
+        if ([[change objectForKey:NSKeyValueChangeKindKey] isEqualToNumber:@(NSKeyValueChangeInsertion)]) {
+            NSIndexSet *indexSet = [change objectForKey:NSKeyValueChangeIndexesKey];
+            ZLFormSectionDescriptor *section = [self.formSections objectAtIndex:indexSet.firstIndex];
+            [self formSectionHasBeenAdded:section atIndex:indexSet.firstIndex];
+        }
+        else if ([[change objectForKey:NSKeyValueChangeKindKey] isEqualToNumber:@(NSKeyValueChangeRemoval)]) {
+            NSIndexSet *indexSet = [change objectForKey:NSKeyValueChangeIndexesKey];
+            ZLFormSectionDescriptor *removedSection = [[change objectForKey:NSKeyValueChangeOldKey] objectAtIndex:0];
+            [self formSectionHasBeenRemoved:removedSection atIndex:indexSet.firstIndex];
+
+        }
+    }
+}
+
+-(void)dealloc
+{
+    [self removeObserver:self forKeyPath:ZLFormSectionsKey];
+    [_formSections removeAllObjects];
+    _formSections = nil;
+}
+
+
+-(void)formSectionHasBeenRemoved:(ZLFormSectionDescriptor *)formSection atIndex:(NSUInteger)index {
+    
+    [self.tableView beginUpdates];
+    [self.tableView deleteSections:[NSIndexSet indexSetWithIndex:index] withRowAnimation:formSection.deleteAnimation];
+    [self.tableView endUpdates];
+    if ([self.delegate respondsToSelector:@selector(formDescriptor:formSectionHasBeenRemoved:atIndex:)]) {
+        [self.delegate formDescriptor:self formSectionHasBeenRemoved:formSection atIndex:index];
+    }
+}
+-(void)formSectionHasBeenAdded:(ZLFormSectionDescriptor *)formSection atIndex:(NSUInteger)index {
+    [self.tableView beginUpdates];
+    [self.tableView insertSections:[NSIndexSet indexSetWithIndex:index] withRowAnimation:formSection.insertAnimation];
+    [self.tableView endUpdates];
+    if ([self.delegate respondsToSelector:@selector(formDescriptor:formSectionHasBeenAdded:atIndex:)]) {
+        [self.delegate formDescriptor:self formSectionHasBeenAdded:formSection atIndex:index];
     }
 }
 @end

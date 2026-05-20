@@ -48,7 +48,11 @@
     return _cell;
 }
 - (ZLFormBaseCell *)createCell {
-    return [[ZLFormBaseCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:self.tag];
+    if (self.cellClass) {
+        return [[self.cellClass alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:self.tag];
+    }else {
+        return [[ZLFormBaseCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:self.tag];
+    }
 }
 - (CGFloat)height {
     CGFloat height = _height;
@@ -63,7 +67,7 @@
 }
 
 -(instancetype)initWithTag:(NSString *)tag  {
-    self = [super init];
+    self = [self init];
     if (self) {
         self.tag = tag;
     }

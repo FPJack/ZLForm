@@ -21,6 +21,11 @@ typedef UIView* _Nullable (^ZLFormSectionHeaderFooterViewBlock)(ZLFormSectionDes
 @property (nonatomic, assign)CGFloat footerHeight;
 @property (nonatomic, copy)ZLFormSectionHeaderFooterViewBlock footerViewBlock;
 
+///添加动画
+@property(nonatomic,assign)UITableViewRowAnimation insertAnimation;
+///删除动画
+@property(nonatomic,assign)UITableViewRowAnimation deleteAnimation;
+
 @property (nonatomic, weak) ZLFormDescriptor * formDescriptor;
 
 @property (nonatomic, strong,readonly) NSMutableArray<ZLFormRowDescriptor *> *formRows;

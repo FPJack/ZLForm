@@ -24,14 +24,24 @@ NS_ASSUME_NONNULL_BEGIN
 
 -(void)formDescriptor:(ZLFormDescriptor *)form updateFormRow:(ZLFormRowDescriptor *)formRow;
 
+
 -(void)formDescriptor:(ZLFormDescriptor *)form showFormValidationError:(ZLFormValidationStatus *)status;
 
--(void)formDescriptor:(ZLFormDescriptor *)form showFormValidationErrors:(NSArray<ZLFormValidationStatus *> *)status;
+///校验通过 不带status
+- (void)validationSuccessForFormDescriptor:(ZLFormDescriptor *)form;
 
--(UITableViewRowAnimation)insertRowAnimationForRow:(ZLFormRowDescriptor *)formRow;
--(UITableViewRowAnimation)deleteRowAnimationForRow:(ZLFormRowDescriptor *)formRow;
--(UITableViewRowAnimation)insertRowAnimationForSection:(ZLFormRowDescriptor *)formSection;
--(UITableViewRowAnimation)deleteRowAnimationForSection:(ZLFormRowDescriptor *)formSection;
+-(void)formDescriptor:(ZLFormDescriptor *)form showFormValidationErrors:(NSArray<ZLFormValidationStatus *> *)status;
+///所有校验通过 不带status
+- (void)validationAllSuccessForFormDescriptor:(ZLFormDescriptor *)form;
+
+-(void)formDescriptor:(ZLFormDescriptor *)form formSectionHasBeenRemoved:(ZLFormSectionDescriptor *)formSection atIndex:(NSUInteger)index;
+
+-(void)formDescriptor:(ZLFormDescriptor *)form formSectionHasBeenAdded:(ZLFormSectionDescriptor *)formSection atIndex:(NSUInteger)index;
+
+-(void)formDescriptor:(ZLFormDescriptor *)form formRowHasBeenAdded:(ZLFormRowDescriptor *)formRow atIndexPath:(NSIndexPath *)indexPath;
+
+-(void)formDescriptor:(ZLFormDescriptor *)form formRowHasBeenRemoved:(ZLFormRowDescriptor *)formRow atIndexPath:(NSIndexPath *)indexPath;
+
 @end
 
 

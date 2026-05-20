@@ -19,12 +19,8 @@
 }
 - (ZLFormValidationStatus *)validate:(ZLFormRowDescriptor *)rowDescriptor{
     BOOL isValid = NO;
-    if (rowDescriptor.required) {
-        if (self.validationBlock) {
-             isValid = self.validationBlock(rowDescriptor.value);
-        }
-    }else {
-        isValid = YES;
+    if (self.validationBlock) {
+         isValid = self.validationBlock(rowDescriptor.value);
     }
     ZLFormValidationStatus *status = [ZLFormValidationStatus formValidationStatusWithMsg:self.msg status:isValid rowDescriptor:rowDescriptor];
     return status;

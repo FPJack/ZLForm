@@ -20,13 +20,15 @@ typedef void(^ZLUpdateCellBlock)(UITableViewCell *cell, id value, ZLFormRowDescr
 
 @interface ZLFormRowDescriptor : NSObject
 
-@property (nonatomic,strong)id cellClass;
+@property (nonatomic,strong)Class cellClass;
 
 @property (nonatomic, strong,readonly) ZLFormBaseCell *cell;
 
 @property (nonatomic,assign)CGFloat height;
 
 @property (nonatomic,copy)NSString * tag;
+
+@property (nonatomic,copy)NSString * key;
 
 @property (nonatomic,copy)NSString * title;
 
@@ -40,11 +42,16 @@ typedef void(^ZLUpdateCellBlock)(UITableViewCell *cell, id value, ZLFormRowDescr
 
 @property (nonatomic,copy)ZLUpdateCellBlock updateCellBlock;
 
+///添加动画
+@property(nonatomic,assign)UITableViewRowAnimation insertAnimation;
+///删除动画
+@property(nonatomic,assign)UITableViewRowAnimation deleteAnimation;
+
 @property (nonatomic,assign)BOOL disabled;
 
-@property (nonatomic,assign)BOOL required;
+///获取表单值的时候忽略这一行
+@property (nonatomic,assign)BOOL ignoreValue;
 
-@property (nonatomic,copy) NSString *requireMsg;
 
 ///value 映射成需要展示的值
 @property (nonatomic,copy)id (^valueMapperToDisplay)(id value);

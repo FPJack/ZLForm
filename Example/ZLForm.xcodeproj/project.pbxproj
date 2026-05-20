@@ -22,6 +22,8 @@
 		6003F5BA195388D20070C39A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6003F5B8195388D20070C39A /* InfoPlist.strings */; };
 		6003F5BC195388D20070C39A /* Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6003F5BB195388D20070C39A /* Tests.m */; };
 		71719F9F1E33DC2100824A3D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 71719F9D1E33DC2100824A3D /* LaunchScreen.storyboard */; };
+		847DE5902FBDB7A200E40E5D /* ZLFormSubmitViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 847DE58F2FBDB7A200E40E5D /* ZLFormSubmitViewController.m */; };
+		847DE5932FBDB92200E40E5D /* ZLFormTextFieldCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 847DE5922FBDB92200E40E5D /* ZLFormTextFieldCell.m */; };
 		873B8AEB1B1F5CCA007FD442 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 873B8AEA1B1F5CCA007FD442 /* Main.storyboard */; };
 		B0B47E9BDD4A330B6AA889F5 /* Pods_ZLForm_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 378BE659F7A6878F787B5C9B /* Pods_ZLForm_Tests.framework */; };
 /* End PBXBuildFile section */
@@ -37,7 +39,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		141C4C55A0D004BA4576E684 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; name = README.md; path = ../README.md; sourceTree = "<group>"; };
+		141C4C55A0D004BA4576E684 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 		291FEE8D37893DE1534C73E8 /* Pods-ZLForm_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ZLForm_Example.release.xcconfig"; path = "Target Support Files/Pods-ZLForm_Example/Pods-ZLForm_Example.release.xcconfig"; sourceTree = "<group>"; };
 		378BE659F7A6878F787B5C9B /* Pods_ZLForm_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ZLForm_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		56FBF239DBF4805EEC83BA99 /* Pods-ZLForm_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ZLForm_Tests.release.xcconfig"; path = "Target Support Files/Pods-ZLForm_Tests/Pods-ZLForm_Tests.release.xcconfig"; sourceTree = "<group>"; };
@@ -62,11 +64,15 @@
 		6003F5BB195388D20070C39A /* Tests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Tests.m; sourceTree = "<group>"; };
 		606FC2411953D9B200FFA9A0 /* Tests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Tests-Prefix.pch"; sourceTree = "<group>"; };
 		71719F9E1E33DC2100824A3D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		847DE58E2FBDB7A200E40E5D /* ZLFormSubmitViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZLFormSubmitViewController.h; sourceTree = "<group>"; };
+		847DE58F2FBDB7A200E40E5D /* ZLFormSubmitViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZLFormSubmitViewController.m; sourceTree = "<group>"; };
+		847DE5912FBDB92200E40E5D /* ZLFormTextFieldCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZLFormTextFieldCell.h; sourceTree = "<group>"; };
+		847DE5922FBDB92200E40E5D /* ZLFormTextFieldCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZLFormTextFieldCell.m; sourceTree = "<group>"; };
 		873B8AEA1B1F5CCA007FD442 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Main.storyboard; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		98FB7827F64BAC717C85D4FD /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
+		98FB7827F64BAC717C85D4FD /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
 		C2D54D2CADB905CDE13393E5 /* Pods-ZLForm_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ZLForm_Example.debug.xcconfig"; path = "Target Support Files/Pods-ZLForm_Example/Pods-ZLForm_Example.debug.xcconfig"; sourceTree = "<group>"; };
 		C7D4B8DCE18CAF7F968BE205 /* Pods-ZLForm_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ZLForm_Tests.debug.xcconfig"; path = "Target Support Files/Pods-ZLForm_Tests/Pods-ZLForm_Tests.debug.xcconfig"; sourceTree = "<group>"; };
-		FFB6613EC9092F480463E9A3 /* ZLForm.podspec */ = {isa = PBXFileReference; includeInIndex = 1; name = ZLForm.podspec; path = ../ZLForm.podspec; sourceTree = "<group>"; };
+		FFB6613EC9092F480463E9A3 /* ZLForm.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = ZLForm.podspec; path = ../ZLForm.podspec; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -137,6 +143,10 @@
 				873B8AEA1B1F5CCA007FD442 /* Main.storyboard */,
 				6003F5A5195388D20070C39A /* ZLViewController.h */,
 				6003F5A6195388D20070C39A /* ZLViewController.m */,
+				847DE58E2FBDB7A200E40E5D /* ZLFormSubmitViewController.h */,
+				847DE58F2FBDB7A200E40E5D /* ZLFormSubmitViewController.m */,
+				847DE5912FBDB92200E40E5D /* ZLFormTextFieldCell.h */,
+				847DE5922FBDB92200E40E5D /* ZLFormTextFieldCell.m */,
 				71719F9D1E33DC2100824A3D /* LaunchScreen.storyboard */,
 				6003F5A8195388D20070C39A /* Images.xcassets */,
 				6003F594195388D20070C39A /* Supporting Files */,
@@ -193,7 +203,6 @@
 				C7D4B8DCE18CAF7F968BE205 /* Pods-ZLForm_Tests.debug.xcconfig */,
 				56FBF239DBF4805EEC83BA99 /* Pods-ZLForm_Tests.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -259,6 +268,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 				Base,
 			);
@@ -383,6 +393,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				847DE5932FBDB92200E40E5D /* ZLFormTextFieldCell.m in Sources */,
+				847DE5902FBDB7A200E40E5D /* ZLFormSubmitViewController.m in Sources */,
 				6003F59E195388D20070C39A /* ZLAppDelegate.m in Sources */,
 				6003F5A7195388D20070C39A /* ZLViewController.m in Sources */,
 				6003F59A195388D20070C39A /* main.m in Sources */,
