@@ -55,13 +55,19 @@ public class ZLFormDescriptor: NSObject, UITableViewDelegate, UITableViewDataSou
     private func sortSectionsIfNeeded() {
         guard sortByTag else { return }
         allSections.sort { $0.tag < $1.tag }
+        for section in allSections {
+            section.sortRowsByTagIfNeeded()
+        }
     }
     
     private func buildVisibleTarget() -> [ArraySection<ZLFormSectionDescriptor, ZLFormRowDescriptor>] {
         return allSections
             .filter { !$0.hidden }
             .map { section in
-                let visibleRows = section.formRows.filter { !$0.hidden }
+                var visibleRows = section.formRows.filter { !$0.hidden }
+                if sortByTag {
+                    visibleRows.sort { $0.tag < $1.tag }
+                }
                 return ArraySection(model: section, elements: visibleRows)
             }
     }
@@ -142,30 +148,36 @@ public class ZLFormDescriptor: NSObject, UITableViewDelegate, UITableViewDataSou
     public func addFormRow(_ formRow: ZLFormRowDescriptor, beforeRow: ZLFormRowDescriptor) {
         guard let section = beforeRow.sectionDescriptor else { return }
         section.addFormRow(formRow, beforeRow: beforeRow)
+        sortSectionsIfNeeded()
     }
     
     public func addFormRow(_ formRow: ZLFormRowDescriptor, beforeRowTag tag: String) {
         guard let targetRow = self.formRow(tag: tag) else { return }
         addFormRow(formRow, beforeRow: targetRow)
+        sortSectionsIfNeeded()
     }
     
     public func addFormRow(_ formRow: ZLFormRowDescriptor, afterRow: ZLFormRowDescriptor) {
         guard let section = afterRow.sectionDescriptor else { return }
         section.addFormRow(formRow, afterRow: afterRow)
+        sortSectionsIfNeeded()
     }
     
     public func addFormRow(_ formRow: ZLFormRowDescriptor, afterRowTag tag: String) {
         guard let targetRow = self.formRow(tag: tag) else { return }
         addFormRow(formRow, afterRow: targetRow)
+        sortSectionsIfNeeded()
     }
     
     public func removeFormRow(_ formRow: ZLFormRowDescriptor) {
         formRow.sectionDescriptor?.removeFormRow(formRow)
+        sortSectionsIfNeeded()
     }
     
     public func removeFormRow(tag: String) {
         guard let row = formRow(tag: tag) else { return }
         removeFormRow(row)
+        sortSectionsIfNeeded()
     }
     
     public func formRow(tag: String) -> ZLFormRowDescriptor? {

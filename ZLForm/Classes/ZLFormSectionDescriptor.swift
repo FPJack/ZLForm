@@ -26,6 +26,7 @@ public class ZLFormSectionDescriptor: NSObject,Differentiable {
 
     public var tag: String = ""
     
+    
     // MARK: - Init
     
     public override init() {
@@ -95,6 +96,13 @@ public class ZLFormSectionDescriptor: NSObject,Differentiable {
             let indexPath = IndexPath(row: index, section: sectionIndex)
             descriptor.delegate?.formDescriptor?(descriptor, formRowHasBeenRemoved: formRow, at: indexPath)
         }
+    }
+    
+    // MARK: - Sorting
+    
+    /// Sorts formRows by tag. Called by ZLFormDescriptor when sortByTag is true.
+    public func sortRowsByTagIfNeeded() {
+        formRows.sort { $0.tag < $1.tag }
     }
     
     // MARK: - Differentiable

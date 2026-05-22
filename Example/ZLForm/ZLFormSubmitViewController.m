@@ -35,7 +35,7 @@
 - (void)setupForm {
     self.formDescriptor = [ZLFormDescriptor formDescriptor];
     self.formDescriptor.delegate = self;
-    
+    self.formDescriptor.sortByTag = YES;
     // Section 1 - 基本信息
     ZLFormSectionDescriptor *basicSection = [[ZLFormSectionDescriptor alloc] initWithTag:@"basic"];
     basicSection.headerHeight = 44;
@@ -148,7 +148,6 @@
     ZLFormRowDescriptor *remarkRow = [ZLFormRowDescriptor formRowDescriptorWithTag:@"remark"];
     remarkRow.title = @"备注";
     remarkRow.height = 50;
-    remarkRow.cellClass = [ZLFormTextFieldCell class];
     remarkRow.placeholderValue = @"选填";
     remarkRow.ignoreValue = NO;
     remarkRow.cellClass = [ZLFormTextFieldCell class];
