@@ -16,7 +16,16 @@
     "tag": "0.1.0"
   },
   "platforms": {
-    "ios": "10.0"
+    "ios": "13.0"
   },
-  "source_files": "ZLForm/Classes/**/*"
+  "swift_versions": [
+    "5.0"
+  ],
+  "source_files": "ZLForm/Classes/**/*.swift",
+  "dependencies": {
+    "DifferenceKit": [
+
+    ]
+  },
+  "swift_version": "5.0"
 }

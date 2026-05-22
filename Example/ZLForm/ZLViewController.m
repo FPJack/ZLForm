@@ -8,11 +8,7 @@
 
 #import "ZLViewController.h"
 #import "ZLFormSubmitViewController.h"
-#if __has_include(<ZLForm/ZLForm.h>)
-#import <ZLForm/ZLForm.h>
-#else
-#import "ZLForm.h"
-#endif
+@import ZLForm;
 
 @interface ZLViewController ()<UITableViewDelegate, UITableViewDataSource>
 @property (nonatomic, strong) UITableView *tableView;
@@ -72,16 +68,15 @@
     [section addFormRow:row];
     
     [self.formDescriptor addFormSection:section];
-    [self.tableView reloadData];
 }
 
 - (void)addRowAction {
     // 在最后一个section中添加一行
-    if (self.formDescriptor.formSections.count == 0) {
+    if (self.formDescriptor.sectionDescriptors.count == 0) {
         NSLog(@"没有Section，请先添加Section");
         return;
     }
-    ZLFormSectionDescriptor *lastSection = self.formDescriptor.formSections.lastObject;
+    ZLFormSectionDescriptor *lastSection = self.formDescriptor.sectionDescriptors.lastObject;
     self.rowCounter++;
     NSString *tag = [NSString stringWithFormat:@"dynamicRow_%ld", (long)self.rowCounter];
     ZLFormRowDescriptor *row = [ZLFormRowDescriptor formRowDescriptorWithTag:tag];
@@ -89,33 +84,32 @@
     row.value = [NSString stringWithFormat:@"值_%ld", (long)self.rowCounter];
     row.height = 50;
     [lastSection addFormRow:row];
-    [self.tableView reloadData];
 }
 
 - (void)removeSectionAction {
-    if (self.formDescriptor.formSections.count == 0) {
+    if (self.formDescriptor.sectionDescriptors.count == 0) {
         NSLog(@"已经没有Section可以删除");
         return;
     }
-    ZLFormSectionDescriptor *lastSection = self.formDescriptor.formSections.lastObject;
+    ZLFormSectionDescriptor *lastSection = self.formDescriptor.sectionDescriptors.lastObject;
     [self.formDescriptor removeFormSection:lastSection];
-    [self.tableView reloadData];
+//    [self.tableView reloadData];
 }
 
 - (void)removeRowAction {
     // 删除最后一个section的最后一行
-    if (self.formDescriptor.formSections.count == 0) {
+    if (self.formDescriptor.sectionDescriptors.count == 0) {
         NSLog(@"没有Section");
         return;
     }
-    ZLFormSectionDescriptor *lastSection = self.formDescriptor.formSections.lastObject;
+    ZLFormSectionDescriptor *lastSection = self.formDescriptor.sectionDescriptors.lastObject;
     if (lastSection.formRows.count == 0) {
         NSLog(@"该Section没有Row可删除");
         return;
     }
     ZLFormRowDescriptor *lastRow = lastSection.formRows.lastObject;
     [lastSection removeFormRow:lastRow];
-    [self.tableView reloadData];
+//    [self.tableView reloadData];
 }
 
 - (void)setupForm {
@@ -197,16 +191,16 @@
 #pragma mark - UITableViewDataSource
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return self.formDescriptor.formSections.count;
+    return self.formDescriptor.sectionDescriptors.count;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    ZLFormSectionDescriptor *sectionDescriptor = self.formDescriptor.formSections[section];
+    ZLFormSectionDescriptor *sectionDescriptor = self.formDescriptor.sectionDescriptors[section];
     return sectionDescriptor.formRows.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    ZLFormSectionDescriptor *sectionDescriptor = self.formDescriptor.formSections[indexPath.section];
+    ZLFormSectionDescriptor *sectionDescriptor = self.formDescriptor.sectionDescriptors[indexPath.section];
     ZLFormRowDescriptor *rowDescriptor = sectionDescriptor.formRows[indexPath.row];
     
     ZLFormBaseCell *cell = [rowDescriptor cellForFormController:self];
@@ -216,27 +210,27 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    ZLFormSectionDescriptor *sectionDescriptor = self.formDescriptor.formSections[indexPath.section];
+    ZLFormSectionDescriptor *sectionDescriptor = self.formDescriptor.sectionDescriptors[indexPath.section];
     ZLFormRowDescriptor *rowDescriptor = sectionDescriptor.formRows[indexPath.row];
     return rowDescriptor.height > 0 ? rowDescriptor.height : 44.0;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    ZLFormSectionDescriptor *sectionDescriptor = self.formDescriptor.formSections[section];
+    ZLFormSectionDescriptor *sectionDescriptor = self.formDescriptor.sectionDescriptors[section];
     return sectionDescriptor.headerHeight;
 }
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-    ZLFormSectionDescriptor *sectionDescriptor = self.formDescriptor.formSections[section];
+    ZLFormSectionDescriptor *sectionDescriptor = self.formDescriptor.sectionDescriptors[section];
     if (sectionDescriptor.headerViewBlock) {
         return sectionDescriptor.headerViewBlock(sectionDescriptor);
     }
     return nil;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
-    ZLFormSectionDescriptor *sectionDescriptor = self.formDescriptor.formSections[section];
+    ZLFormSectionDescriptor *sectionDescriptor = self.formDescriptor.sectionDescriptors[section];
     return sectionDescriptor.footerHeight;
 }
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
-    ZLFormSectionDescriptor *sectionDescriptor = self.formDescriptor.formSections[section];
+    ZLFormSectionDescriptor *sectionDescriptor = self.formDescriptor.sectionDescriptors[section];
     if (sectionDescriptor.footerViewBlock) {
         return sectionDescriptor.footerViewBlock(sectionDescriptor);
     }
@@ -244,7 +238,7 @@
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-    ZLFormSectionDescriptor *sectionDescriptor = self.formDescriptor.formSections[section];
+    ZLFormSectionDescriptor *sectionDescriptor = self.formDescriptor.sectionDescriptors[section];
     return sectionDescriptor.tag;
 }
 
@@ -252,7 +246,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    ZLFormSectionDescriptor *sectionDescriptor = self.formDescriptor.formSections[indexPath.section];
+    ZLFormSectionDescriptor *sectionDescriptor = self.formDescriptor.sectionDescriptors[indexPath.section];
     ZLFormRowDescriptor *rowDescriptor = sectionDescriptor.formRows[indexPath.row];
     NSLog(@"选中: %@ = %@", rowDescriptor.title, rowDescriptor.value);
 }

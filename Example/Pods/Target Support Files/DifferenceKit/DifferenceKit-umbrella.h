@@ -11,6 +11,6 @@
 #endif
 
 
-FOUNDATION_EXPORT double ZLFormVersionNumber;
-FOUNDATION_EXPORT const unsigned char ZLFormVersionString[];
+FOUNDATION_EXPORT double DifferenceKitVersionNumber;
+FOUNDATION_EXPORT const unsigned char DifferenceKitVersionString[];
 

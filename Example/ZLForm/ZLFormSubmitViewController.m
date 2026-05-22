@@ -6,11 +6,12 @@
 //
 
 #import "ZLFormSubmitViewController.h"
-#import "ZLFormTextFieldCell.h"
-#if __has_include(<ZLForm/ZLForm.h>)
-#import <ZLForm/ZLForm.h>
-#else
-#import "ZLForm.h"
+@import ZLForm;
+
+#if __has_include("ZLForm_Example-Swift.h")
+#import "ZLForm_Example-Swift.h"
+#elif __has_include("ZLForm-Swift.h")
+#import "ZLForm-Swift.h"
 #endif
 
 @interface ZLFormSubmitViewController ()<ZLFormDescriptorDelegate>
@@ -55,6 +56,8 @@
     [nameRow addValidator:@"姓名不能为空" validationBlock:^BOOL(id value) {
         return value && [value length] > 0;
     }];
+
+    
     [basicSection addFormRow:nameRow];
     
     // 手机号
