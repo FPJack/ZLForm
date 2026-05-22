@@ -21,9 +21,13 @@ import DifferenceKit
 @objcMembers
 public class ZLFormDescriptor: NSObject, UITableViewDelegate, UITableViewDataSource {
     
+    /// The visible sections driving the tableView (filtered by hidden state)
     public private(set) var formSections: [ArraySection<ZLFormSectionDescriptor, ZLFormRowDescriptor>] = []
     
-    /// ObjC-compatible accessor that returns section descriptors
+    /// All sections including hidden ones (source of truth)
+    public private(set) var allSections: [ZLFormSectionDescriptor] = []
+    
+    /// ObjC-compatible accessor that returns visible section descriptors
     @objc public var sectionDescriptors: [ZLFormSectionDescriptor] {
         return formSections.map { $0.model }
     }
@@ -53,7 +57,17 @@ public class ZLFormDescriptor: NSObject, UITableViewDelegate, UITableViewDataSou
     
     private func sortSectionsIfNeeded() {
         guard sortByTag else { return }
-        formSections.sort { $0.model.tag < $1.model.tag }
+        allSections.sort { $0.tag < $1.tag }
+    }
+    
+    /// Builds the visible target from allSections, filtering hidden sections and hidden rows
+    private func buildVisibleTarget() -> [ArraySection<ZLFormSectionDescriptor, ZLFormRowDescriptor>] {
+        return allSections
+            .filter { !$0.hidden }
+            .map { section in
+                let visibleRows = section.formRows.filter { !$0.hidden }
+                return ArraySection(model: section, elements: visibleRows)
+            }
     }
     
     /// Computes a DifferenceKit diff between current formSections and the target,
@@ -69,54 +83,55 @@ public class ZLFormDescriptor: NSObject, UITableViewDelegate, UITableViewDataSou
         }
     }
     
+    /// Recomputes visibility and applies animated diff to tableView.
+    /// Call this after changing `hidden` on any section or row.
+    public func reloadVisibility() {
+        let target = buildVisibleTarget()
+        performDiffUpdate(target: target)
+    }
+    
     public func addFormSection(_ formSection: ZLFormSectionDescriptor) {
-        guard !formSections.contains(where: { $0.model === formSection }) else { return }
+        guard !allSections.contains(where: { $0 === formSection }) else { return }
         formSection.formDescriptor = self
-        var target = formSections
-        let arraySection = ArraySection(model: formSection, elements: formSection.formRows)
-        target.append(arraySection)
-        if sortByTag {
-            target.sort { $0.model.tag < $1.model.tag }
-        }
+        allSections.append(formSection)
+        sortSectionsIfNeeded()
+        let target = buildVisibleTarget()
         performDiffUpdate(target: target)
         delegate?.formDescriptor?(self, formSectionHasBeenAdded: formSection, at: UInt(formSections.firstIndex(where: { $0.model === formSection }) ?? 0))
     }
     
     public func addFormSection(_ formSection: ZLFormSectionDescriptor, afterSection: ZLFormSectionDescriptor) {
-        guard let idx = formSections.firstIndex(where: { $0.model === afterSection }) else { return }
+        guard let idx = allSections.firstIndex(where: { $0 === afterSection }) else { return }
         formSection.formDescriptor = self
-        let insertIndex = idx + 1
-        var target = formSections
-        let arraySection = ArraySection(model: formSection, elements: formSection.formRows)
-        target.insert(arraySection, at: insertIndex)
+        allSections.insert(formSection, at: idx + 1)
+        let target = buildVisibleTarget()
         performDiffUpdate(target: target)
-        delegate?.formDescriptor?(self, formSectionHasBeenAdded: formSection, at: UInt(insertIndex))
+        delegate?.formDescriptor?(self, formSectionHasBeenAdded: formSection, at: UInt(formSections.firstIndex(where: { $0.model === formSection }) ?? 0))
     }
     
     public func addFormSection(_ formSection: ZLFormSectionDescriptor, beforeSection: ZLFormSectionDescriptor) {
-        guard let idx = formSections.firstIndex(where: { $0.model === beforeSection }) else { return }
+        guard let idx = allSections.firstIndex(where: { $0 === beforeSection }) else { return }
         formSection.formDescriptor = self
-        var target = formSections
-        let arraySection = ArraySection(model: formSection, elements: formSection.formRows)
-        target.insert(arraySection, at: idx)
+        allSections.insert(formSection, at: idx)
+        let target = buildVisibleTarget()
         performDiffUpdate(target: target)
-        delegate?.formDescriptor?(self, formSectionHasBeenAdded: formSection, at: UInt(idx))
+        delegate?.formDescriptor?(self, formSectionHasBeenAdded: formSection, at: UInt(formSections.firstIndex(where: { $0.model === formSection }) ?? 0))
     }
     
     public func removeFormSection(at index: UInt) {
         let idx = Int(index)
-        guard idx < formSections.count else { return }
-        let section = formSections[idx].model
-        var target = formSections
-        target.remove(at: idx)
+        guard idx < allSections.count else { return }
+        let section = allSections[idx]
+        allSections.remove(at: idx)
+        let target = buildVisibleTarget()
         performDiffUpdate(target: target)
         delegate?.formDescriptor?(self, formSectionHasBeenRemoved: section, at: index)
     }
     
     public func removeFormSection(_ formSection: ZLFormSectionDescriptor) {
-        guard let idx = formSections.firstIndex(where: { $0.model === formSection }) else { return }
-        var target = formSections
-        target.remove(at: idx)
+        guard let idx = allSections.firstIndex(where: { $0 === formSection }) else { return }
+        allSections.remove(at: idx)
+        let target = buildVisibleTarget()
         performDiffUpdate(target: target)
         delegate?.formDescriptor?(self, formSectionHasBeenRemoved: formSection, at: UInt(idx))
     }
@@ -153,8 +168,8 @@ public class ZLFormDescriptor: NSObject, UITableViewDelegate, UITableViewDataSou
     }
     
     public func formRow(tag: String) -> ZLFormRowDescriptor? {
-        for section in formSections {
-            if let row = section.model.formRow(tag: tag) {
+        for section in allSections {
+            if let row = section.formRow(tag: tag) {
                 return row
             }
         }
@@ -171,7 +186,7 @@ public class ZLFormDescriptor: NSObject, UITableViewDelegate, UITableViewDataSou
     public func indexPath(of formRow: ZLFormRowDescriptor) -> IndexPath? {
         guard let section = formRow.sectionDescriptor,
               let sectionIdx = formSections.firstIndex(where: { $0.model === section }),
-              let rowIdx = section.formRows.firstIndex(of: formRow) else { return nil }
+              let rowIdx = formSections[sectionIdx].elements.firstIndex(of: formRow) else { return nil }
         return IndexPath(row: rowIdx, section: sectionIdx)
     }
     
@@ -182,9 +197,7 @@ public class ZLFormDescriptor: NSObject, UITableViewDelegate, UITableViewDataSou
     
     /// Sync formRows into the ArraySection elements and perform DifferenceKit diff reload
     public func syncAndReloadSection(_ formSection: ZLFormSectionDescriptor) {
-        guard let idx = formSections.firstIndex(where: { $0.model === formSection }) else { return }
-        var target = formSections
-        target[idx] = ArraySection(model: formSection, elements: formSection.formRows)
+        let target = buildVisibleTarget()
         guard let tableView = tableView else {
             formSections = target
             return
@@ -199,8 +212,8 @@ public class ZLFormDescriptor: NSObject, UITableViewDelegate, UITableViewDataSou
     
     public func formValues() -> [String: Any] {
         var result: [String: Any] = [:]
-        for section in formSections {
-            for row in section.model.formRows {
+        for section in allSections {
+            for row in section.formRows {
                 if row.ignoreValue { continue }
                 let value = row.valueForStorage()
                 let key = row.key ?? row.tag
@@ -216,8 +229,8 @@ public class ZLFormDescriptor: NSObject, UITableViewDelegate, UITableViewDataSou
     
     public func formValidationErrors() -> [ZLFormValidationStatus] {
         var result: [ZLFormValidationStatus] = []
-        for section in formSections {
-            for row in section.model.formRows {
+        for section in allSections {
+            for row in section.formRows {
                 if row.ignoreValue { continue }
                 let status = row.doValidation()
                 if !status.isValid {
@@ -229,8 +242,8 @@ public class ZLFormDescriptor: NSObject, UITableViewDelegate, UITableViewDataSou
     }
     
     public func validation() {
-        for section in formSections {
-            for row in section.model.formRows {
+        for section in allSections {
+            for row in section.formRows {
                 if row.ignoreValue { continue }
                 let status = row.doValidation()
                 if !status.isValid {
@@ -258,14 +271,13 @@ public class ZLFormDescriptor: NSObject, UITableViewDelegate, UITableViewDataSou
     }
     
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return formSections[section].model.formRows.count
+        return formSections[section].elements.count
     }
     
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let section = formSections[indexPath.section].model
-        let row = section.formRows[indexPath.row]
+        let row = formSections[indexPath.section].elements[indexPath.row]
         let cell = row.cell
-        print(row.tag);
+        
         row.updateCellBlock?(cell, row.value, row)
         (cell as ZLFormDescriptorCell).update()
         
@@ -280,7 +292,7 @@ public class ZLFormDescriptor: NSObject, UITableViewDelegate, UITableViewDataSou
     // MARK: - UITableViewDelegate
     
     public func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        let row = formSections[indexPath.section].model.formRows[indexPath.row]
+        let row = formSections[indexPath.section].elements[indexPath.row]
         return row.effectiveHeight()
     }
     
@@ -308,12 +320,12 @@ public class ZLFormDescriptor: NSObject, UITableViewDelegate, UITableViewDataSou
     
     public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        let row = formSections[indexPath.section].model.formRows[indexPath.row]
+        let row = formSections[indexPath.section].elements[indexPath.row]
         delegate?.formDescriptor?(self, didSelectFormRow: row)
     }
     
     public func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
-        let row = formSections[indexPath.section].model.formRows[indexPath.row]
+        let row = formSections[indexPath.section].elements[indexPath.row]
         delegate?.formDescriptor?(self, deselectFormRow: row)
     }
 }

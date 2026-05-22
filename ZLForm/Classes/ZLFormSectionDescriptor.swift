@@ -18,6 +18,8 @@ public class ZLFormSectionDescriptor: NSObject,Differentiable {
     
     public private(set) var formRows: [ZLFormRowDescriptor] = []
     
+    public var hidden: Bool = false
+
     public var tag: String = ""
     
     // MARK: - Init

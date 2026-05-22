@@ -10,7 +10,7 @@
 #import "ZLFormSubmitViewController.h"
 @import ZLForm;
 
-@interface ZLViewController ()<UITableViewDelegate, UITableViewDataSource>
+@interface ZLViewController ()<UITableViewDelegate, UITableViewDataSource,ZLFormDescriptorDelegate>
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) ZLFormDescriptor *formDescriptor;
 @property (nonatomic, assign) NSInteger sectionCounter;
@@ -38,7 +38,9 @@
     
     UIBarButtonItem *removeSectionBtn = [[UIBarButtonItem alloc] initWithTitle:@"－Section" style:UIBarButtonItemStylePlain target:self action:@selector(removeSectionAction)];
     UIBarButtonItem *removeRowBtn = [[UIBarButtonItem alloc] initWithTitle:@"－Row" style:UIBarButtonItemStylePlain target:self action:@selector(removeRowAction)];
-    self.navigationItem.leftBarButtonItems = @[removeSectionBtn, removeRowBtn];
+    UIBarButtonItem *toggleSectionBtn = [[UIBarButtonItem alloc] initWithTitle:@"隐/显Section" style:UIBarButtonItemStylePlain target:self action:@selector(toggleSectionHidden)];
+    UIBarButtonItem *toggleRowBtn = [[UIBarButtonItem alloc] initWithTitle:@"隐/显Row" style:UIBarButtonItemStylePlain target:self action:@selector(toggleRowHidden)];
+    self.navigationItem.leftBarButtonItems = @[removeSectionBtn, removeRowBtn, toggleSectionBtn, toggleRowBtn];
 }
 
 - (void)pushSubmitForm {
@@ -112,9 +114,38 @@
 //    [self.tableView reloadData];
 }
 
+- (void)toggleSectionHidden {
+    // 切换第一个 section (personalInfo) 的隐藏状态
+    if (self.formDescriptor.allSections.count == 0) {
+        NSLog(@"没有Section");
+        return;
+    }
+    ZLFormSectionDescriptor *firstSection = self.formDescriptor.allSections.firstObject;
+    firstSection.hidden = !firstSection.hidden;
+    [self.formDescriptor reloadVisibility];
+    NSLog(@"Section '%@' hidden: %@", firstSection.tag, firstSection.hidden ? @"YES" : @"NO");
+}
+
+- (void)toggleRowHidden {
+    // 切换第一个 section 中第一个 row 的隐藏状态
+    if (self.formDescriptor.allSections.count == 0) {
+        NSLog(@"没有Section");
+        return;
+    }
+    ZLFormSectionDescriptor *firstSection = self.formDescriptor.allSections.firstObject;
+    if (firstSection.formRows.count == 0) {
+        NSLog(@"没有Row");
+        return;
+    }
+    ZLFormRowDescriptor *firstRow = firstSection.formRows.firstObject;
+    firstRow.hidden = !firstRow.hidden;
+    [self.formDescriptor reloadVisibility];
+    NSLog(@"Row '%@' hidden: %@", firstRow.tag, firstRow.hidden ? @"YES" : @"NO");
+}
+
 - (void)setupForm {
     self.formDescriptor = [ZLFormDescriptor formDescriptor];
-    
+    self.formDescriptor.delegate = self;
     // Section 1 - 个人信息
     ZLFormSectionDescriptor *section1 = [[ZLFormSectionDescriptor alloc] initWithTag:@"personalInfo"];
     section1.headerHeight = 40;
@@ -189,66 +220,8 @@
 }
 
 #pragma mark - UITableViewDataSource
-
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return self.formDescriptor.sectionDescriptors.count;
-}
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    ZLFormSectionDescriptor *sectionDescriptor = self.formDescriptor.sectionDescriptors[section];
-    return sectionDescriptor.formRows.count;
-}
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    ZLFormSectionDescriptor *sectionDescriptor = self.formDescriptor.sectionDescriptors[indexPath.section];
-    ZLFormRowDescriptor *rowDescriptor = sectionDescriptor.formRows[indexPath.row];
-    
-    ZLFormBaseCell *cell = [rowDescriptor cellForFormController:self];
-    cell.titleLabel.text = rowDescriptor.title;
-    cell.detailLabel.text = rowDescriptor.valueForDisplay;
-    return cell;
-}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    ZLFormSectionDescriptor *sectionDescriptor = self.formDescriptor.sectionDescriptors[indexPath.section];
-    ZLFormRowDescriptor *rowDescriptor = sectionDescriptor.formRows[indexPath.row];
-    return rowDescriptor.height > 0 ? rowDescriptor.height : 44.0;
-}
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    ZLFormSectionDescriptor *sectionDescriptor = self.formDescriptor.sectionDescriptors[section];
-    return sectionDescriptor.headerHeight;
-}
-- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-    ZLFormSectionDescriptor *sectionDescriptor = self.formDescriptor.sectionDescriptors[section];
-    if (sectionDescriptor.headerViewBlock) {
-        return sectionDescriptor.headerViewBlock(sectionDescriptor);
-    }
-    return nil;
-}
-- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
-    ZLFormSectionDescriptor *sectionDescriptor = self.formDescriptor.sectionDescriptors[section];
-    return sectionDescriptor.footerHeight;
-}
-- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
-    ZLFormSectionDescriptor *sectionDescriptor = self.formDescriptor.sectionDescriptors[section];
-    if (sectionDescriptor.footerViewBlock) {
-        return sectionDescriptor.footerViewBlock(sectionDescriptor);
-    }
-    return nil;
-}
-
-- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-    ZLFormSectionDescriptor *sectionDescriptor = self.formDescriptor.sectionDescriptors[section];
-    return sectionDescriptor.tag;
-}
-
-#pragma mark - UITableViewDelegate
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    ZLFormSectionDescriptor *sectionDescriptor = self.formDescriptor.sectionDescriptors[indexPath.section];
-    ZLFormRowDescriptor *rowDescriptor = sectionDescriptor.formRows[indexPath.row];
-    NSLog(@"选中: %@ = %@", rowDescriptor.title, rowDescriptor.value);
+- (void)formDescriptor:(ZLFormDescriptor *)form didSelectFormRow:(ZLFormRowDescriptor *)formRow {
+    NSLog(@"选中行: %@ - %@", formRow.tag, formRow.title);
 }
 
 @end
