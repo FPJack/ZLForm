@@ -191,7 +191,8 @@
     [alert addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:nil]];
     [self presentViewController:alert animated:YES completion:nil];
 }
-- (void)validationSuccessForFormDescriptor:(ZLFormDescriptor *)form {
+- (void)validationSuccessFor:(ZLFormDescriptor *)form {
+    // 获取所有表单值
     // 获取所有表单值
     NSDictionary *formValues = [self.formDescriptor formValues];
     NSLog(@"表单提交数据: %@", formValues);
@@ -202,4 +203,5 @@
     [alert addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:nil]];
     [self presentViewController:alert animated:YES completion:nil];
 }
+
 @end

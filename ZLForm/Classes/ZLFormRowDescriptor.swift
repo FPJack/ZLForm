@@ -24,12 +24,10 @@ public class ZLFormRowDescriptor: NSObject, Differentiable {
     
     public var disabled: Bool = false
     public var ignoreValue: Bool = false
-    public var required: Bool = false
-    public var requireMsg: String?
+
     
     public var valueMapperToDisplay: ((Any?) -> Any?)?
     public var storageValueMapper: ((Any?) -> Any?)?
-    public var emptyDisplayValue: Any?
     public var placeholderValue: Any?
     public var hidden: Bool = false
     
@@ -61,7 +59,6 @@ public class ZLFormRowDescriptor: NSObject, Differentiable {
     @objc public class func formRowDescriptor(tag: String) -> ZLFormRowDescriptor {
         return ZLFormRowDescriptor(tag: tag)
     }
-    
     private func setupKVO() {
         observation = observe(\.value, options: [.old, .new]) { [weak self] _, change in
             guard let self = self, self.sectionDescriptor != nil else { return }

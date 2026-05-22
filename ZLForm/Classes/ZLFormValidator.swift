@@ -35,10 +35,8 @@ public class ZLFormValidator: NSObject {
     
     public func validate(_ rowDescriptor: ZLFormRowDescriptor) -> ZLFormValidationStatus {
         var isValid = true
-        if rowDescriptor.required {
-            if let block = validationBlock {
-                isValid = block(rowDescriptor.value)
-            }
+        if let block = validationBlock {
+            isValid = block(rowDescriptor.value)
         }
         return ZLFormValidationStatus(msg: msg, status: isValid, rowDescriptor: rowDescriptor)
     }

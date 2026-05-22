@@ -10,7 +10,7 @@
 #import "ZLFormSubmitViewController.h"
 @import ZLForm;
 
-@interface ZLViewController ()<UITableViewDelegate, UITableViewDataSource,ZLFormDescriptorDelegate>
+@interface ZLViewController ()
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) ZLFormDescriptor *formDescriptor;
 @property (nonatomic, assign) NSInteger sectionCounter;
