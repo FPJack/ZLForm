@@ -36,6 +36,7 @@
     self.formDescriptor = [ZLFormDescriptor formDescriptor];
     self.formDescriptor.delegate = self;
     self.formDescriptor.sortByTag = YES;
+    
     // Section 1 - 基本信息
     ZLFormSectionDescriptor *basicSection = [[ZLFormSectionDescriptor alloc] initWithTag:@"basic"];
     basicSection.headerHeight = 44;
@@ -125,6 +126,10 @@
     yearsRow.cellClass = [ZLFormTextFieldCell class];
     yearsRow.placeholderValue = @"请输入";
     yearsRow.value = @"50";
+    yearsRow.cellProvider = ^UITableViewCell<ZLFormDescriptorCell> * _Nonnull(ZLFormRowDescriptor * _Nonnull row) {
+        
+        return nil;
+    };
     yearsRow.valueMapperToDisplay = ^id(id value) {
         if (value) {
             return [NSString stringWithFormat:@"%@ 年", value];

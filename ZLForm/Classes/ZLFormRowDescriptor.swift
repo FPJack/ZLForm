@@ -3,11 +3,13 @@ import DifferenceKit
 public typealias ZLOnChangeBlock = (_ oldValue: Any?, _ newValue: Any?, _ rowDescriptor: ZLFormRowDescriptor) -> Void
 public typealias ZLConfigureCellBlock = (_ cell: UITableViewCell, _ value: Any?, _ rowDescriptor: ZLFormRowDescriptor) -> Void
 public typealias ZLUpdateCellBlock = (_ cell: UITableViewCell, _ value: Any?, _ rowDescriptor: ZLFormRowDescriptor) -> Void
+public typealias ZLCellProviderBlock = (_ rowDescriptor: ZLFormRowDescriptor) -> (UITableViewCell & ZLFormDescriptorCell)
 
 @objcMembers
 public class ZLFormRowDescriptor: NSObject, Differentiable {
     
     public var cellClass: AnyClass?
+    public var cellProvider: ZLCellProviderBlock?
     public var height: CGFloat = 0
     public var tag: String = ""
     public var key: String?
@@ -70,6 +72,9 @@ public class ZLFormRowDescriptor: NSObject, Differentiable {
     // MARK: - Cell
     
     private func createCell() -> (UITableViewCell & ZLFormDescriptorCell) {
+        if let provider = cellProvider {
+            return provider(self)
+        }
         if let cls = cellClass as? (UITableViewCell & ZLFormDescriptorCell).Type {
             let cell = cls.init(style: .default, reuseIdentifier: tag)
             return cell
