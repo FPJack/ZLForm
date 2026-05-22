@@ -33,11 +33,15 @@ open class ZLFormBaseCell: UITableViewCell, ZLFormDescriptorCell {
     
     private func setupSubviews() {
         titleLabel = UILabel()
+        titleLabel.numberOfLines = 0
         titleLabel.font = UIFont.systemFont(ofSize: 16)
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
+        titleLabel.setContentCompressionResistancePriority(.defaultHigh + 1, for: .horizontal)
+
         contentView.addSubview(titleLabel)
         
         detailLabel = UILabel()
+        detailLabel.numberOfLines = 0
         detailLabel.font = UIFont.systemFont(ofSize: 15)
         detailLabel.textColor = .gray
         detailLabel.textAlignment = .right
@@ -50,7 +54,8 @@ open class ZLFormBaseCell: UITableViewCell, ZLFormDescriptorCell {
             titleLabel.widthAnchor.constraint(lessThanOrEqualTo: contentView.widthAnchor, multiplier: 0.4),
             
             detailLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
-            detailLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
+            detailLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 8),
+            detailLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -8),
             detailLabel.leadingAnchor.constraint(greaterThanOrEqualTo: titleLabel.trailingAnchor, constant: 8),
         ])
     }

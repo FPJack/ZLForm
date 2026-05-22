@@ -1,5 +1,6 @@
 import UIKit
 import ZLForm
+import SnapKit
 
 @objcMembers
 public class ZLFormTextFieldCell: ZLFormBaseCell, UITextFieldDelegate {
@@ -11,7 +12,6 @@ public class ZLFormTextFieldCell: ZLFormBaseCell, UITextFieldDelegate {
         selectionStyle = .none
         
         textField = UITextField()
-        textField.translatesAutoresizingMaskIntoConstraints = false
         textField.textAlignment = .right
         textField.font = UIFont.systemFont(ofSize: 15)
         textField.textColor = .darkText
@@ -23,16 +23,18 @@ public class ZLFormTextFieldCell: ZLFormBaseCell, UITextFieldDelegate {
         // Hide detailLabel
         detailLabel.isHidden = true
         
-        NSLayoutConstraint.activate([
-            titleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 15),
-            titleLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
-            titleLabel.widthAnchor.constraint(equalToConstant: 80),
-            
-            textField.leadingAnchor.constraint(equalTo: titleLabel.trailingAnchor, constant: 10),
-            textField.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -15),
-            textField.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
-            textField.heightAnchor.constraint(equalToConstant: 36),
-        ])
+        titleLabel.snp.remakeConstraints { make in
+            make.leading.equalToSuperview().offset(15)
+            make.centerY.equalToSuperview()
+            make.width.equalTo(80)
+        }
+        
+        textField.snp.makeConstraints { make in
+            make.leading.equalTo(titleLabel.snp.trailing).offset(10)
+            make.trailing.equalToSuperview().offset(-15)
+            make.centerY.equalToSuperview()
+            make.height.equalTo(36)
+        }
     }
     
     open override func update() {

@@ -24,10 +24,10 @@
 		6003F5BC195388D20070C39A /* Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6003F5BB195388D20070C39A /* Tests.m */; };
 		71719F9F1E33DC2100824A3D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 71719F9D1E33DC2100824A3D /* LaunchScreen.storyboard */; };
 		847DE5902FBDB7A200E40E5D /* ZLFormSubmitViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 847DE58F2FBDB7A200E40E5D /* ZLFormSubmitViewController.m */; };
-		AAAA00032FBE000000000003 /* ZLFormSectionBackgroundViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AAAA00022FBE000000000002 /* ZLFormSectionBackgroundViewController.m */; };
-ttAAAA00032FBE000000000003 /* ZLFormSectionBackgroundViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AAAA00022FBE000000000002 /* ZLFormSectionBackgroundViewController.m */; };
 		847DE5952FBEAE5000E40E5D /* ZLFormTextFieldCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847DE5942FBEAE5000E40E5D /* ZLFormTextFieldCell.swift */; };
 		873B8AEB1B1F5CCA007FD442 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 873B8AEA1B1F5CCA007FD442 /* Main.storyboard */; };
+		AAAA00032FBE000000000003 /* ZLFormSectionBackgroundViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AAAA00022FBE000000000002 /* ZLFormSectionBackgroundViewController.m */; };
+		CCCC00022FBE000000000002 /* ZLFormAutoHeightViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCCC00012FBE000000000001 /* ZLFormAutoHeightViewController.swift */; };
 		B0B47E9BDD4A330B6AA889F5 /* Pods_ZLForm_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 378BE659F7A6878F787B5C9B /* Pods_ZLForm_Tests.framework */; };
 /* End PBXBuildFile section */
 
@@ -70,13 +70,12 @@ ttAAAA00032FBE000000000003 /* ZLFormSectionBackgroundViewController.m in Sources
 		71719F9E1E33DC2100824A3D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		847DE58E2FBDB7A200E40E5D /* ZLFormSubmitViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZLFormSubmitViewController.h; sourceTree = "<group>"; };
 		847DE58F2FBDB7A200E40E5D /* ZLFormSubmitViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZLFormSubmitViewController.m; sourceTree = "<group>"; };
-		AAAA00012FBE000000000001 /* ZLFormSectionBackgroundViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZLFormSectionBackgroundViewController.h; sourceTree = "<group>"; };
-		AAAA00022FBE000000000002 /* ZLFormSectionBackgroundViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZLFormSectionBackgroundViewController.m; sourceTree = "<group>"; };
-ttAAAA00012FBE000000000001 /* ZLFormSectionBackgroundViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZLFormSectionBackgroundViewController.h; sourceTree = "<group>"; };
-ttAAAA00022FBE000000000002 /* ZLFormSectionBackgroundViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZLFormSectionBackgroundViewController.m; sourceTree = "<group>"; };
 		847DE5942FBEAE5000E40E5D /* ZLFormTextFieldCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZLFormTextFieldCell.swift; sourceTree = "<group>"; };
 		873B8AEA1B1F5CCA007FD442 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Main.storyboard; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		98FB7827F64BAC717C85D4FD /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
+		AAAA00012FBE000000000001 /* ZLFormSectionBackgroundViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZLFormSectionBackgroundViewController.h; sourceTree = "<group>"; };
+		AAAA00022FBE000000000002 /* ZLFormSectionBackgroundViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZLFormSectionBackgroundViewController.m; sourceTree = "<group>"; };
+		CCCC00012FBE000000000001 /* ZLFormAutoHeightViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZLFormAutoHeightViewController.swift; sourceTree = "<group>"; };
 		C2D54D2CADB905CDE13393E5 /* Pods-ZLForm_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ZLForm_Example.debug.xcconfig"; path = "Target Support Files/Pods-ZLForm_Example/Pods-ZLForm_Example.debug.xcconfig"; sourceTree = "<group>"; };
 		C7D4B8DCE18CAF7F968BE205 /* Pods-ZLForm_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ZLForm_Tests.debug.xcconfig"; path = "Target Support Files/Pods-ZLForm_Tests/Pods-ZLForm_Tests.debug.xcconfig"; sourceTree = "<group>"; };
 		FFB6613EC9092F480463E9A3 /* ZLForm.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = ZLForm.podspec; path = ../ZLForm.podspec; sourceTree = "<group>"; };
@@ -163,8 +162,7 @@ ttAAAA00022FBE000000000002 /* ZLFormSectionBackgroundViewController.m */ = {isa 
 				847DE58F2FBDB7A200E40E5D /* ZLFormSubmitViewController.m */,
 				AAAA00012FBE000000000001 /* ZLFormSectionBackgroundViewController.h */,
 				AAAA00022FBE000000000002 /* ZLFormSectionBackgroundViewController.m */,
-ttttAAAA00012FBE000000000001 /* ZLFormSectionBackgroundViewController.h */,
-ttttAAAA00022FBE000000000002 /* ZLFormSectionBackgroundViewController.m */,
+				CCCC00012FBE000000000001 /* ZLFormAutoHeightViewController.swift */,
 				847DE5942FBEAE5000E40E5D /* ZLFormTextFieldCell.swift */,
 				71719F9D1E33DC2100824A3D /* LaunchScreen.storyboard */,
 				6003F5A8195388D20070C39A /* Images.xcassets */,
@@ -355,11 +353,13 @@ ttttAAAA00022FBE000000000002 /* ZLFormSectionBackgroundViewController.m */,
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-ZLForm_Example/Pods-ZLForm_Example-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/DifferenceKit/DifferenceKit.framework",
+				"${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework",
 				"${BUILT_PRODUCTS_DIR}/ZLForm/ZLForm.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/DifferenceKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SnapKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ZLForm.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -416,7 +416,7 @@ ttttAAAA00022FBE000000000002 /* ZLFormSectionBackgroundViewController.m */,
 			files = (
 				847DE5902FBDB7A200E40E5D /* ZLFormSubmitViewController.m in Sources */,
 				AAAA00032FBE000000000003 /* ZLFormSectionBackgroundViewController.m in Sources */,
-ttttAAAA00032FBE000000000003 /* ZLFormSectionBackgroundViewController.m in Sources */,
+				CCCC00022FBE000000000002 /* ZLFormAutoHeightViewController.swift in Sources */,
 				6003F59E195388D20070C39A /* ZLAppDelegate.m in Sources */,
 				6003F5A7195388D20070C39A /* ZLViewController.m in Sources */,
 				6003F59A195388D20070C39A /* main.m in Sources */,

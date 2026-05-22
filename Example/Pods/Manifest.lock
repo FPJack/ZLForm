@@ -10,17 +10,20 @@ PODS:
   - FBSnapshotTestCase/Core (2.1.4)
   - FBSnapshotTestCase/SwiftSupport (2.1.4):
     - FBSnapshotTestCase/Core
+  - SnapKit (5.7.1)
   - ZLForm (0.1.0):
     - DifferenceKit
 
 DEPENDENCIES:
   - FBSnapshotTestCase
+  - SnapKit
   - ZLForm (from `../`)
 
 SPEC REPOS:
   trunk:
     - DifferenceKit
     - FBSnapshotTestCase
+    - SnapKit
 
 EXTERNAL SOURCES:
   ZLForm:
@@ -29,8 +32,9 @@ EXTERNAL SOURCES:
 SPEC CHECKSUMS:
   DifferenceKit: ab185c4d7f9cef8af3fcf593e5b387fb81e999ca
   FBSnapshotTestCase: 094f9f314decbabe373b87cc339bea235a63e07a
+  SnapKit: d612e99e678a2d3b95bf60b0705ed0a35c03484a
   ZLForm: aacc2847a3c24083537bc078f92a1762612dab7a
 
-PODFILE CHECKSUM: bce9659f93a337de93589962c6027ec3fcd9479a
+PODFILE CHECKSUM: 180a960f199dce374e644ddfc2424590981aa1cc
 
 COCOAPODS: 1.16.2

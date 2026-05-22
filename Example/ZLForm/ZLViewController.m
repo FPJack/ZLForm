@@ -11,6 +11,10 @@
 #import "ZLFormSectionBackgroundViewController.h"
 @import ZLForm;
 
+#if __has_include("ZLForm_Example-Swift.h")
+#import "ZLForm_Example-Swift.h"
+#endif
+
 @interface ZLViewController ()
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) ZLFormDescriptor *formDescriptor;
@@ -34,9 +38,10 @@
 - (void)setupNavigationBar {
     UIBarButtonItem *submitBtn = [[UIBarButtonItem alloc] initWithTitle:@"表单提交" style:UIBarButtonItemStylePlain target:self action:@selector(pushSubmitForm)];
     UIBarButtonItem *bgDemoBtn = [[UIBarButtonItem alloc] initWithTitle:@"背景Demo" style:UIBarButtonItemStylePlain target:self action:@selector(pushBackgroundDemo)];
+    UIBarButtonItem *autoHeightBtn = [[UIBarButtonItem alloc] initWithTitle:@"自适应高度" style:UIBarButtonItemStylePlain target:self action:@selector(pushAutoHeightDemo)];
     UIBarButtonItem *addSectionBtn = [[UIBarButtonItem alloc] initWithTitle:@"＋Section" style:UIBarButtonItemStylePlain target:self action:@selector(addSectionAction)];
     UIBarButtonItem *addRowBtn = [[UIBarButtonItem alloc] initWithTitle:@"＋Row" style:UIBarButtonItemStylePlain target:self action:@selector(addRowAction)];
-    self.navigationItem.rightBarButtonItems = @[submitBtn, bgDemoBtn, addSectionBtn, addRowBtn];
+    self.navigationItem.rightBarButtonItems = @[submitBtn, bgDemoBtn, autoHeightBtn, addSectionBtn, addRowBtn];
     
     UIBarButtonItem *removeSectionBtn = [[UIBarButtonItem alloc] initWithTitle:@"－Section" style:UIBarButtonItemStylePlain target:self action:@selector(removeSectionAction)];
     UIBarButtonItem *removeRowBtn = [[UIBarButtonItem alloc] initWithTitle:@"－Row" style:UIBarButtonItemStylePlain target:self action:@selector(removeRowAction)];
@@ -52,6 +57,11 @@
 
 - (void)pushBackgroundDemo {
     ZLFormSectionBackgroundViewController *vc = [[ZLFormSectionBackgroundViewController alloc] init];
+    [self.navigationController pushViewController:vc animated:YES];
+}
+
+- (void)pushAutoHeightDemo {
+    ZLFormAutoHeightViewController *vc = [[ZLFormAutoHeightViewController alloc] init];
     [self.navigationController pushViewController:vc animated:YES];
 }
 
@@ -75,7 +85,7 @@
     row.value = @"默认值";
     row.height = 50;
     [section addFormRow:row];
-    
+    row.cell.configure;
     [self.formDescriptor addFormSection:section];
 }
 

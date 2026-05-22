@@ -296,6 +296,11 @@ public class ZLFormDescriptor: NSObject, UITableViewDelegate, UITableViewDataSou
         
         delegate?.formDescriptor?(self, updateFormRow: row)
         
+        let nCell = cell as! ZLFormBaseCell
+        nCell.titleLabel.text = row.title
+        nCell.detailLabel.text = row.value as? String ?? row.placeholderValue as? String
+        
+        
         return cell
     }
     
@@ -306,22 +311,39 @@ public class ZLFormDescriptor: NSObject, UITableViewDelegate, UITableViewDataSou
         return row.effectiveHeight()
     }
     
+    public func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
+        let row = formSections[indexPath.section].elements[indexPath.row]
+        return row.height > 0 ? row.height : 44.0
+    }
+    
     public func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return formSections[section].model.headerHeight
+        let h = formSections[section].model.headerHeight
+        return h > 0 ? h : UITableView.automaticDimension
+    }
+    
+    public func tableView(_ tableView: UITableView, estimatedHeightForHeaderInSection section: Int) -> CGFloat {
+        let h = formSections[section].model.headerHeight
+        return h > 0 ? h : 10.0
     }
     
     public func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let sec = formSections[section].model
-        return sec.headerViewBlock?(sec)
+        return sec.headerViewBlock?(sec) ?? UIView()
     }
     
     public func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        return formSections[section].model.footerHeight
+        let h = formSections[section].model.footerHeight
+        return h > 0 ? h : UITableView.automaticDimension
+    }
+    
+    public func tableView(_ tableView: UITableView, estimatedHeightForFooterInSection section: Int) -> CGFloat {
+        let h = formSections[section].model.footerHeight
+        return h > 0 ? h : 10.0
     }
     
     public func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
         let sec = formSections[section].model
-        return sec.footerViewBlock?(sec)
+        return sec.footerViewBlock?(sec) ?? UIView()
     }
     
     public func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {

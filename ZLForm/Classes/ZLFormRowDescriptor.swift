@@ -80,13 +80,14 @@ public class ZLFormRowDescriptor: NSObject, Differentiable {
     @objc public func cellForFormController(_ formController: UIViewController) -> (UITableViewCell & ZLFormDescriptorCell) {
         return cell
     }
-    
-    /// Computed height considering cell's protocol method
     public func effectiveHeight() -> CGFloat {
         if let cellHeight = (cell as ZLFormDescriptorCell).cellHeight?(for: self), cellHeight > 0 {
             return cellHeight
         }
-        return height > 0 ? height : 44.0
+        if height > 0 {
+            return height
+        }
+        return UITableView.automaticDimension
     }
     
     // MARK: - Value
