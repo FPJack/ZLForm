@@ -31,18 +31,17 @@ public class ZLFormRowDescriptor: NSObject, Differentiable {
     public var placeholderValue: Any?
     public var hidden: Bool = false
     
-    private var _cell: ZLFormBaseCell?
+    private var _cell: (UITableViewCell & ZLFormDescriptorCell)?
     private var validators: [ZLFormValidator] = []
     private var observation: NSKeyValueObservation?
     
-    public var cell: ZLFormBaseCell {
+    public var cell: (UITableViewCell & ZLFormDescriptorCell) {
         if _cell == nil {
             _cell = createCell()
             _cell?.rowDescriptor = self
         }
         return _cell!
     }
-    
     // MARK: - Init
     
     public override init() {
@@ -70,15 +69,15 @@ public class ZLFormRowDescriptor: NSObject, Differentiable {
     
     // MARK: - Cell
     
-    private func createCell() -> ZLFormBaseCell {
-        if let cls = cellClass as? ZLFormBaseCell.Type {
+    private func createCell() -> (UITableViewCell & ZLFormDescriptorCell) {
+        if let cls = cellClass as? (UITableViewCell & ZLFormDescriptorCell).Type {
             let cell = cls.init(style: .default, reuseIdentifier: tag)
             return cell
         }
         return ZLFormBaseCell(style: .default, reuseIdentifier: tag)
     }
     
-    @objc public func cellForFormController(_ formController: UIViewController) -> ZLFormBaseCell {
+    @objc public func cellForFormController(_ formController: UIViewController) -> (UITableViewCell & ZLFormDescriptorCell) {
         return cell
     }
     

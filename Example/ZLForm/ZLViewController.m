@@ -8,6 +8,7 @@
 
 #import "ZLViewController.h"
 #import "ZLFormSubmitViewController.h"
+#import "ZLFormSectionBackgroundViewController.h"
 @import ZLForm;
 
 @interface ZLViewController ()
@@ -32,9 +33,10 @@
 
 - (void)setupNavigationBar {
     UIBarButtonItem *submitBtn = [[UIBarButtonItem alloc] initWithTitle:@"表单提交" style:UIBarButtonItemStylePlain target:self action:@selector(pushSubmitForm)];
+    UIBarButtonItem *bgDemoBtn = [[UIBarButtonItem alloc] initWithTitle:@"背景Demo" style:UIBarButtonItemStylePlain target:self action:@selector(pushBackgroundDemo)];
     UIBarButtonItem *addSectionBtn = [[UIBarButtonItem alloc] initWithTitle:@"＋Section" style:UIBarButtonItemStylePlain target:self action:@selector(addSectionAction)];
     UIBarButtonItem *addRowBtn = [[UIBarButtonItem alloc] initWithTitle:@"＋Row" style:UIBarButtonItemStylePlain target:self action:@selector(addRowAction)];
-    self.navigationItem.rightBarButtonItems = @[submitBtn, addSectionBtn, addRowBtn];
+    self.navigationItem.rightBarButtonItems = @[submitBtn, bgDemoBtn, addSectionBtn, addRowBtn];
     
     UIBarButtonItem *removeSectionBtn = [[UIBarButtonItem alloc] initWithTitle:@"－Section" style:UIBarButtonItemStylePlain target:self action:@selector(removeSectionAction)];
     UIBarButtonItem *removeRowBtn = [[UIBarButtonItem alloc] initWithTitle:@"－Row" style:UIBarButtonItemStylePlain target:self action:@selector(removeRowAction)];
@@ -45,6 +47,11 @@
 
 - (void)pushSubmitForm {
     ZLFormSubmitViewController *vc = [[ZLFormSubmitViewController alloc] init];
+    [self.navigationController pushViewController:vc animated:YES];
+}
+
+- (void)pushBackgroundDemo {
+    ZLFormSectionBackgroundViewController *vc = [[ZLFormSectionBackgroundViewController alloc] init];
     [self.navigationController pushViewController:vc animated:YES];
 }
 

@@ -11,6 +11,10 @@ public class ZLFormSectionDescriptor: NSObject,Differentiable {
     public var footerHeight: CGFloat = 0
     public var footerViewBlock: ZLFormSectionHeaderFooterViewBlock?
     
+    public var sectionBackgroundView: UIView?
+    
+    public var sectionBackgroundInsets: UIEdgeInsets = .zero
+    
     public var insertAnimation: UITableView.RowAnimation = .automatic
     public var deleteAnimation: UITableView.RowAnimation = .automatic
     

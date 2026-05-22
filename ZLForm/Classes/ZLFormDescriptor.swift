@@ -21,13 +21,10 @@ import DifferenceKit
 @objcMembers
 public class ZLFormDescriptor: NSObject, UITableViewDelegate, UITableViewDataSource {
     
-    /// The visible sections driving the tableView (filtered by hidden state)
     public private(set) var formSections: [ArraySection<ZLFormSectionDescriptor, ZLFormRowDescriptor>] = []
     
-    /// All sections including hidden ones (source of truth)
     public private(set) var allSections: [ZLFormSectionDescriptor] = []
     
-    /// ObjC-compatible accessor that returns visible section descriptors
     @objc public var sectionDescriptors: [ZLFormSectionDescriptor] {
         return formSections.map { $0.model }
     }
@@ -60,7 +57,6 @@ public class ZLFormDescriptor: NSObject, UITableViewDelegate, UITableViewDataSou
         allSections.sort { $0.tag < $1.tag }
     }
     
-    /// Builds the visible target from allSections, filtering hidden sections and hidden rows
     private func buildVisibleTarget() -> [ArraySection<ZLFormSectionDescriptor, ZLFormRowDescriptor>] {
         return allSections
             .filter { !$0.hidden }
@@ -70,8 +66,7 @@ public class ZLFormDescriptor: NSObject, UITableViewDelegate, UITableViewDataSou
             }
     }
     
-    /// Computes a DifferenceKit diff between current formSections and the target,
-    /// and applies animated updates. The data source is only mutated inside the setData closure.
+
     private func performDiffUpdate(target: [ArraySection<ZLFormSectionDescriptor, ZLFormRowDescriptor>]) {
         guard let tableView = tableView else {
             formSections = target
@@ -81,6 +76,8 @@ public class ZLFormDescriptor: NSObject, UITableViewDelegate, UITableViewDataSou
         tableView.reload(using: changeset, with: .automatic) { [weak self] data in
             self?.formSections = data
         }
+        // Update all section background views after diff completes
+        layoutAllSectionBackgroundViews()
     }
     
     /// Recomputes visibility and applies animated diff to tableView.
@@ -104,6 +101,7 @@ public class ZLFormDescriptor: NSObject, UITableViewDelegate, UITableViewDataSou
         guard let idx = allSections.firstIndex(where: { $0 === afterSection }) else { return }
         formSection.formDescriptor = self
         allSections.insert(formSection, at: idx + 1)
+        sortSectionsIfNeeded()
         let target = buildVisibleTarget()
         performDiffUpdate(target: target)
         delegate?.formDescriptor?(self, formSectionHasBeenAdded: formSection, at: UInt(formSections.firstIndex(where: { $0.model === formSection }) ?? 0))
@@ -113,6 +111,7 @@ public class ZLFormDescriptor: NSObject, UITableViewDelegate, UITableViewDataSou
         guard let idx = allSections.firstIndex(where: { $0 === beforeSection }) else { return }
         formSection.formDescriptor = self
         allSections.insert(formSection, at: idx)
+        sortSectionsIfNeeded()
         let target = buildVisibleTarget()
         performDiffUpdate(target: target)
         delegate?.formDescriptor?(self, formSectionHasBeenAdded: formSection, at: UInt(formSections.firstIndex(where: { $0.model === formSection }) ?? 0))
@@ -123,6 +122,7 @@ public class ZLFormDescriptor: NSObject, UITableViewDelegate, UITableViewDataSou
         guard idx < allSections.count else { return }
         let section = allSections[idx]
         allSections.remove(at: idx)
+        sortSectionsIfNeeded()
         let target = buildVisibleTarget()
         performDiffUpdate(target: target)
         delegate?.formDescriptor?(self, formSectionHasBeenRemoved: section, at: index)
@@ -131,6 +131,7 @@ public class ZLFormDescriptor: NSObject, UITableViewDelegate, UITableViewDataSou
     public func removeFormSection(_ formSection: ZLFormSectionDescriptor) {
         guard let idx = allSections.firstIndex(where: { $0 === formSection }) else { return }
         allSections.remove(at: idx)
+        sortSectionsIfNeeded()
         let target = buildVisibleTarget()
         performDiffUpdate(target: target)
         delegate?.formDescriptor?(self, formSectionHasBeenRemoved: formSection, at: UInt(idx))
@@ -195,7 +196,6 @@ public class ZLFormDescriptor: NSObject, UITableViewDelegate, UITableViewDataSou
         tableView?.reloadSections(IndexSet(integer: idx), with: .automatic)
     }
     
-    /// Sync formRows into the ArraySection elements and perform DifferenceKit diff reload
     public func syncAndReloadSection(_ formSection: ZLFormSectionDescriptor) {
         let target = buildVisibleTarget()
         guard let tableView = tableView else {
@@ -206,6 +206,7 @@ public class ZLFormDescriptor: NSObject, UITableViewDelegate, UITableViewDataSou
         tableView.reload(using: changeset, with: .automatic) { [weak self] data in
             self?.formSections = data
         }
+        layoutAllSectionBackgroundViews()
     }
     
     // MARK: - Form Values
@@ -279,12 +280,9 @@ public class ZLFormDescriptor: NSObject, UITableViewDelegate, UITableViewDataSou
         let cell = row.cell
         
         row.updateCellBlock?(cell, row.value, row)
-        (cell as ZLFormDescriptorCell).update()
+        cell.update()
         
         delegate?.formDescriptor?(self, updateFormRow: row)
-        
-        cell.titleLabel.text = row.title
-        cell.detailLabel.text = row.valueForDisplay() as? String
         
         return cell
     }
@@ -327,5 +325,66 @@ public class ZLFormDescriptor: NSObject, UITableViewDelegate, UITableViewDataSou
     public func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
         let row = formSections[indexPath.section].elements[indexPath.row]
         delegate?.formDescriptor?(self, deselectFormRow: row)
+    }
+    
+    // MARK: - Section Background View
+    
+    public func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
+        layoutSectionBackgroundView(for: section, in: tableView)
+    }
+    
+    public func tableView(_ tableView: UITableView, willDisplayFooterView view: UIView, forSection section: Int) {
+        layoutSectionBackgroundView(for: section, in: tableView)
+    }
+    
+    public func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        let sectionModel = formSections[indexPath.section].model
+        if sectionModel.sectionBackgroundView != nil {
+            cell.backgroundColor = .clear
+            cell.contentView.backgroundColor = .clear
+        }
+        layoutSectionBackgroundView(for: indexPath.section, in: tableView)
+    }
+    
+    private func layoutSectionBackgroundView(for section: Int, in tableView: UITableView) {
+        guard section < formSections.count else { return }
+        let sectionModel = formSections[section].model
+        guard let bgView = sectionModel.sectionBackgroundView else { return }
+        
+        if bgView.superview != tableView {
+            tableView.addSubview(bgView)
+        }
+        tableView.sendSubviewToBack(bgView)
+        
+        for s in formSections {
+            if let bg = s.model.sectionBackgroundView, bg.superview == tableView {
+                tableView.sendSubviewToBack(bg)
+            }
+        }
+
+        let sectionRect = tableView.rect(forSection: section);
+        let insets = sectionModel.sectionBackgroundInsets
+        UIView.animate(withDuration: 0.1) {
+            bgView.frame = CGRect(
+                x: sectionRect.origin.x + insets.left,
+                y: sectionRect.origin.y + insets.top,
+                width: sectionRect.width - insets.left - insets.right,
+                height: sectionRect.height - insets.top - insets.bottom
+            )
+        }
+    }
+    
+    private func layoutAllSectionBackgroundViews() {
+        guard let tableView = tableView else { return }
+        
+        for section in allSections {
+            guard let bgView = section.sectionBackgroundView else { continue }
+            let isVisible = formSections.contains(where: { $0.model === section })
+            bgView.isHidden = !isVisible
+        }
+        
+        for idx in 0..<formSections.count {
+            layoutSectionBackgroundView(for: idx, in: tableView)
+        }
     }
 }
