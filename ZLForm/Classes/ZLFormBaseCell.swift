@@ -4,8 +4,8 @@ import UIKit
 
 @objc public protocol ZLFormDescriptorCell: NSObjectProtocol {
     var rowDescriptor: ZLFormRowDescriptor? { get set }
-    func configure()
-    func update()
+    @objc optional func configure()
+    @objc optional func update()
     @objc optional func cellHeight(for rowDescriptor: ZLFormRowDescriptor) -> CGFloat
     @objc optional func formDescriptorCellDidSelected(with formController: UIViewController)
 }

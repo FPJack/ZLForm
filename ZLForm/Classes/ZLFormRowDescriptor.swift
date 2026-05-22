@@ -3,7 +3,7 @@ import DifferenceKit
 public typealias ZLOnChangeBlock = (_ oldValue: Any?, _ newValue: Any?, _ rowDescriptor: ZLFormRowDescriptor) -> Void
 public typealias ZLConfigureCellBlock = (_ cell: UITableViewCell, _ value: Any?, _ rowDescriptor: ZLFormRowDescriptor) -> Void
 public typealias ZLUpdateCellBlock = (_ cell: UITableViewCell, _ value: Any?, _ rowDescriptor: ZLFormRowDescriptor) -> Void
-public typealias ZLCellProviderBlock = (_ rowDescriptor: ZLFormRowDescriptor) -> (UITableViewCell & ZLFormDescriptorCell)
+public typealias ZLCellProviderBlock = (_ rowDescriptor: ZLFormRowDescriptor) -> UITableViewCell
 
 @objcMembers
 public class ZLFormRowDescriptor: NSObject, Differentiable {
@@ -33,14 +33,18 @@ public class ZLFormRowDescriptor: NSObject, Differentiable {
     public var placeholderValue: Any?
     public var hidden: Bool = false
     
-    private var _cell: (UITableViewCell & ZLFormDescriptorCell)?
+    private var _cell: UITableViewCell?
     private var validators: [ZLFormValidator] = []
     private var observation: NSKeyValueObservation?
     
-    public var cell: (UITableViewCell & ZLFormDescriptorCell) {
+    public var cell: UITableViewCell  {
         if _cell == nil {
-            _cell = createCell()
-            _cell?.rowDescriptor = self
+            let cell = createCell()
+            if let cell = cell as? ZLFormDescriptorCell {
+                cell.rowDescriptor = self
+            }
+           _cell = cell
+            
         }
         return _cell!
     }
@@ -71,24 +75,25 @@ public class ZLFormRowDescriptor: NSObject, Differentiable {
     
     // MARK: - Cell
     
-    private func createCell() -> (UITableViewCell & ZLFormDescriptorCell) {
-        if let provider = cellProvider {
+    private func createCell() -> UITableViewCell  {
+        if let provider = cellProvider  {
             return provider(self)
         }
-        if let cls = cellClass as? (UITableViewCell & ZLFormDescriptorCell).Type {
+        if let cls = cellClass as? UITableViewCell.Type {
             let cell = cls.init(style: .default, reuseIdentifier: tag)
             return cell
         }
         return ZLFormBaseCell(style: .default, reuseIdentifier: tag)
     }
     
-    @objc public func cellForFormController(_ formController: UIViewController) -> (UITableViewCell & ZLFormDescriptorCell) {
+    @objc public func cellForFormController(_ formController: UIViewController) -> UITableViewCell  {
         return cell
     }
     public func effectiveHeight() -> CGFloat {
-        if let cellHeight = (cell as ZLFormDescriptorCell).cellHeight?(for: self), cellHeight > 0 {
+        if let formCell = cell as? ZLFormDescriptorCell, let cellHeight = formCell.cellHeight?(for: self), cellHeight > 0 {
             return cellHeight
         }
+        
         if height > 0 {
             return height
         }

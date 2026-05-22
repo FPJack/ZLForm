@@ -85,7 +85,6 @@
     row.value = @"默认值";
     row.height = 50;
     [section addFormRow:row];
-    row.cell.configure;
     [self.formDescriptor addFormSection:section];
 }
 

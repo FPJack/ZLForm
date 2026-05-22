@@ -292,7 +292,9 @@ public class ZLFormDescriptor: NSObject, UITableViewDelegate, UITableViewDataSou
         let cell = row.cell
         
         row.updateCellBlock?(cell, row.value, row)
-        cell.update()
+        if let formCell = cell as? ZLFormDescriptorCell {
+            formCell.update?()
+        }
         
         delegate?.formDescriptor?(self, updateFormRow: row)
         ///debug 模式下
