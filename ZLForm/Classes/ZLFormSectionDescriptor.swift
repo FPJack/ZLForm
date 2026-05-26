@@ -117,6 +117,7 @@ public class ZLFormSectionDescriptor: NSObject,Differentiable {
     }
     public func isContentEqual(to source: ZLFormRowDescriptor) -> Bool {
         return tag == source.tag &&
-               value as? NSObject == source.value as? NSObject 
+               title == source.title &&
+               value as? NSObject == source.value as? NSObject
     }
 }

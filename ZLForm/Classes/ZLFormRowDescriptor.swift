@@ -157,6 +157,7 @@ public class ZLFormRowDescriptor: NSObject, Differentiable {
     
     public func isContentEqual(to source: ZLFormRowDescriptor) -> Bool {
         return tag == source.tag &&
+               title == source.title &&
                value as? NSObject == source.value as? NSObject &&
                disabled == source.disabled
     }

@@ -201,11 +201,13 @@ public class ZLFormDescriptor: NSObject, UITableViewDelegate, UITableViewDataSou
         return IndexPath(row: rowIdx, section: sectionIdx)
     }
     
+    ///刷新整个 section，适用于 section 内有多个 row 需要刷新或者 section header/footer 需要刷新的情况
     public func reloadFormSection(_ formSection: ZLFormSectionDescriptor) {
         guard let idx = formSections.firstIndex(where: { $0.model === formSection }) else { return }
         tableView?.reloadSections(IndexSet(integer: idx), with: .automatic)
     }
     
+    ///同步数据并刷新整个 section，适用于 section 内有多个 row 需要刷新或者 section header/footer 需要刷新的情况。相比 reloadFormSection 方法，syncAndReloadSection 会先根据当前的 allSections 构建出一个新的 formSections（会过滤掉 hidden 的 section 和 row），然后通过 diff 的方式刷新 tableView，可以获得更好的动画效果。
     public func syncAndReloadSection(_ formSection: ZLFormSectionDescriptor) {
         let target = buildVisibleTarget()
         guard let tableView = tableView else {
