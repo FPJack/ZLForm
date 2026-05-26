@@ -37,7 +37,6 @@ open class ZLFormBaseCell: UITableViewCell, ZLFormDescriptorCell {
         titleLabel.font = UIFont.systemFont(ofSize: 16)
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         titleLabel.setContentCompressionResistancePriority(.defaultHigh + 1, for: .horizontal)
-
         contentView.addSubview(titleLabel)
         
         detailLabel = UILabel()

@@ -4,8 +4,8 @@ import SnapKit
 
 @objcMembers
 public class ZLFormTextFieldCell: ZLFormBaseCell, UITextFieldDelegate {
-    
     public private(set) var textField: UITextField!
+    
     
     open override func configure() {
         super.configure()

@@ -176,12 +176,13 @@
     nameRow.title = @"姓名";
     nameRow.value = @"张三";
     nameRow.height = 50;
-    nameRow.valueMapperToDisplay = ^id _Nonnull(id  _Nonnull value) {
+    nameRow.valueMapperToDisplay = ^id _Nullable(ZLFormRowDescriptor * _Nonnull row, id _Nullable value) {
         if ([value isKindOfClass:[NSString class]]) {
             return [NSString stringWithFormat:@"%@ (必填)", value];
         }
         return value;
     };
+   
     nameRow.onChangeBlock = ^(id oldValue, id newValue, ZLFormRowDescriptor *rowDescriptor) {
         NSLog(@"姓名变更: %@ -> %@", oldValue, newValue);
     };

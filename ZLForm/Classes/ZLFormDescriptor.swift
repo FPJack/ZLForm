@@ -79,15 +79,13 @@ public class ZLFormDescriptor: NSObject, UITableViewDelegate, UITableViewDataSou
             return
         }
         let changeset = StagedChangeset(source: formSections, target: target)
-        tableView.reload(using: changeset, with: .automatic) { [weak self] data in
+        tableView.reload(using: changeset, with: .fade) { [weak self] data in
             self?.formSections = data
         }
-        // Update all section background views after diff completes
         layoutAllSectionBackgroundViews()
     }
     
-    /// Recomputes visibility and applies animated diff to tableView.
-    /// Call this after changing `hidden` on any section or row.
+   
     public func reloadVisibility() {
         let target = buildVisibleTarget()
         performDiffUpdate(target: target)
@@ -288,9 +286,11 @@ public class ZLFormDescriptor: NSObject, UITableViewDelegate, UITableViewDataSou
     }
     
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let row = formSections[indexPath.section].elements[indexPath.row]
+        let sectionItem = formSections[indexPath.section];
+        sectionItem.model.section = indexPath.section
+        let row = sectionItem.elements[indexPath.row]
+        row.indexPath = indexPath
         let cell = row.cell
-        
         row.updateCellBlock?(cell, row.value, row)
         if let formCell = cell as? ZLFormDescriptorCell {
             formCell.update?()
@@ -305,12 +305,6 @@ public class ZLFormDescriptor: NSObject, UITableViewDelegate, UITableViewDataSou
                 }
 
         #endif
-        
-        
-        
-       
-        
-        
         return cell
     }
     
@@ -363,6 +357,10 @@ public class ZLFormDescriptor: NSObject, UITableViewDelegate, UITableViewDataSou
     public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         let row = formSections[indexPath.section].elements[indexPath.row]
+        if row.disabled {
+            return
+        }
+        row.didSelectBlock?(row,indexPath)
         delegate?.formDescriptor?(self, didSelectFormRow: row)
     }
     

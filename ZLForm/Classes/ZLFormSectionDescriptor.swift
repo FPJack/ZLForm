@@ -15,18 +15,22 @@ public class ZLFormSectionDescriptor: NSObject,Differentiable {
     
     public var sectionBackgroundInsets: UIEdgeInsets = .zero
     
-    public var insertAnimation: UITableView.RowAnimation = .automatic
-    public var deleteAnimation: UITableView.RowAnimation = .automatic
-    
     public weak var formDescriptor: ZLFormDescriptor?
     
     public private(set) var formRows: [ZLFormRowDescriptor] = []
     
     public var hidden: Bool = false
+    
+    /// section 展示出来的时候赋值，默认为 -1，表示未赋值。ZLFormDescriptor 会在展示 section 的时候赋值为当前 section 在 formSections 中的 index。
+    public var section: Int = -1
 
     public var tag: String = ""
     
+    public var title: String?
     
+    @objc public dynamic var value: Any?
+
+
     // MARK: - Init
     
     public override init() {
@@ -106,10 +110,13 @@ public class ZLFormSectionDescriptor: NSObject,Differentiable {
     }
     
     // MARK: - Differentiable
+    private let uuid = UUID().uuidString
+
     public var differenceIdentifier: String {
-        return tag
+        return tag.isEmpty ? uuid : tag
     }
-    public func isContentEqual(to source: ZLFormSectionDescriptor) -> Bool {
-        return tag == source.tag
+    public func isContentEqual(to source: ZLFormRowDescriptor) -> Bool {
+        return tag == source.tag &&
+               value as? NSObject == source.value as? NSObject 
     }
 }

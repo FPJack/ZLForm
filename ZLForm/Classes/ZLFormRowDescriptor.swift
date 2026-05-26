@@ -5,6 +5,12 @@ public typealias ZLConfigureCellBlock = (_ cell: UITableViewCell, _ value: Any?,
 public typealias ZLUpdateCellBlock = (_ cell: UITableViewCell, _ value: Any?, _ rowDescriptor: ZLFormRowDescriptor) -> Void
 public typealias ZLCellProviderBlock = (_ rowDescriptor: ZLFormRowDescriptor) -> UITableViewCell
 
+public typealias ZLValueMapperBlock = (_ row: ZLFormRowDescriptor,_ value: Any?) -> Any?
+
+///row被点击
+public typealias ZLFormRowDidSelectBlock = (_ rowDescriptor: ZLFormRowDescriptor, _ indexPath: IndexPath) -> Void
+
+
 @objcMembers
 public class ZLFormRowDescriptor: NSObject, Differentiable {
     
@@ -20,18 +26,19 @@ public class ZLFormRowDescriptor: NSObject, Differentiable {
     public var onChangeBlock: ZLOnChangeBlock?
     public var configureCellBlock: ZLConfigureCellBlock?
     public var updateCellBlock: ZLUpdateCellBlock?
-    
-    public var insertAnimation: UITableView.RowAnimation = .automatic
-    public var deleteAnimation: UITableView.RowAnimation = .automatic
+    public var didSelectBlock: ZLFormRowDidSelectBlock?
     
     public var disabled: Bool = false
     public var ignoreValue: Bool = false
 
     
-    public var valueMapperToDisplay: ((Any?) -> Any?)?
-    public var storageValueMapper: ((Any?) -> Any?)?
+    public var valueMapperToDisplay: ZLValueMapperBlock?
+    public var storageValueMapper: ZLValueMapperBlock?
     public var placeholderValue: Any?
     public var hidden: Bool = false
+
+    /// cell 展示出来的时候indexPath 会被赋值，默认为 nil，ZLFormDescriptor 会在展示 cell 的时候赋值为当前 cell 在 tableView 中的 indexPath。
+    public internal(set) var indexPath: IndexPath?
     
     private var _cell: UITableViewCell?
     private var validators: [ZLFormValidator] = []
@@ -44,7 +51,6 @@ public class ZLFormRowDescriptor: NSObject, Differentiable {
                 cell.rowDescriptor = self
             }
            _cell = cell
-            
         }
         return _cell!
     }
@@ -104,14 +110,14 @@ public class ZLFormRowDescriptor: NSObject, Differentiable {
     
     @objc public func valueForDisplay() -> Any? {
         if let mapper = valueMapperToDisplay {
-            return mapper(value)
+            return mapper(self,value)
         }
         return value
     }
     
     @objc public func valueForStorage() -> Any? {
         if let mapper = storageValueMapper {
-            return mapper(value)
+            return mapper(self,value)
         }
         return value
     }
@@ -143,10 +149,15 @@ public class ZLFormRowDescriptor: NSObject, Differentiable {
     
     
     // MARK: - Differentiable
+    private let uuid = UUID().uuidString
+    
     public var differenceIdentifier: String {
-        return tag
+        return tag.isEmpty ? uuid : tag
     }
+    
     public func isContentEqual(to source: ZLFormRowDescriptor) -> Bool {
-        return tag == source.tag;
+        return tag == source.tag &&
+               value as? NSObject == source.value as? NSObject &&
+               disabled == source.disabled
     }
 }
