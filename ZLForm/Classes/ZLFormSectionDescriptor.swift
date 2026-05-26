@@ -33,7 +33,7 @@ public class ZLFormSectionDescriptor: NSObject,Differentiable {
 
     // MARK: - Init
     
-    public override init() {
+    private override init() {
         super.init()
     }
     

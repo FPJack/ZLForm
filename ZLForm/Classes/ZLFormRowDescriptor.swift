@@ -56,7 +56,7 @@ public class ZLFormRowDescriptor: NSObject, Differentiable {
     }
     // MARK: - Init
     
-    public override init() {
+    private override init() {
         super.init()
         setupKVO()
     }

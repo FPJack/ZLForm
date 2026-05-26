@@ -116,7 +116,7 @@
     positionRow.cellClass = [ZLFormTextFieldCell class];
     positionRow.placeholderValue = @"请输入";
     [workSection addFormRow:positionRow];
-    
+    ZLFormRowDescriptor.alloc;
     
     // 工作年限
     ZLFormRowDescriptor *yearsRow = [ZLFormRowDescriptor formRowDescriptorWithTag:@"workYears"];
