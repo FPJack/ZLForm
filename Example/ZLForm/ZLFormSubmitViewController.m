@@ -35,10 +35,10 @@
 - (void)setupForm {
     self.formDescriptor = [ZLFormDescriptor formDescriptor];
     self.formDescriptor.delegate = self;
-    self.formDescriptor.sortByTag = NO;
+    self.formDescriptor.sortByTag = YES;
     
     // Section 1 - 基本信息
-    ZLFormSectionDescriptor *basicSection = [[ZLFormSectionDescriptor alloc] initWithTag:@"basic"];
+    ZLFormSectionDescriptor *basicSection = [[ZLFormSectionDescriptor alloc] initWithTag:@"1basic"];
     basicSection.headerHeight = 44;
     basicSection.headerViewBlock = ^UIView * _Nullable(ZLFormSectionDescriptor * _Nonnull sec) {
         UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(15, 10, 300, 34)];

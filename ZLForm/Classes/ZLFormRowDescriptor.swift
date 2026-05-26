@@ -164,6 +164,6 @@ public class ZLFormRowDescriptor: NSObject, Differentiable {
         }
         return tag == source.tag &&
                title == source.title &&
-               (value as? NSObject)?.isEqual(source.value) == true
+               value as? NSObject == source.value as? NSObject
     }
 }

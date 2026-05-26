@@ -102,6 +102,7 @@
     row.value = [NSString stringWithFormat:@"值_%ld", (long)self.rowCounter];
     row.height = 50;
     [lastSection addFormRow:row];
+    [self.formDescriptor testWithName:nil];
 }
 
 - (void)removeSectionAction {

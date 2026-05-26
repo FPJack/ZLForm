@@ -85,8 +85,11 @@ public class ZLFormSectionDescriptor: NSObject,Differentiable {
     // MARK: - Notifications
     
     private func notifyRowAdded(_ formRow: ZLFormRowDescriptor, at index: Int) {
+        notifyRowAdded(formRow, at: index, animation: .automatic)
+    }
+    private func notifyRowAdded(_ formRow: ZLFormRowDescriptor, at index: Int,animation : UITableView.RowAnimation = .automatic) {
         guard let descriptor = formDescriptor else { return }
-        descriptor.reloadDiff()
+        descriptor.reloadDiff(animation: animation)
         if let sectionIndex = descriptor.formSections.firstIndex(where: { $0.model === self }) {
             let indexPath = IndexPath(row: index, section: sectionIndex)
             descriptor.delegate?.formDescriptor?(descriptor, formRowHasBeenAdded: formRow, at: indexPath)
@@ -94,8 +97,11 @@ public class ZLFormSectionDescriptor: NSObject,Differentiable {
     }
     
     private func notifyRowRemoved(_ formRow: ZLFormRowDescriptor, at index: Int) {
+        notifyRowRemoved(formRow, at: index, animation: .automatic)
+    }
+    private func notifyRowRemoved(_ formRow: ZLFormRowDescriptor, at index: Int,animation : UITableView.RowAnimation = .automatic) {
         guard let descriptor = formDescriptor else { return }
-        descriptor.reloadDiff()
+        descriptor.reloadDiff(animation: animation)
         if let sectionIndex = descriptor.formSections.firstIndex(where: { $0.model === self }) {
             let indexPath = IndexPath(row: index, section: sectionIndex)
             descriptor.delegate?.formDescriptor?(descriptor, formRowHasBeenRemoved: formRow, at: indexPath)
@@ -123,7 +129,7 @@ public class ZLFormSectionDescriptor: NSObject,Differentiable {
         }
         return tag == source.tag &&
                title == source.title &&
-               (value as? NSObject)?.isEqual(source.value) == true
+            value as? NSObject == source.value as? NSObject
 
     }
 }
