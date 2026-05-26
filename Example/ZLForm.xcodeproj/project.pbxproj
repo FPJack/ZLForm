@@ -81,7 +81,7 @@
 		C2D54D2CADB905CDE13393E5 /* Pods-ZLForm_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ZLForm_Example.debug.xcconfig"; path = "Target Support Files/Pods-ZLForm_Example/Pods-ZLForm_Example.debug.xcconfig"; sourceTree = "<group>"; };
 		C7D4B8DCE18CAF7F968BE205 /* Pods-ZLForm_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ZLForm_Tests.debug.xcconfig"; path = "Target Support Files/Pods-ZLForm_Tests/Pods-ZLForm_Tests.debug.xcconfig"; sourceTree = "<group>"; };
 		CCCC00012FBE000000000001 /* ZLFormAutoHeightViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZLFormAutoHeightViewController.swift; sourceTree = "<group>"; };
-		FFB6613EC9092F480463E9A3 /* ZLForm.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = ZLForm.podspec; path = ../ZLForm.podspec; sourceTree = "<group>"; };
+		FFB6613EC9092F480463E9A3 /* ZLForm.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = ZLForm.podspec; path = ../ZLForm.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
