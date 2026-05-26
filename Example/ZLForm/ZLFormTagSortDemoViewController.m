@@ -6,7 +6,9 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "ZLFormTagSortDemoViewController.h" 
+#import "ZLFormTagSortDemoViewController.h"
+#import "ZLTableViewCell.h"
+
 @implementation ZLFormTagSortDemoViewController
 
 - (void)viewDidLoad {
@@ -47,7 +49,7 @@
             ZLFormRowDescriptor *row = [ZLFormRowDescriptor formRowDescriptorWithTag:rowTag];
             row.title = [NSString stringWithFormat:@"Row %@", rowTag];
             row.value = [NSString stringWithFormat:@"Value_%ld_%ld", (long)i, (long)j];
-            row.height = 44;
+            row.cellClass = [ZLTableViewCell class];
             [section addFormRow:row];
         }
         [self.formDescriptor addFormSection:section];
@@ -81,7 +83,7 @@
         ZLFormRowDescriptor *row = [ZLFormRowDescriptor formRowDescriptorWithTag:rowTag];
         row.title = [NSString stringWithFormat:@"Row %@", rowTag];
         row.value = [NSString stringWithFormat:@"Value_%ld_%ld", (long)idx, (long)j];
-        row.height = 44;
+        row.cellClass = [ZLTableViewCell class];
         [section addFormRow:row];
     }
     [self.formDescriptor addFormSection:section];
@@ -100,7 +102,7 @@
     ZLFormRowDescriptor *row = [ZLFormRowDescriptor formRowDescriptorWithTag:rowTag];
     row.title = [NSString stringWithFormat:@"Row %@", rowTag];
     row.value = [NSString stringWithFormat:@"Value_%@_%ld", section.tag, (long)idx];
-    row.height = 44;
+    row.cellClass = [ZLTableViewCell class];
     [section addFormRow:row];
 }
 
