@@ -10,6 +10,8 @@
 #import "ZLFormSubmitViewController.h"
 #import "ZLFormSectionBackgroundViewController.h"
 #import "ZLFormTagSortDemoViewController.h"
+#import "ZLTableViewCell.h"
+
 @import ZLForm;
 
 #if __has_include("ZLForm_Example-Swift.h")
@@ -94,7 +96,7 @@
     ZLFormRowDescriptor *row = [ZLFormRowDescriptor formRowDescriptorWithTag:[NSString stringWithFormat:@"newRow_s%ld_0", (long)self.sectionCounter]];
     row.title = [NSString stringWithFormat:@"新增行 (Section %ld)", (long)self.sectionCounter];
     row.value = @"默认值";
-    row.height = 50;
+    row.cellClass = ZLTableViewCell.class;
     [section addFormRow:row];
     [self.formDescriptor addFormSection:section];
 }
@@ -111,7 +113,7 @@
     ZLFormRowDescriptor *row = [ZLFormRowDescriptor formRowDescriptorWithTag:tag];
     row.title = [NSString stringWithFormat:@"动态行 %ld", (long)self.rowCounter];
     row.value = [NSString stringWithFormat:@"值_%ld", (long)self.rowCounter];
-    row.height = 50;
+    row.cellClass = ZLTableViewCell.class;
     [lastSection addFormRow:row];
     [self.formDescriptor testWithName:nil];
 }
@@ -187,7 +189,8 @@
     ZLFormRowDescriptor *nameRow = [ZLFormRowDescriptor formRowDescriptorWithTag:@"name"];
     nameRow.title = @"姓名";
     nameRow.value = @"张三";
-    nameRow.height = 50;
+    nameRow.cellClass = ZLTableViewCell.class;
+
     nameRow.valueMapperToDisplay = ^id _Nullable(ZLFormRowDescriptor * _Nonnull row, id _Nullable value) {
         if ([value isKindOfClass:[NSString class]]) {
             return [NSString stringWithFormat:@"%@ (必填)", value];
@@ -206,13 +209,15 @@
     ZLFormRowDescriptor *phoneRow = [ZLFormRowDescriptor formRowDescriptorWithTag:@"phone"];
     phoneRow.title = @"电话";
     phoneRow.value = @"13800138000";
-    phoneRow.height = 50;
+    phoneRow.cellClass = ZLTableViewCell.class;
+
     [section1 addFormRow:phoneRow];
     
     ZLFormRowDescriptor *emailRow = [ZLFormRowDescriptor formRowDescriptorWithTag:@"email"];
     emailRow.title = @"邮箱";
     emailRow.value = @"zhangsan@example.com";
-    emailRow.height = 50;
+    emailRow.cellClass = ZLTableViewCell.class;
+
     [section1 addFormRow:emailRow];
     
     [self.formDescriptor addFormSection:section1];
@@ -229,13 +234,13 @@
     ZLFormRowDescriptor *addressRow = [ZLFormRowDescriptor formRowDescriptorWithTag:@"address"];
     addressRow.title = @"地址";
     addressRow.value = @"北京市朝阳区";
-    addressRow.height = 50;
+    addressRow.cellClass = ZLTableViewCell.class;
     [section2 addFormRow:addressRow];
     
     ZLFormRowDescriptor *companyRow = [ZLFormRowDescriptor formRowDescriptorWithTag:@"company"];
     companyRow.title = @"公司";
     companyRow.value = @"ABC科技有限公司";
-    companyRow.height = 50;
+    companyRow.cellClass = ZLTableViewCell.class;
     [section2 addFormRow:companyRow];
     
     [self.formDescriptor addFormSection:section2];

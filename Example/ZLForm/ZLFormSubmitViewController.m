@@ -6,6 +6,8 @@
 //
 
 #import "ZLFormSubmitViewController.h"
+#import "ZLTableViewCell.h"
+
 @import ZLForm;
 
 #if __has_include("ZLForm_Example-Swift.h")

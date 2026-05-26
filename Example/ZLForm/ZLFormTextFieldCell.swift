@@ -5,7 +5,7 @@ import SnapKit
 @objcMembers
 public class ZLFormTextFieldCell: ZLFormBaseCell, UITextFieldDelegate {
     public private(set) var textField: UITextField!
-    
+    @objc public private(set) var titleLabel: UILabel!
     
     open override func configure() {
         super.configure()
@@ -20,8 +20,13 @@ public class ZLFormTextFieldCell: ZLFormBaseCell, UITextFieldDelegate {
         textField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
         contentView.addSubview(textField)
         
-        // Hide detailLabel
-        detailLabel.isHidden = true
+        titleLabel = UILabel()
+        titleLabel.numberOfLines = 0
+        titleLabel.font = UIFont.systemFont(ofSize: 16)
+        titleLabel.translatesAutoresizingMaskIntoConstraints = false
+        titleLabel.setContentCompressionResistancePriority(.defaultHigh + 1, for: .horizontal)
+        contentView.addSubview(titleLabel)
+        
         
         titleLabel.snp.remakeConstraints { make in
             make.leading.equalToSuperview().offset(15)
@@ -36,11 +41,14 @@ public class ZLFormTextFieldCell: ZLFormBaseCell, UITextFieldDelegate {
             make.height.equalTo(36)
         }
     }
+    public override func setupSubviews() {
+        
+    }
     
     open override func update() {
         super.update()
         guard let row = rowDescriptor else { return }
-        titleLabel.text = row.valueForDisplay() as? String
+        titleLabel.text = row.title
         textField.text = row.valueForDisplay() as? String;
         textField.placeholder = row.placeholderValue as? String
         textField.isEnabled = !row.disabled

@@ -1,7 +1,9 @@
 import UIKit
 import ZLForm
 import SnapKit
-
+#if canImport(ZLForm_Example)
+import ZLForm_Example
+#endif
 @objc
 public class ZLFormAutoHeightViewController: UIViewController, ZLFormDescriptorDelegate {
     
@@ -14,6 +16,7 @@ public class ZLFormAutoHeightViewController: UIViewController, ZLFormDescriptorD
         view.backgroundColor = .systemGroupedBackground
         setupForm()
         setupTableView()
+        
     }
     
     // MARK: - Setup
@@ -26,28 +29,33 @@ public class ZLFormAutoHeightViewController: UIViewController, ZLFormDescriptorD
         let section1 = ZLFormSectionDescriptor(tag: "fixedHeight")
         section1.headerViewBlock = { _ in
             let label = UILabel()
-            label.text = "头部高度自适应头部高度自适应头部高度自适应头部高度自适应头部高度自适应头部高度自适应头部高度自适应头部高度自适应头部高度自适应头部高度自适应头部高度自适应头部高度自适应头部高度自适应头部高度自适应头部高度自适应头部高度自适应头部高度自适应头部高度自适应头部高度自适应头部高度自适应头部高度自适应"
+            label.text = "头部高度自适应头部高度自适应头部高度自适应头部高度自适应头部高度自适应头部高度自适应头部高度自适应头部高度自适应头部高度自适应头部高度自适应头部高度自适应头部高度自适应头部高度自适应头部高度自适应头部高度自适应头部高度自适应头部高度自适应头部高度自适应头部高度自适应头部高度自适应头部高度自适应头部高度自适应头部高度自适应头部高度自适应头部高度自适应头部高度自适应头部高度自适应头部高度自适应头部高度自适应头部高度自适应头部高度自适应头部高度自适应头部高度自适应头部高度自适应头部高度自适应头部高度自适应头部高度自适应头部高度自适应头部高度自适应头部高度自适应头部高度自适应头部高度自适应头部高度自适应"
             label.numberOfLines = 0
             label.font = .boldSystemFont(ofSize: 16)
             return label
         }
         
         let row1 = ZLFormRowDescriptor.formRowDescriptor(tag: "fixed1")
-        row1.title = "固定50pt"
+        row1.title = "固定80pt"
         row1.value = "这行高度固定50pt" as NSString
-        row1.height = 50
+        row1.height = 80
+        row1.cellClass = ZLTableViewCell.self
         section1.addFormRow(row1)
         
         let row2 = ZLFormRowDescriptor.formRowDescriptor(tag: "fixed2")
         row2.title = "固定80pt"
         row2.value = "这行高度固定80pt" as NSString
         row2.height = 80
+        row2.cellClass = ZLTableViewCell.self
+
         section1.addFormRow(row2)
         
         let row3 = ZLFormRowDescriptor.formRowDescriptor(tag: "fixed3")
         row3.title = "固定120pt"
         row3.value = "这行高度固定120pt，内容很多也不会撑开" as NSString
         row3.height = 120
+        row3.cellClass = ZLTableViewCell.self
+
         section1.addFormRow(row3)
         
         formDescriptor.addFormSection(section1)
@@ -96,6 +104,7 @@ public class ZLFormAutoHeightViewController: UIViewController, ZLFormDescriptorD
         autoRow2.title = "输入框2"
         autoRow2.cellClass = ZLFormTextFieldCell.self
         autoRow2.placeholderValue = "这个也是自适应" as NSString
+
         section2.addFormRow(autoRow2)
         
         formDescriptor.addFormSection(section2)
@@ -113,26 +122,28 @@ public class ZLFormAutoHeightViewController: UIViewController, ZLFormDescriptorD
         let mixRow1 = ZLFormRowDescriptor.formRowDescriptor(tag: "mix1")
         mixRow1.title = "姓名"
         mixRow1.height = 60
-        mixRow1.cellClass = ZLFormTextFieldCell.self
+        mixRow1.cellClass = ZLTableViewCell.self
         mixRow1.placeholderValue = "固定60pt高度" as NSString
         section3.addFormRow(mixRow1)
         
         let mixRow2 = ZLFormRowDescriptor.formRowDescriptor(tag: "mix2")
         mixRow2.title = "备注"
-        mixRow2.cellClass = ZLFormTextFieldCell.self
         mixRow2.placeholderValue = "自适应高度（未设置height）" as NSString
+        mixRow2.cellClass = ZLTableViewCell.self
+
         section3.addFormRow(mixRow2)
         
         let mixRow3 = ZLFormRowDescriptor.formRowDescriptor(tag: "mix3")
         mixRow3.title = "地址"
         mixRow3.height = 100
-        mixRow3.cellClass = ZLFormTextFieldCell.self
         mixRow3.placeholderValue = "固定100pt高度" as NSString
+        mixRow3.cellClass = ZLTableViewCell.self
         section3.addFormRow(mixRow3)
         
         let mixRow4 = ZLFormRowDescriptor.formRowDescriptor(tag: "mix4")
         mixRow4.title = "电话"
         mixRow4.placeholderValue = "自适应高度自适应高度自适自适应高度自适应高度自适应高度自适应高度应高度自适应高度自适应高度自适应高度自适自适应高度自适应高度自适应高度自适应高度应高度自适应高度自适应高度自适应高度自适自适应高度自适应高度自适应高度自适应高度应高度自适应高度" as NSString
+        mixRow4.cellClass = ZLTableViewCell.self
         section3.addFormRow(mixRow4)
         
         formDescriptor.addFormSection(section3)
@@ -169,7 +180,9 @@ public class ZLFormAutoHeightViewController: UIViewController, ZLFormDescriptorD
         let footerRow = ZLFormRowDescriptor.formRowDescriptor(tag: "footerRow")
         footerRow.title = "示例行"
         footerRow.value = "下方Footer自适应" as NSString
-        footerRow.height = 50
+        footerRow.height = 70
+        footerRow.cellClass = ZLTableViewCell.self
+
         section4.addFormRow(footerRow)
         
         formDescriptor.addFormSection(section4)

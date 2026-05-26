@@ -7,17 +7,61 @@
 //
 
 #import "ZLTableViewCell.h"
+
+@interface ZLTableViewCell()
+@property (nonatomic, strong) UILabel *titleLabel;
+@property (nonatomic, strong) UILabel *detailLabel;
+@end
+
 @implementation ZLTableViewCell
+
+- (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
+    self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
+    if (self) {
+        [self setupLabels];
+    }
+    return self;
+}
 
 - (void)awakeFromNib {
     [super awakeFromNib];
-    // Initialization code
+    [self setupLabels];
 }
 
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
-    [super setSelected:selected animated:animated];
-
-    // Configure the view for the selected state
+- (void)setupLabels {
+    if (!_titleLabel) {
+        _titleLabel = [[UILabel alloc] init];
+        _titleLabel.font = [UIFont boldSystemFontOfSize:16];
+        _titleLabel.textColor = [UIColor blackColor];
+        [self.contentView addSubview:_titleLabel];
+        _titleLabel.translatesAutoresizingMaskIntoConstraints = NO;
+        [_titleLabel.leadingAnchor constraintEqualToAnchor:self.contentView.leadingAnchor constant:16].active = YES;
+        [_titleLabel.topAnchor constraintEqualToAnchor:self.contentView.topAnchor constant:10].active = YES;
+        [_titleLabel.trailingAnchor constraintEqualToAnchor:self.contentView.trailingAnchor constant:-16].active = YES;
+    }
+    if (!_detailLabel) {
+        _detailLabel = [[UILabel alloc] init];
+        _detailLabel.font = [UIFont systemFontOfSize:14];
+        _detailLabel.textColor = [UIColor grayColor];
+        [self.contentView addSubview:_detailLabel];
+        _detailLabel.translatesAutoresizingMaskIntoConstraints = NO;
+        [_detailLabel.leadingAnchor constraintEqualToAnchor:self.contentView.leadingAnchor constant:16].active = YES;
+        [_detailLabel.topAnchor constraintEqualToAnchor:_titleLabel.bottomAnchor constant:4].active = YES;
+        [_detailLabel.trailingAnchor constraintEqualToAnchor:self.contentView.trailingAnchor constant:-16].active = YES;
+        [_detailLabel.bottomAnchor constraintEqualToAnchor:self.contentView.bottomAnchor constant:-10].active = YES;
+    }
 }
+
+- (void)setRowDescriptor:(ZLFormRowDescriptor *)rowDescriptor {
+    _rowDescriptor = rowDescriptor;
+    self.titleLabel.text = rowDescriptor.title;
+    self.detailLabel.text = [rowDescriptor.value isKindOfClass:[NSString class]] ? (NSString *)rowDescriptor.value : rowDescriptor.placeholderValue;
+}
+
+- (CGFloat)cellHeightForRowDescriptor:(ZLFormRowDescriptor *)rowDescriptor {
+    return 0; // 0 表示用自动布局高度
+}
+
+@synthesize rowDescriptor = _rowDescriptor;
 
 @end

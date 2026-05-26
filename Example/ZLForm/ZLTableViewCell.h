@@ -7,13 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
-@import ZLForm;
-
+#import <ZLForm/ZLForm-Swift.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ZLTableViewCell : UITableViewCell<ZLFormDescriptorCell>
-
+@interface ZLTableViewCell : UITableViewCell <ZLFormDescriptorCell>
+@property (nonatomic, strong) ZLFormRowDescriptor *rowDescriptor;
 @end
 
 NS_ASSUME_NONNULL_END

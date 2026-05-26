@@ -313,14 +313,6 @@ public class ZLFormDescriptor: NSObject, UITableViewDelegate, UITableViewDataSou
         }
         
         delegate?.formDescriptor?(self, updateFormRow: row)
-        ///debug 模式下
-        #if DEBUG
-                if let cell = cell as? ZLFormBaseCell {
-                    cell.titleLabel.text = row.title
-                    cell.detailLabel.text = row.value as? String ?? row.placeholderValue as? String
-                }
-
-        #endif
         return cell
     }
     

@@ -6,6 +6,8 @@
 //
 
 #import "ZLFormSectionBackgroundViewController.h"
+#import "ZLTableViewCell.h"
+
 @import ZLForm;
 
 @interface ZLFormSectionBackgroundViewController ()<ZLFormDescriptorDelegate>
@@ -65,19 +67,21 @@
     ZLFormRowDescriptor *nameRow = [ZLFormRowDescriptor formRowDescriptorWithTag:@"name"];
     nameRow.title = @"姓名";
     nameRow.value = @"张三";
-    nameRow.height = 50;
+    nameRow.cellClass = [ZLTableViewCell class];
     [section1 addFormRow:nameRow];
     
     ZLFormRowDescriptor *phoneRow = [ZLFormRowDescriptor formRowDescriptorWithTag:@"phone"];
     phoneRow.title = @"电话";
     phoneRow.value = @"13800138000";
-    phoneRow.height = 50;
+    phoneRow.cellClass = [ZLTableViewCell class];
+
+    
     [section1 addFormRow:phoneRow];
     
     ZLFormRowDescriptor *emailRow = [ZLFormRowDescriptor formRowDescriptorWithTag:@"email"];
     emailRow.title = @"邮箱";
     emailRow.value = @"test@example.com";
-    emailRow.height = 50;
+    emailRow.cellClass = [ZLTableViewCell class];
     [section1 addFormRow:emailRow];
     
     [self.formDescriptor addFormSection:section1];
@@ -104,13 +108,13 @@
     ZLFormRowDescriptor *companyRow = [ZLFormRowDescriptor formRowDescriptorWithTag:@"company"];
     companyRow.title = @"公司";
     companyRow.value = @"ABC科技";
-    companyRow.height = 50;
+    companyRow.cellClass = [ZLTableViewCell class];
     [section2 addFormRow:companyRow];
     
     ZLFormRowDescriptor *positionRow = [ZLFormRowDescriptor formRowDescriptorWithTag:@"position"];
     positionRow.title = @"职位";
     positionRow.value = @"iOS开发";
-    positionRow.height = 50;
+    positionRow.cellClass = [ZLTableViewCell class];
     [section2 addFormRow:positionRow];
     
     [self.formDescriptor addFormSection:section2];
@@ -137,7 +141,7 @@
     ZLFormRowDescriptor *defaultRow = [ZLFormRowDescriptor formRowDescriptorWithTag:@"dynamic_default"];
     defaultRow.title = @"默认行";
     defaultRow.value = @"点击右上角动态操作";
-    defaultRow.height = 50;
+    defaultRow.cellClass = [ZLTableViewCell class];
     [section3 addFormRow:defaultRow];
     
     
@@ -163,7 +167,7 @@
     ZLFormRowDescriptor *row = [ZLFormRowDescriptor formRowDescriptorWithTag:tag];
     row.title = [NSString stringWithFormat:@"动态行 %ld", (long)self.rowCounter];
     row.value = [NSString stringWithFormat:@"值_%ld", (long)self.rowCounter];
-    row.height = 50;
+    row.cellClass = [ZLTableViewCell class];
     [section3 addFormRow:row];
 }
 
