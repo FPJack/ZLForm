@@ -26,6 +26,7 @@
 		847DE5902FBDB7A200E40E5D /* ZLFormSubmitViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 847DE58F2FBDB7A200E40E5D /* ZLFormSubmitViewController.m */; };
 		847DE5952FBEAE5000E40E5D /* ZLFormTextFieldCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847DE5942FBEAE5000E40E5D /* ZLFormTextFieldCell.swift */; };
 		848B8A1F2FC54A7A00AD3DC2 /* ZLTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 848B8A1E2FC54A7A00AD3DC2 /* ZLTableViewCell.m */; };
+		848B8A292FC59E0300AD3DC2 /* ZLFormTagSortDemoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 848B8A282FC59E0300AD3DC2 /* ZLFormTagSortDemoViewController.m */; };
 		873B8AEB1B1F5CCA007FD442 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 873B8AEA1B1F5CCA007FD442 /* Main.storyboard */; };
 		AAAA00032FBE000000000003 /* ZLFormSectionBackgroundViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AAAA00022FBE000000000002 /* ZLFormSectionBackgroundViewController.m */; };
 		B0B47E9BDD4A330B6AA889F5 /* Pods_ZLForm_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 378BE659F7A6878F787B5C9B /* Pods_ZLForm_Tests.framework */; };
@@ -74,6 +75,8 @@
 		847DE5942FBEAE5000E40E5D /* ZLFormTextFieldCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZLFormTextFieldCell.swift; sourceTree = "<group>"; };
 		848B8A1D2FC54A7A00AD3DC2 /* ZLTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZLTableViewCell.h; sourceTree = "<group>"; };
 		848B8A1E2FC54A7A00AD3DC2 /* ZLTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZLTableViewCell.m; sourceTree = "<group>"; };
+		848B8A272FC59E0300AD3DC2 /* ZLFormTagSortDemoViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZLFormTagSortDemoViewController.h; sourceTree = "<group>"; };
+		848B8A282FC59E0300AD3DC2 /* ZLFormTagSortDemoViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZLFormTagSortDemoViewController.m; sourceTree = "<group>"; };
 		873B8AEA1B1F5CCA007FD442 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Main.storyboard; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		98FB7827F64BAC717C85D4FD /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
 		AAAA00012FBE000000000001 /* ZLFormSectionBackgroundViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZLFormSectionBackgroundViewController.h; sourceTree = "<group>"; };
@@ -162,6 +165,8 @@
 				6003F5A5195388D20070C39A /* ZLViewController.h */,
 				6003F5A6195388D20070C39A /* ZLViewController.m */,
 				847DE58E2FBDB7A200E40E5D /* ZLFormSubmitViewController.h */,
+				848B8A272FC59E0300AD3DC2 /* ZLFormTagSortDemoViewController.h */,
+				848B8A282FC59E0300AD3DC2 /* ZLFormTagSortDemoViewController.m */,
 				847DE58F2FBDB7A200E40E5D /* ZLFormSubmitViewController.m */,
 				AAAA00012FBE000000000001 /* ZLFormSectionBackgroundViewController.h */,
 				AAAA00022FBE000000000002 /* ZLFormSectionBackgroundViewController.m */,
@@ -419,6 +424,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				848B8A292FC59E0300AD3DC2 /* ZLFormTagSortDemoViewController.m in Sources */,
 				847DE5902FBDB7A200E40E5D /* ZLFormSubmitViewController.m in Sources */,
 				AAAA00032FBE000000000003 /* ZLFormSectionBackgroundViewController.m in Sources */,
 				CCCC00022FBE000000000002 /* ZLFormAutoHeightViewController.swift in Sources */,

@@ -9,6 +9,7 @@
 #import "ZLViewController.h"
 #import "ZLFormSubmitViewController.h"
 #import "ZLFormSectionBackgroundViewController.h"
+#import "ZLFormTagSortDemoViewController.h"
 @import ZLForm;
 
 #if __has_include("ZLForm_Example-Swift.h")
@@ -48,6 +49,11 @@
     UIBarButtonItem *toggleSectionBtn = [[UIBarButtonItem alloc] initWithTitle:@"隐/显Section" style:UIBarButtonItemStylePlain target:self action:@selector(toggleSectionHidden)];
     UIBarButtonItem *toggleRowBtn = [[UIBarButtonItem alloc] initWithTitle:@"隐/显Row" style:UIBarButtonItemStylePlain target:self action:@selector(toggleRowHidden)];
     self.navigationItem.leftBarButtonItems = @[removeSectionBtn, removeRowBtn, toggleSectionBtn, toggleRowBtn];
+    
+    UIBarButtonItem *tagSortBtn = [[UIBarButtonItem alloc] initWithTitle:@"Tag排序Demo" style:UIBarButtonItemStylePlain target:self action:@selector(pushTagSortDemo)];
+    NSMutableArray *items = [self.navigationItem.rightBarButtonItems mutableCopy] ?: [NSMutableArray array];
+    [items addObject:tagSortBtn];
+    self.navigationItem.rightBarButtonItems = items;
 }
 
 - (void)pushSubmitForm {
@@ -62,6 +68,11 @@
 
 - (void)pushAutoHeightDemo {
     ZLFormAutoHeightViewController *vc = [[ZLFormAutoHeightViewController alloc] init];
+    [self.navigationController pushViewController:vc animated:YES];
+}
+
+- (void)pushTagSortDemo {
+    ZLFormTagSortDemoViewController *vc = [[ZLFormTagSortDemoViewController alloc] init];
     [self.navigationController pushViewController:vc animated:YES];
 }
 
