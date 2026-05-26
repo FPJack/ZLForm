@@ -40,8 +40,8 @@ public class ZLFormTextFieldCell: ZLFormBaseCell, UITextFieldDelegate {
     open override func update() {
         super.update()
         guard let row = rowDescriptor else { return }
-        titleLabel.text = row.title
-        textField.text = row.value as? String
+        titleLabel.text = row.valueForDisplay() as? String
+        textField.text = row.valueForDisplay() as? String;
         textField.placeholder = row.placeholderValue as? String
         textField.isEnabled = !row.disabled
     }

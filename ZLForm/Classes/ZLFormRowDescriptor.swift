@@ -155,10 +155,15 @@ public class ZLFormRowDescriptor: NSObject, Differentiable {
         return tag.isEmpty ? uuid : tag
     }
     
+    public var contentEqualHandler: ((ZLFormRowDescriptor, ZLFormRowDescriptor) -> Bool)?
+
     public func isContentEqual(to source: ZLFormRowDescriptor) -> Bool {
+
+        if let handler = contentEqualHandler ?? source.contentEqualHandler {
+            return handler(self, source)
+        }
         return tag == source.tag &&
                title == source.title &&
-               value as? NSObject == source.value as? NSObject &&
-               disabled == source.disabled
+               (value as? NSObject)?.isEqual(source.value) == true
     }
 }

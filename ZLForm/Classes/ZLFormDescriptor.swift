@@ -188,11 +188,18 @@ public class ZLFormDescriptor: NSObject, UITableViewDelegate, UITableViewDataSou
     }
     
     // MARK: - Reload
-    
+    ///强制刷新
     public func reloadFormRow(_ formRow: ZLFormRowDescriptor) {
         guard let indexPath = indexPath(of: formRow) else { return }
         tableView?.reloadRows(at: [indexPath], with: .none)
     }
+    public func reloadFormRow(_ formRow: ZLFormRowDescriptor,animation : UITableView.RowAnimation = .automatic) {
+        guard let indexPath = indexPath(of: formRow) else { return }
+        tableView?.reloadRows(at: [indexPath], with: animation)
+    }
+    
+    
+
     
     public func indexPath(of formRow: ZLFormRowDescriptor) -> IndexPath? {
         guard let section = formRow.sectionDescriptor,
@@ -201,25 +208,36 @@ public class ZLFormDescriptor: NSObject, UITableViewDelegate, UITableViewDataSou
         return IndexPath(row: rowIdx, section: sectionIdx)
     }
     
-    ///刷新整个 section，适用于 section 内有多个 row 需要刷新或者 section header/footer 需要刷新的情况
+    ///强制刷新
     public func reloadFormSection(_ formSection: ZLFormSectionDescriptor) {
-        guard let idx = formSections.firstIndex(where: { $0.model === formSection }) else { return }
-        tableView?.reloadSections(IndexSet(integer: idx), with: .automatic)
+       reloadFormSection(formSection, animation: .none)
     }
     
-    ///同步数据并刷新整个 section，适用于 section 内有多个 row 需要刷新或者 section header/footer 需要刷新的情况。相比 reloadFormSection 方法，syncAndReloadSection 会先根据当前的 allSections 构建出一个新的 formSections（会过滤掉 hidden 的 section 和 row），然后通过 diff 的方式刷新 tableView，可以获得更好的动画效果。
-    public func syncAndReloadSection(_ formSection: ZLFormSectionDescriptor) {
+    public func reloadFormSection(_ formSection: ZLFormSectionDescriptor,animation : UITableView.RowAnimation = .automatic) {
+        guard let idx = formSections.firstIndex(where: { $0.model === formSection }) else { return }
+        tableView?.reloadSections(IndexSet(integer: idx), with: animation)
+    }
+    
+    ///差异化刷新列表
+    public func reloadDiff(animation : UITableView.RowAnimation = .automatic) {
         let target = buildVisibleTarget()
         guard let tableView = tableView else {
             formSections = target
             return
         }
         let changeset = StagedChangeset(source: formSections, target: target)
-        tableView.reload(using: changeset, with: .automatic) { [weak self] data in
+        tableView.reload(using: changeset, with: animation) { [weak self] data in
             self?.formSections = data
         }
         layoutAllSectionBackgroundViews()
     }
+    public func reloadDiff() {
+        reloadDiff(animation: .none)
+    }
+    public func reload() {
+        self.tableView?.reloadData()
+    }
+
     
     // MARK: - Form Values
     
@@ -408,13 +426,17 @@ public class ZLFormDescriptor: NSObject, UITableViewDelegate, UITableViewDataSou
 
         let sectionRect = tableView.rect(forSection: section);
         let insets = sectionModel.sectionBackgroundInsets
+        let rect = CGRect(
+            x: sectionRect.origin.x + insets.left,
+            y: sectionRect.origin.y + insets.top,
+            width: sectionRect.width - insets.left - insets.right,
+            height: sectionRect.height - insets.top - insets.bottom
+        )
+        if bgView.frame.equalTo(rect) {
+            return
+        }
         UIView.animate(withDuration: 0.1) {
-            bgView.frame = CGRect(
-                x: sectionRect.origin.x + insets.left,
-                y: sectionRect.origin.y + insets.top,
-                width: sectionRect.width - insets.left - insets.right,
-                height: sectionRect.height - insets.top - insets.bottom
-            )
+            bgView.frame = rect
         }
     }
     

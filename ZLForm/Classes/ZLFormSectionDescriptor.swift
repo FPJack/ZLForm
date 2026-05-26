@@ -86,7 +86,7 @@ public class ZLFormSectionDescriptor: NSObject,Differentiable {
     
     private func notifyRowAdded(_ formRow: ZLFormRowDescriptor, at index: Int) {
         guard let descriptor = formDescriptor else { return }
-        descriptor.syncAndReloadSection(self)
+        descriptor.reloadDiff()
         if let sectionIndex = descriptor.formSections.firstIndex(where: { $0.model === self }) {
             let indexPath = IndexPath(row: index, section: sectionIndex)
             descriptor.delegate?.formDescriptor?(descriptor, formRowHasBeenAdded: formRow, at: indexPath)
@@ -95,7 +95,7 @@ public class ZLFormSectionDescriptor: NSObject,Differentiable {
     
     private func notifyRowRemoved(_ formRow: ZLFormRowDescriptor, at index: Int) {
         guard let descriptor = formDescriptor else { return }
-        descriptor.syncAndReloadSection(self)
+        descriptor.reloadDiff()
         if let sectionIndex = descriptor.formSections.firstIndex(where: { $0.model === self }) {
             let indexPath = IndexPath(row: index, section: sectionIndex)
             descriptor.delegate?.formDescriptor?(descriptor, formRowHasBeenRemoved: formRow, at: indexPath)
@@ -115,9 +115,15 @@ public class ZLFormSectionDescriptor: NSObject,Differentiable {
     public var differenceIdentifier: String {
         return tag.isEmpty ? uuid : tag
     }
-    public func isContentEqual(to source: ZLFormRowDescriptor) -> Bool {
+    public var contentEqualHandler: ((ZLFormSectionDescriptor, ZLFormSectionDescriptor) -> Bool)?
+
+    public func isContentEqual(to source: ZLFormSectionDescriptor) -> Bool {
+        if let handler = contentEqualHandler ?? source.contentEqualHandler {
+            return handler(self, source)
+        }
         return tag == source.tag &&
                title == source.title &&
-               value as? NSObject == source.value as? NSObject
+               (value as? NSObject)?.isEqual(source.value) == true
+
     }
 }

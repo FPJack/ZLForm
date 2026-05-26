@@ -116,7 +116,6 @@
     positionRow.cellClass = [ZLFormTextFieldCell class];
     positionRow.placeholderValue = @"请输入";
     [workSection addFormRow:positionRow];
-    ZLFormRowDescriptor.alloc;
     
     // 工作年限
     ZLFormRowDescriptor *yearsRow = [ZLFormRowDescriptor formRowDescriptorWithTag:@"workYears"];
@@ -132,6 +131,9 @@
         return value;
     };
     [workSection addFormRow:yearsRow];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [self.formDescriptor reloadFormRow:yearsRow animation:UITableViewRowAnimationFade];
+    });
     
     [self.formDescriptor addFormSection:workSection];
     
