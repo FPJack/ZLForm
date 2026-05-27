@@ -101,8 +101,6 @@ public class ZLFormDescriptor: NSObject, UITableViewDelegate, UITableViewDataSou
         performDiffUpdate(target: target)
     }
     
-    public func test(name: String? = "") {
-    }
     
     public func addFormSection(_ formSection: ZLFormSectionDescriptor) {
         guard !allSections.contains(where: { $0 === formSection }) else { return }
@@ -448,8 +446,6 @@ public class ZLFormDescriptor: NSObject, UITableViewDelegate, UITableViewDataSou
             layoutSectionBackgroundView(for: idx, in: tableView)
         }
     }
-    
-    
     
     public init(@FormBuilder builder: () -> [ZLFormSectionDescriptor]) {
         super.init()

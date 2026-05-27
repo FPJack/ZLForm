@@ -192,14 +192,10 @@ public class ZLFormAutoHeightViewController: UIViewController, ZLFormDescriptorD
         tableView = UITableView(frame: .zero, style: .grouped)
         tableView.backgroundColor = .systemGroupedBackground
         view.addSubview(tableView)
-        
         tableView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
-        
         formDescriptor.tableView = tableView
-    
-        
     }
     
     // MARK: - ZLFormDescriptorDelegate

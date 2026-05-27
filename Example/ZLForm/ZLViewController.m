@@ -115,7 +115,6 @@
     row.value = [NSString stringWithFormat:@"值_%ld", (long)self.rowCounter];
     row.cellClass = ZLTableViewCell.class;
     [lastSection addFormRow:row];
-    [self.formDescriptor testWithName:nil];
 }
 
 - (void)removeSectionAction {

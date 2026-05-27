@@ -51,6 +51,7 @@ public class ZLFormRowDescriptor: NSObject, Differentiable {
             if let cell = cell as? ZLFormDescriptorCell {
                 cell.rowDescriptor = self
             }
+            configureCellBlock?(cell, value, self)
            _cell = cell
         }
         return _cell!

@@ -5,6 +5,7 @@ platform :ios, '13.0'
 target 'ZLForm_Example' do
   pod 'ZLForm', :path => '../'
   pod 'SnapKit'
+  pod 'Then'
   target 'ZLForm_Tests' do
     inherit! :search_paths
 
