@@ -6,14 +6,16 @@
 //
 
 import Foundation
+
 @resultBuilder
 public struct FormBuilder {
     public static func buildBlock(_ components: ZLFormSectionDescriptor...) -> [ZLFormSectionDescriptor] {
         components
     }
 }
+
 @resultBuilder
-public struct RowBuilder {
+public struct SectionBuilder {
     public static func buildBlock(_ components: ZLFormRowDescriptor...) -> [ZLFormRowDescriptor] {
         components
     }

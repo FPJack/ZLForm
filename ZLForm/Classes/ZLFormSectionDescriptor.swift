@@ -137,7 +137,7 @@ public class ZLFormSectionDescriptor: NSObject,Differentiable {
     }
     
     
-    public init(@RowBuilder builder: () -> [ZLFormRowDescriptor]) {
+    public init(@SectionBuilder builder: () -> [ZLFormRowDescriptor]) {
         super.init()
         let rows = builder()
         rows.forEach { row in
