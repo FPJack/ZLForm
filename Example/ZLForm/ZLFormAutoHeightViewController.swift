@@ -128,7 +128,7 @@ public class ZLFormAutoHeightViewController: UIViewController, ZLFormDescriptorD
         
         let mixRow2 = ZLFormRowDescriptor.formRowDescriptor(tag: "mix2")
         mixRow2.title = "备注"
-        mixRow2.placeholderValue = "自适应高度（未设置height）" as NSString
+        mixRow2.placeholderValue = "自适应高度（未设置height）自适应高度（未设置height）自适应高度（未设置height）自适应高度（未设置height）自适应高度（未设置height）" as NSString
         mixRow2.cellClass = ZLTableViewCell.self
 
         section3.addFormRow(mixRow2)
@@ -142,7 +142,7 @@ public class ZLFormAutoHeightViewController: UIViewController, ZLFormDescriptorD
         
         let mixRow4 = ZLFormRowDescriptor.formRowDescriptor(tag: "mix4")
         mixRow4.title = "电话"
-        mixRow4.placeholderValue = "自适应高度自适应高度自适自适应高度自适应高度自适应高度自适应高度应高度自适应高度自适应高度自适应高度自适自适应高度自适应高度自适应高度自适应高度应高度自适应高度自适应高度自适应高度自适自适应高度自适应高度自适应高度自适应高度应高度自适应高度" as NSString
+        mixRow4.placeholderValue = "1自适应高度自适应高度自适自适应高度自适应高度自适应高度自适应高度应高度自适应高度自适应高度自适应高度自适自适应高度自适应高度自适应高度自适应高度应高度自适应高度自适应高度自适应高度自适自适应高度自适应高度自适应高度自适应高度应高度自适应高度" as NSString
         mixRow4.cellClass = ZLTableViewCell.self
         section3.addFormRow(mixRow4)
         
@@ -198,6 +198,8 @@ public class ZLFormAutoHeightViewController: UIViewController, ZLFormDescriptorD
         }
         
         formDescriptor.tableView = tableView
+    
+        
     }
     
     // MARK: - ZLFormDescriptorDelegate

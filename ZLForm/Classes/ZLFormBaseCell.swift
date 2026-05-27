@@ -3,7 +3,7 @@ import UIKit
 // MARK: - ZLFormDescriptorCell Protocol
 
 @objc public protocol ZLFormDescriptorCell: NSObjectProtocol {
-    var rowDescriptor: ZLFormRowDescriptor? { get set }
+    @objc var rowDescriptor: ZLFormRowDescriptor? { get set }
     @objc optional func configure()
     @objc optional func update()
     @objc optional func cellHeight(for rowDescriptor: ZLFormRowDescriptor) -> CGFloat
@@ -37,3 +37,6 @@ open class ZLFormBaseCell: UITableViewCell, ZLFormDescriptorCell {
     
     open func update() {}
 }
+
+
+

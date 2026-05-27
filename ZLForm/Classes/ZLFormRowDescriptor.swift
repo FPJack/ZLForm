@@ -30,6 +30,7 @@ public class ZLFormRowDescriptor: NSObject, Differentiable {
     
     public var disabled: Bool = false
     public var ignoreValue: Bool = false
+    public var cellStyle: UITableViewCell.CellStyle = .default
 
     
     public var valueMapperToDisplay: ZLValueMapperBlock?
@@ -86,10 +87,10 @@ public class ZLFormRowDescriptor: NSObject, Differentiable {
             return provider(self)
         }
         if let cls = cellClass as? UITableViewCell.Type {
-            let cell = cls.init(style: .default, reuseIdentifier: tag)
+            let cell = cls.init(style: cellStyle, reuseIdentifier: tag)
             return cell
         }
-        return ZLFormBaseCell(style: .default, reuseIdentifier: tag)
+        return ZLFormBaseCell(style: cellStyle, reuseIdentifier: tag)
     }
     
     @objc public func cellForFormController(_ formController: UIViewController) -> UITableViewCell  {
@@ -166,4 +167,5 @@ public class ZLFormRowDescriptor: NSObject, Differentiable {
                title == source.title &&
                value as? NSObject == source.value as? NSObject
     }
+    
 }

@@ -40,6 +40,12 @@ public class ZLFormDescriptor: NSObject, UITableViewDelegate, UITableViewDataSou
     
     public var sortByTag: Bool = false
     
+    
+    ///背景变化动画时间
+    public var backgroundViewAnimationDuration: TimeInterval = 0.1
+    
+   
+    
     // MARK: - Init
     
     public override init() {
@@ -423,7 +429,8 @@ public class ZLFormDescriptor: NSObject, UITableViewDelegate, UITableViewDataSou
         if bgView.frame.equalTo(rect) {
             return
         }
-        UIView.animate(withDuration: 0.1) {
+        let duration = sectionModel.backgroundViewAnimationDuration >= 0 ? sectionModel.backgroundViewAnimationDuration : self.backgroundViewAnimationDuration
+        UIView.animate(withDuration: duration) {
             bgView.frame = rect
         }
     }
@@ -441,4 +448,16 @@ public class ZLFormDescriptor: NSObject, UITableViewDelegate, UITableViewDataSou
             layoutSectionBackgroundView(for: idx, in: tableView)
         }
     }
+    
+    
+    
+    public init(@FormBuilder builder: () -> [ZLFormSectionDescriptor]) {
+        super.init()
+        let sections = builder()
+        sections.forEach { section in
+            self.addFormSection(section)
+        }
+    }
 }
+
+

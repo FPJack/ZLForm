@@ -29,6 +29,9 @@ public class ZLFormSectionDescriptor: NSObject,Differentiable {
     public var title: String?
     
     @objc public dynamic var value: Any?
+    
+    ///背景变化动画时间
+    public var backgroundViewAnimationDuration: TimeInterval = -1
 
 
     // MARK: - Init
@@ -131,5 +134,14 @@ public class ZLFormSectionDescriptor: NSObject,Differentiable {
                title == source.title &&
             value as? NSObject == source.value as? NSObject
 
+    }
+    
+    
+    public init(@RowBuilder builder: () -> [ZLFormRowDescriptor]) {
+        super.init()
+        let rows = builder()
+        rows.forEach { row in
+            self.addFormRow(row)
+        }
     }
 }

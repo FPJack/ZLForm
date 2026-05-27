@@ -8,6 +8,13 @@
 
 #import "ZLTableViewCell.h"
 
+
+@interface ZLBox<ObjectType> : NSObject
+@property(nonatomic,strong) ObjectType value;
+@end
+@implementation ZLBox
+@end
+
 @interface ZLTableViewCell()
 @property (nonatomic, strong) UILabel *titleLabel;
 @property (nonatomic, strong) UILabel *detailLabel;
@@ -31,6 +38,7 @@
 - (void)setupLabels {
     if (!_titleLabel) {
         _titleLabel = [[UILabel alloc] init];
+        _titleLabel.numberOfLines = 0;
         _titleLabel.font = [UIFont boldSystemFontOfSize:16];
         _titleLabel.textColor = [UIColor blackColor];
         [self.contentView addSubview:_titleLabel];
@@ -38,11 +46,13 @@
         [_titleLabel.leadingAnchor constraintEqualToAnchor:self.contentView.leadingAnchor constant:16].active = YES;
         [_titleLabel.topAnchor constraintEqualToAnchor:self.contentView.topAnchor constant:10].active = YES;
         [_titleLabel.trailingAnchor constraintEqualToAnchor:self.contentView.trailingAnchor constant:-16].active = YES;
+       
     }
     if (!_detailLabel) {
         _detailLabel = [[UILabel alloc] init];
         _detailLabel.font = [UIFont systemFontOfSize:14];
         _detailLabel.textColor = [UIColor grayColor];
+        _detailLabel.numberOfLines = 0;
         [self.contentView addSubview:_detailLabel];
         _detailLabel.translatesAutoresizingMaskIntoConstraints = NO;
         [_detailLabel.leadingAnchor constraintEqualToAnchor:self.contentView.leadingAnchor constant:16].active = YES;
@@ -65,3 +75,5 @@
 @synthesize rowDescriptor = _rowDescriptor;
 
 @end
+
+

@@ -88,6 +88,8 @@
         return [str containsString:@"@"] && [str containsString:@"."];
     }];
     [basicSection addFormRow:emailRow];
+    ZLFormTextFieldCell *cell =  ZLFormTextFieldCell.new;
+    [ZLFormTextFieldCell.alloc.init shColor:nil];
     
     [self.formDescriptor addFormSection:basicSection];
     // Section 2 - 工作信息
