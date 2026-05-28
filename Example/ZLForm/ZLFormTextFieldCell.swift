@@ -9,28 +9,9 @@ public class ZLFormTextFieldCell: ZLFormBaseCell, UITextFieldDelegate {
     public private(set) var textField: UITextField!
     @objc public private(set) var titleLabel: UILabel!
     
-//    public var shColor: (_ color: Any) ->  ZLFormTextFieldCell {
-//        return { color in
-//            // 这里进行颜色设置
-//            // self.shadowColor = ...
-//            return self
-//        }
-//    }
-    @discardableResult
-    public func shColor(_ color: Any) -> Self {
-        // 设置颜色
-        return self
-    }
-    
-    @objc public lazy var textFieldHeight = {
-        return self
-    }()
-    
     open override func configure() {
         super.configure()
         selectionStyle = .none
-        
-    
     
         textField = UITextField()
         textField.textAlignment = .right

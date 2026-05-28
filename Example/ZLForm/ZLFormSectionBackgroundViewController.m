@@ -42,15 +42,13 @@
 - (void)setupForm {
     self.formDescriptor = [ZLFormDescriptor formDescriptor];
     self.formDescriptor.delegate = self;
+    UIEdgeInsets inset = UIEdgeInsetsMake(4, 10, 4, 10);
     
     // Section 1
     ZLFormSectionDescriptor *section1 = [[ZLFormSectionDescriptor alloc] initWithTag:@"section1"];
     section1.headerHeight = 40;
     section1.headerViewBlock = ^UIView * _Nullable(ZLFormSectionDescriptor * _Nonnull sec) {
-        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(15, 8, 300, 32)];
-        label.text = @"个人信息";
-        label.font = [UIFont boldSystemFontOfSize:16];
-        return label;
+        return [self headerViewWithTitle:@"个人信息"];
     };
     
     // 背景 view
@@ -62,7 +60,7 @@
     bg1.layer.shadowOffset = CGSizeMake(0, 2);
     bg1.layer.shadowRadius = 6;
     section1.sectionBackgroundView = bg1;
-    section1.sectionBackgroundInsets = UIEdgeInsetsMake(4, 16, 4, 16);
+    section1.sectionBackgroundInsets = inset;
     
     ZLFormRowDescriptor *nameRow = [ZLFormRowDescriptor formRowDescriptorWithTag:@"name"];
     nameRow.title = @"姓名";
@@ -90,10 +88,7 @@
     ZLFormSectionDescriptor *section2 = [[ZLFormSectionDescriptor alloc] initWithTag:@"section2"];
     section2.headerHeight = 40;
     section2.headerViewBlock = ^UIView * _Nullable(ZLFormSectionDescriptor * _Nonnull sec) {
-        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(15, 8, 300, 32)];
-        label.text = @"工作信息";
-        label.font = [UIFont boldSystemFontOfSize:16];
-        return label;
+        return [self headerViewWithTitle:@"工作信息"];
     };
     
     // 背景 view - 蓝色调
@@ -103,7 +98,7 @@
     bg2.layer.borderWidth = 1;
     bg2.layer.borderColor = [[UIColor systemBlueColor] colorWithAlphaComponent:0.2].CGColor;
     section2.sectionBackgroundView = bg2;
-    section2.sectionBackgroundInsets = UIEdgeInsetsMake(4, 16, 4, 16);
+    section2.sectionBackgroundInsets = inset;
     
     ZLFormRowDescriptor *companyRow = [ZLFormRowDescriptor formRowDescriptorWithTag:@"company"];
     companyRow.title = @"公司";
@@ -123,10 +118,7 @@
     ZLFormSectionDescriptor *section3 = [[ZLFormSectionDescriptor alloc] initWithTag:@"section3"];
     section3.headerHeight = 40;
     section3.headerViewBlock = ^UIView * _Nullable(ZLFormSectionDescriptor * _Nonnull sec) {
-        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(15, 8, 300, 32)];
-        label.text = @"动态添加区域";
-        label.font = [UIFont boldSystemFontOfSize:16];
-        return label;
+        return [self headerViewWithTitle:@"动态添加区域"];
     };
     
     // 背景 view - 绿色调
@@ -136,7 +128,7 @@
     bg3.layer.borderWidth = 1;
     bg3.layer.borderColor = [[UIColor systemGreenColor] colorWithAlphaComponent:0.3].CGColor;
     section3.sectionBackgroundView = bg3;
-    section3.sectionBackgroundInsets = UIEdgeInsetsMake(4, 16, 4, 16);
+    section3.sectionBackgroundInsets = inset;
     
     ZLFormRowDescriptor *defaultRow = [ZLFormRowDescriptor formRowDescriptorWithTag:@"dynamic_default"];
     defaultRow.title = @"默认行";
@@ -147,7 +139,17 @@
     
     [self.formDescriptor addFormSection:section3];
 }
-
+- (UIView *)headerViewWithTitle:(NSString *)title {
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(15, 0, 300, 40)];
+    label.text = title;
+    label.font = [UIFont boldSystemFontOfSize:16];
+    UIView *view = UIView.new;
+    [view addSubview:label];
+    
+    
+    
+    return view;
+}
 - (void)setupTableView {
     self.tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStyleGrouped];
     self.tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
@@ -174,10 +176,6 @@
 - (void)removeRowAction {
     // 删除第三个 section 最后一行，背景自动收缩
     ZLFormSectionDescriptor *section3 = self.formDescriptor.allSections.lastObject;
-//    if (section3.formRows.count <= 1) {
-//        NSLog(@"至少保留一行");
-//        return;
-//    }
     ZLFormRowDescriptor *lastRow = section3.formRows.lastObject;
     [section3 removeFormRow:lastRow];
 }

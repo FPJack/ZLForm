@@ -30,7 +30,6 @@
 
 - (void)setupForm {
     self.formDescriptor = [ZLFormDescriptor formDescriptor];
-    self.formDescriptor.delegate = self;
     self.formDescriptor.sortByTag = YES;
     // 初始添加2个section
     for (NSInteger i = 0; i < 2; i++) {
