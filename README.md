@@ -1,296 +1,694 @@
-ZLForm 使用手册（中文）
-=================================
+# ZLForm
 
-目录
-----
+[![Version](https://img.shields.io/cocoapods/v/ZLForm.svg?style=flat)](https://cocoapods.org/pods/ZLForm)
+[![License](https://img.shields.io/cocoapods/l/ZLForm.svg?style=flat)](https://cocoapods.org/pods/ZLForm)
+[![Platform](https://img.shields.io/cocoapods/p/ZLForm.svg?style=flat)](https://cocoapods.org/pods/ZLForm)
 
-1. 简介
-2. 快速开始（最小示例）
-3. 安装与工程设置（CocoaPods / workspace / 桥接头）
-4. 核心概念与类型说明
-5. 常见操作（创建 section / row / 展示）
-6. DifferenceKit 差量刷新使用要点
-7. 隐藏 / 显示 与 排序（tag）
-8. 自定义 Cell（cellProvider / cellClass）
-9. 自动高度与固定高度优先级
-10. 组背景视图（背景始终在 cell 下面的策略）
-11. Demo（AutoHeight / TagSort / Background）如何接入工程
-12. 常见问题与排查（EXC_BAD_ACCESS、reloadRows、KVO、桥接等）
-13. 进阶技巧与最佳实践
-14. 联系与贡献
+ZLForm 是一个基于 `UITableView` 的声明式表单库，使用 **DifferenceKit** 做差量刷新，支持 Swift 与 Objective-C 混合使用。它将表单建模为 `ZLFormDescriptor → [ZLFormSectionDescriptor] → [ZLFormRowDescriptor]` 的三层数据结构，开发者只需要维护"数据模型"，UI 的刷新（插入、删除、移动、reload）都由库内部计算 diff 并播放动画。
 
-1. 简介
----------
+---
 
-ZLForm 是一个基于描述符驱动（descriptor-driven）的轻量级表单框架，用于在 Example 工程中快速构建基于 UITableView 的表单界面。核心特点：
+## 目录
 
-- 使用 ZLFormDescriptor / ZLFormSectionDescriptor / ZLFormRowDescriptor 表示表单数据结构
-- 使用 DifferenceKit 的 ArraySection 做增量更新（插入/删除/移动/局部刷新动画）
-- 支持自定义 cell（通过 class 或 provider block），可以在 Swift/ObjC 混合项目中使用
-- 支持按 tag 排序、按组/按行隐藏、组背景 view、以及 Auto Layout 自动高度
+- [特性](#特性)
+- [环境要求](#环境要求)
+- [安装](#安装)
+- [快速上手](#快速上手)
+- [核心概念](#核心概念)
+- [API 详解](#api-详解)
+  - [ZLFormDescriptor](#zlformdescriptor)
+  - [ZLFormSectionDescriptor](#zlformsectiondescriptor)
+  - [ZLFormRowDescriptor](#zlformrowdescriptor)
+  - [ZLFormDescriptorCell 协议](#zlformdescriptorcell-协议)
+  - [ZLFormBaseCell](#zlformbasecell)
+- [常见场景与示例](#常见场景与示例)
+  - [1. 动态添加 / 删除 Section / Row](#1-动态添加--删除-section--row)
+  - [2. 隐藏 / 显示 Section 与 Row](#2-隐藏--显示-section-与-row)
+  - [3. 按 tag 自动排序](#3-按-tag-自动排序)
+  - [4. 自定义 Cell（cellClass / cellProvider）](#4-自定义-cellcellclass--cellprovider)
+  - [5. 自动高度与固定高度混合](#5-自动高度与固定高度混合)
+  - [6. Section 背景 View](#6-section-背景-view)
+  - [7. 强制刷新单行内容](#7-强制刷新单行内容)
+- [Objective-C 集成](#objective-c-集成)
+- [Demo 工程](#demo-工程)
+- [注意事项 / 踩坑指南](#注意事项--踩坑指南)
+- [常见问题 FAQ](#常见问题-faq)
+- [作者 / License](#作者--license)
 
-2. 快速开始（最小示例）
-----------------------
+---
 
-Swift 最小示例（在某个 UIViewController 中）
+## 特性
 
-```swift
-// 假设 tableView 已经连好并且在 storyboard / 代码中创建
-let form = ZLFormDescriptor(tableView: tableView)
+- ✅ 声明式 API，数据驱动 UI
+- ✅ 基于 [DifferenceKit](https://github.com/ra1028/DifferenceKit) 的差量刷新，**只刷新变化的 row/section**，自带动画
+- ✅ 支持 Section 和 Row 的 **隐藏 / 显示**（section 优先级高于 row）
+- ✅ 支持按 **tag 自动排序**（同时更新底层数组顺序，diff 稳定）
+- ✅ 支持 **AutoLayout 自适应高度**，外部设置的固定高度优先
+- ✅ 支持 **Section 背景 View**，自动跟随 cell 增删动态调整 frame
+- ✅ **Swift / Objective-C 混合调用**，Cell 可以用 OC 写，外部可以用 Swift 配置
+- ✅ Cell 创建支持 `cellClass` 与 `cellProvider` block 两种方式，**block 优先**
+- ✅ 防止误用：`init` 已被禁用，只能通过工厂方法创建
 
-let section = ZLFormSectionDescriptor(tag: "personal")
-section.title = "个人信息"
+## 环境要求
 
-let nameRow = ZLFormRowDescriptor.formRowDescriptor(tag: "name")
-nameRow.title = "姓名"
-nameRow.value = "张三"
-nameRow.cellClass = ZLFormTextFieldCell.self // 或使用 cellProvider
+- iOS 11.0+
+- Xcode 12+
+- Swift 5.0+
+- 依赖：`DifferenceKit`、`SnapKit`、`Then`
 
-let phoneRow = ZLFormRowDescriptor.formRowDescriptor(tag: "phone")
-phoneRow.title = "电话"
-phoneRow.cellProvider = { row in
-	let cell = ZLTableViewCell(style: .value1, reuseIdentifier: row.tag)
-	return cell
-}
+## 安装
 
-section.formRows = [nameRow, phoneRow]
-form.append(sectionDescriptor: section)
+### CocoaPods
+
+在 `Podfile` 中添加：
+
+```ruby
+use_frameworks!
+
+target 'YourApp' do
+  pod 'ZLForm'
+end
 ```
 
-Objective-C 最小示例（在某个 UIViewController 中）
-
-```objc
-ZLFormDescriptor *form = [[ZLFormDescriptor alloc] initWithTableView:self.tableView];
-
-ZLFormSectionDescriptor *sec = [[ZLFormSectionDescriptor alloc] initWithTag:@"personal"];
-sec.title = @"个人信息";
-
-ZLFormRowDescriptor *r1 = [ZLFormRowDescriptor formRowDescriptorWithTag:@"name"];
-r1.title = @"姓名";
-r1.cellClass = [ZLFormTextFieldCell class];
-
-[sec setFormRows:@[r1]];
-[form appendSectionDescriptor:sec];
-```
-
-3. 安装与工程设置
--------------------
-
-1) CocoaPods（Example）
+然后执行：
 
 ```bash
-cd /Users/admin/Desktop/多语言翻译/ZLForm/Example
+pod install
+```
+
+> **必须使用 `use_frameworks!`**，因为 ZLForm 是 Swift 编写并依赖 SnapKit/DifferenceKit。
+
+### 桥接头文件（OC 工程使用）
+
+如果你的主工程是 Objective-C，需要在 Swift 文件中使用自定义 OC Cell，请创建桥接头：
+
+1. 新建 `YourApp-Bridging-Header.h`
+2. 在 Build Settings 中设置 `SWIFT_OBJC_BRIDGING_HEADER` 指向该文件
+3. 在桥接头中 `#import "YourCustomCell.h"`
+
+详见 [Objective-C 集成](#objective-c-集成) 章节。
+
+---
+
+## 快速上手
+
+### Swift
+
+```swift
+import ZLForm
+
+class MyFormVC: UIViewController {
+
+    let tableView = UITableView(frame: .zero, style: .grouped)
+    let formDescriptor = ZLFormDescriptor()
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        view.addSubview(tableView)
+        tableView.frame = view.bounds
+
+        // 1. 把 tableView 交给 formDescriptor 管理（自动设 dataSource/delegate）
+        formDescriptor.tableView = tableView
+
+        // 2. 创建 section
+        let section = ZLFormSectionDescriptor.formSection(title: "个人信息")
+
+        // 3. 创建 row（必须用工厂方法，init 已禁用）
+        let nameRow = ZLFormRowDescriptor.formRowDescriptor(tag: "name")
+        nameRow.title = "姓名"
+        nameRow.value = "张三" as NSObject
+
+        let ageRow = ZLFormRowDescriptor.formRowDescriptor(tag: "age")
+        ageRow.title = "年龄"
+        ageRow.value = NSNumber(value: 18)
+
+        // 4. 组装
+        section.addFormRow(nameRow)
+        section.addFormRow(ageRow)
+        formDescriptor.addFormSection(section)
+    }
+}
+```
+
+### Objective-C
+
+```objc
+#import <ZLForm/ZLForm-Swift.h>
+
+@interface MyFormVC ()
+@property (nonatomic, strong) UITableView *tableView;
+@property (nonatomic, strong) ZLFormDescriptor *formDescriptor;
+@end
+
+@implementation MyFormVC
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+
+    self.tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStyleGrouped];
+    [self.view addSubview:self.tableView];
+
+    self.formDescriptor = [[ZLFormDescriptor alloc] init];
+    self.formDescriptor.tableView = self.tableView;
+
+    ZLFormSectionDescriptor *section = [ZLFormSectionDescriptor formSectionWithTitle:@"个人信息"];
+
+    ZLFormRowDescriptor *nameRow = [ZLFormRowDescriptor formRowDescriptorWithTag:@"name"];
+    nameRow.title = @"姓名";
+    nameRow.value = @"张三";
+
+    [section addFormRow:nameRow];
+    [self.formDescriptor addFormSection:section];
+}
+@end
+```
+
+---
+
+## 核心概念
+
+### 三层数据结构
+
+```
+ZLFormDescriptor              ← 表单（对应 1 个 UITableView）
+  ├─ ZLFormSectionDescriptor  ← 分组（对应 1 个 section）
+  │    ├─ ZLFormRowDescriptor ← 行（对应 1 个 cell）
+  │    └─ ...
+  └─ ...
+```
+
+### DifferenceKit 差量刷新机制
+
+ZLForm 内部用 `ArraySection<ZLFormSectionDescriptor, ZLFormRowDescriptor>` 维护"可见"数据：
+
+```swift
+public private(set) var formSections: [ArraySection<ZLFormSectionDescriptor, ZLFormRowDescriptor>] = []
+```
+
+所有增删改操作都会：
+1. 构造一个 `target` 数组（期望的最终状态）
+2. 通过 `StagedChangeset(source: formSections, target: target)` 计算分阶段差异
+3. 调用 `tableView.reload(using: changeset, with: .automatic) { setData }` 让 DifferenceKit 自动播动画并在 `setData` 闭包中更新数据源
+
+**这意味着：你只需要修改数据，UI 会自动以动画方式更新，不会调用 `reloadData()` 整表刷新。**
+
+### 数据源分离
+
+| 属性 | 含义 |
+|------|------|
+| `allSections` | 真实数据源（包含隐藏的 section / row） |
+| `formSections` | 可见数据源（DifferenceKit 驱动，过滤掉 hidden） |
+
+`buildVisibleTarget()` 负责把 `allSections` 过滤、排序后转成 `formSections`。
+
+---
+
+## API 详解
+
+### ZLFormDescriptor
+
+表单顶层容器，每个表单对应 1 个 `UITableView`。
+
+#### 属性
+
+| 属性 | 类型 | 说明 |
+|------|------|------|
+| `tableView` | `UITableView?` | 关联的 tableView，设置后自动接管 dataSource/delegate |
+| `delegate` | `ZLFormDescriptorDelegate?` | 表单事件回调 |
+| `allSections` | `[ZLFormSectionDescriptor]` | 所有 section（**只读**，含隐藏） |
+| `formSections` | `[ArraySection<...>]` | 可见 section（**只读**，Swift only） |
+| `sectionDescriptors` | `[ZLFormSectionDescriptor]` | OC 可访问的所有 section |
+| `sortByTag` | `Bool` | 是否按 tag 自动排序所有 section 和 row，默认 `false` |
+
+#### 方法
+
+```swift
+// 添加 section
+func addFormSection(_ formSection: ZLFormSectionDescriptor)
+func addFormSection(_ formSection: ZLFormSectionDescriptor, at index: Int)
+
+// 删除 section
+func removeFormSection(_ formSection: ZLFormSectionDescriptor)
+func removeFormSection(at index: Int)
+
+// 根据 tag 查找
+func formSection(withTag tag: String) -> ZLFormSectionDescriptor?
+func formRow(withTag tag: String) -> ZLFormRowDescriptor?
+
+// 隐藏 / 显示变化后调用，触发差量刷新
+func reloadVisibility()
+
+// 同步某个 section 的 rows 后刷新（内部使用，外部一般不需要）
+func syncAndReloadSection(_ formSection: ZLFormSectionDescriptor)
+
+// 获取表单所有值（key = row.tag）
+func formValues() -> [String: Any]
+```
+
+> ⚠️ **不要直接修改 `formSections`**。所有修改都应通过 `addFormSection` / `removeFormSection` / `reloadVisibility` 等方法，否则 DifferenceKit 的 source/target 会不一致，导致回退到 `reloadData()`。
+
+### ZLFormSectionDescriptor
+
+#### 创建
+
+```swift
+ZLFormSectionDescriptor.formSection()
+ZLFormSectionDescriptor.formSection(title: "标题")
+```
+
+#### 属性
+
+| 属性 | 类型 | 说明 |
+|------|------|------|
+| `tag` | `String` | 唯一标识，diff 用 |
+| `title` | `String?` | section header 文字 |
+| `footerTitle` | `String?` | section footer 文字 |
+| `headerHeight` | `CGFloat` | header 高度，`0` 表示自动 |
+| `footerHeight` | `CGFloat` | footer 高度，`0` 表示自动 |
+| `headerView` | `UIView?` | 自定义 header view |
+| `footerView` | `UIView?` | 自定义 footer view |
+| `isHiddenSection` | `Bool` | 是否隐藏整组（**优先级高于 row 的 hidden**） |
+| `sectionBackgroundView` | `UIView?` | 整组背景 view |
+| `sectionBackgroundInsets` | `UIEdgeInsets` | 背景 view 距离首行/末行的偏移 |
+| `formRows` | `[ZLFormRowDescriptor]` | 所有 row（含隐藏） |
+| `formDescriptor` | `ZLFormDescriptor?` | 反向引用 |
+
+#### 方法
+
+```swift
+func addFormRow(_ formRow: ZLFormRowDescriptor)
+func addFormRow(_ formRow: ZLFormRowDescriptor, at index: Int)
+func removeFormRow(_ formRow: ZLFormRowDescriptor)
+func removeFormRow(at index: Int)
+func formRow(withTag tag: String) -> ZLFormRowDescriptor?
+```
+
+### ZLFormRowDescriptor
+
+#### 创建
+
+```swift
+// 必须使用工厂方法（init 已被禁用）
+let row = ZLFormRowDescriptor.formRowDescriptor(tag: "name")
+```
+
+```objc
+// OC 必须使用类方法（alloc/new/init 已 NS_UNAVAILABLE）
+ZLFormRowDescriptor *row = [ZLFormRowDescriptor formRowDescriptorWithTag:@"name"];
+```
+
+#### 属性
+
+| 属性 | 类型 | 说明 |
+|------|------|------|
+| `tag` | `String` | 唯一标识 |
+| `title` | `String?` | 标题文本 |
+| `value` | `NSObject?` | 数据值 |
+| `placeholder` | `String?` | 占位提示 |
+| `required` | `Bool` | 是否必填 |
+| `disabled` | `Bool` | 是否禁用 |
+| `height` | `CGFloat` | 固定高度，`0` 表示自动 |
+| `isHiddenRow` | `Bool` | 是否隐藏该行 |
+| `cellClass` | `AnyClass?` | Cell 类（必须实现 `ZLFormDescriptorCell` 协议） |
+| `cellProvider` | `ZLCellProviderBlock?` | Cell 创建闭包（**优先级高于 cellClass**） |
+| `valueMapperToDisplay` | `((ZLFormRowDescriptor, Any?) -> Any?)?` | value 转显示文本的转换器 |
+| `sectionDescriptor` | `ZLFormSectionDescriptor?` | 反向引用 |
+| `forceUpdateFlag` | `Int` | 修改它会让 `isContentEqual` 返回 false，触发 cell 重新刷新 |
+
+#### 方法
+
+```swift
+// 获取最终展示高度（外部 height > cell.cellHeight > automaticDimension）
+func effectiveHeight() -> CGFloat
+
+// 拿到关联的 cell（懒加载创建）
+func cell() -> UITableViewCell
+```
+
+### ZLFormDescriptorCell 协议
+
+自定义 cell 必须实现此协议（除 `rowDescriptor` 外其余都是 optional）：
+
+```swift
+@objc public protocol ZLFormDescriptorCell {
+    var rowDescriptor: ZLFormRowDescriptor? { get set }   // 必须
+
+    @objc optional func configure()                        // 初始化时调用一次
+    @objc optional func update()                           // 每次 cellForRow 调用
+    @objc optional func cellHeight(for rowDescriptor: ZLFormRowDescriptor) -> CGFloat
+    @objc optional func formDescriptorCellDidSelected(with tableView: UITableView)
+}
+```
+
+### ZLFormBaseCell
+
+库内置基类，默认提供 `titleLabel` + `detailLabel` 的简单展示。自定义 cell 可继承它，也可以直接实现协议。
+
+```swift
+open class ZLFormBaseCell: UITableViewCell, ZLFormDescriptorCell {
+    public let titleLabel = UILabel()
+    public let detailLabel = UILabel()
+    open var rowDescriptor: ZLFormRowDescriptor?
+    open func configure() { /* 子类重写 */ }
+    open func update() { /* 子类重写 */ }
+}
+```
+
+---
+
+## 常见场景与示例
+
+### 1. 动态添加 / 删除 Section / Row
+
+```swift
+// 添加 section（带动画）
+let newSection = ZLFormSectionDescriptor.formSection(title: "新分组")
+formDescriptor.addFormSection(newSection)
+
+// 添加 row 到指定 section
+let newRow = ZLFormRowDescriptor.formRowDescriptor(tag: "newRow")
+newRow.title = "新行"
+newSection.addFormRow(newRow)
+
+// 删除
+formDescriptor.removeFormSection(newSection)
+newSection.removeFormRow(newRow)
+```
+
+> ⚙️ 内部全部走 DifferenceKit diff，UI 自动带 `.fade` 动画。
+
+### 2. 隐藏 / 显示 Section 与 Row
+
+```swift
+// 隐藏单行
+nameRow.isHiddenRow = true
+formDescriptor.reloadVisibility()    // 触发 diff 刷新
+
+// 隐藏整组（优先级高于 row）
+infoSection.isHiddenSection = true
+formDescriptor.reloadVisibility()
+```
+
+> 🔑 **优先级**：`section.isHiddenSection = true` 时，该 section 下所有 row（无论是否 `isHiddenRow`）都不展示。
+
+### 3. 按 tag 自动排序
+
+```swift
+formDescriptor.sortByTag = true
+
+// 之后任何 add/remove 都会自动按 tag 排序
+let row = ZLFormRowDescriptor.formRowDescriptor(tag: "a_first")
+section.addFormRow(row)
+```
+
+> 🔑 开启 `sortByTag` 后，`allSections` 和 `section.formRows` **数组本身的顺序**会被更新（不只是展示时排序），diff 计算稳定，不会出现"加在末尾但显示在中间"的诡异闪动。
+
+### 4. 自定义 Cell（cellClass / cellProvider）
+
+#### 方式一：cellClass
+
+```swift
+class MyCustomCell: ZLFormBaseCell {
+    override func configure() {
+        // 添加子视图、约束
+    }
+    override func update() {
+        titleLabel.text = rowDescriptor?.title
+    }
+}
+
+row.cellClass = MyCustomCell.self
+```
+
+#### 方式二：cellProvider（优先级更高）
+
+```swift
+row.cellProvider = { rowDesc in
+    let cell = MyCustomCell(style: .default, reuseIdentifier: rowDesc.tag)
+    return cell
+}
+```
+
+> ✅ 当两者都设置时，**`cellProvider` 优先**，`cellClass` 被忽略。两者都未设置时使用 `ZLFormBaseCell` 兜底。
+
+### 5. 自动高度与固定高度混合
+
+```swift
+// 固定高度
+row1.height = 80
+
+// 自动高度（不设 height，由 AutoLayout 撑开）
+row2.height = 0          // 或不设
+```
+
+> 📐 **优先级**：`row.height > cell.cellHeight(for:) > UITableView.automaticDimension`。
+>
+> Header / Footer 同理：`section.headerHeight > 0` 时用固定值，否则 `automaticDimension`。
+
+### 6. Section 背景 View
+
+```swift
+let bgView = UIView()
+bgView.backgroundColor = .white
+bgView.layer.cornerRadius = 12
+bgView.layer.shadowOpacity = 0.1
+bgView.layer.shadowRadius = 4
+bgView.layer.shadowOffset = CGSize(width: 0, height: 2)
+
+section.sectionBackgroundView = bgView
+section.sectionBackgroundInsets = UIEdgeInsets(top: 4, left: 16, bottom: 4, right: 16)
+```
+
+> 🎨 **实现原理**：
+> - 在 `willDisplay cell/header/footer` 时计算该 section 所有可见 row 的 union rect
+> - 更新背景 view frame，并对所有背景 view 调用 `sendSubviewToBack`，保证 cell 在背景之上
+> - 删除 row/section 后内部调用 `layoutAllSectionBackgroundViews()`，背景 frame 自动收缩
+>
+> ⚠️ **不使用 `layer.zPosition`**，因为 tableView 在重布局时会重排子视图层级，必须每次显示时主动 `sendSubviewToBack`。
+
+### 7. 强制刷新单行内容
+
+如果某行的 `value` 改变了，但你希望 UI 重新走一次 `cellForRowAt`：
+
+```swift
+row.value = "新值" as NSObject
+row.forceUpdateFlag += 1     // 触发 isContentEqual 返回 false
+section.formDescriptor?.syncAndReloadSection(section)
+```
+
+> ⚠️ **不要直接让 `isContentEqual` 永远返回 `false`**，否则 DifferenceKit 会对所有 row 执行 `reloadRows(at:with:.fade)`。由于本库每行持有同一个 cell 对象（不走 dequeue），fade 动画会导致 cell `alpha` 异常，看起来像消失了。
+> 内部已做处理：内容变化的 row 用 `.none` 动画手动 reload，insert/delete 仍带 `.fade`。
+
+---
+
+## Objective-C 集成
+
+### 1. 桥接头文件（OC 主工程 + Swift Cell）
+
+如果在 Swift 文件中使用 OC 写的自定义 Cell：
+
+`YourApp-Bridging-Header.h`：
+```objc
+#import "MyCustomCell.h"
+```
+
+Build Settings → `Objective-C Bridging Header` 设置路径：
+```
+$(SRCROOT)/YourApp/YourApp-Bridging-Header.h
+```
+
+### 2. OC 中使用 Swift 类
+
+```objc
+#import <ZLForm/ZLForm-Swift.h>
+
+ZLFormDescriptor *desc = [[ZLFormDescriptor alloc] init];
+ZLFormSectionDescriptor *sec = [ZLFormSectionDescriptor formSectionWithTitle:@"标题"];
+ZLFormRowDescriptor *row = [ZLFormRowDescriptor formRowDescriptorWithTag:@"name"];
+```
+
+### 3. 禁用 `alloc/new/init`
+
+为了防止 OC 直接 `[[ZLFormRowDescriptor alloc] init]`，库提供了一个分类头：
+
+```objc
+#import "ZLFormRowDescriptor+Unavailable.h"
+// 之后 alloc/new/init 在编译期就会报错
+```
+
+只能用：
+```objc
+[ZLFormRowDescriptor formRowDescriptorWithTag:@"xxx"];
+```
+
+---
+
+## Demo 工程
+
+`Example/` 目录下包含多个示例控制器：
+
+| 控制器 | 演示内容 |
+|--------|---------|
+| `ZLViewController` | 主入口，基础表单 + 动态隐藏 section/row |
+| `ZLFormSubmitViewController` | 表单提交 + 取值 |
+| `ZLFormSectionBackgroundViewController` | section 背景 view 动态适应 |
+| `ZLFormAutoHeightViewController` | 自动高度 + 固定高度混合 |
+| `ZLFormTagSortDemoViewController` | tag 自动排序 + 动态插入/删除 |
+
+运行方式：
+
+```bash
+cd Example
 pod install
 open ZLForm.xcworkspace
 ```
 
-注意：始终用 xcworkspace 打开工程（如果使用了 CocoaPods）。
+---
 
-2) Swift ↔ Objective‑C 桥接（如果 Swift 代码需要使用 ObjC 类）
+## 注意事项 / 踩坑指南
 
-- 在 Example target 中创建或使用已有桥接头（Bridging Header），例如 `ZLForm_Example-Bridging-Header.h`。
-- 在桥接头中导入你希望 Swift 能访问的 ObjC 头：
+### ⚠️ 1. 不要在 `setData` 闭包之外修改 `formSections`
 
-```objc
-#import "ZLTableViewCell.h"
-#import "ZLFormRowDescriptor.h"
-```
-
-- 在 Xcode 的 Build Settings 中设置 `SWIFT_OBJC_BRIDGING_HEADER` 为该头文件的相对路径。
-
-4. 核心概念与类型说明
-----------------------
-
-- ZLFormDescriptor
-  - 管理整个表单，与 UITableView 绑定，拥有 `allSections`（全部数据）和 `formSections`（仅用于显示的可见数据）两个概念。
-  - 提供差量刷新方法：`performDiffUpdate(target:)`（全量目标 diff），`syncAndReloadSection(_:)`（某组变化时触发）。
-
-- ZLFormSectionDescriptor
-  - 表示一组：包含 `title`、`tag`、`formRows`（完整行数据）、header/footer 视图与高度、`isHiddenSection`、`sectionBackgroundView`、`sectionBackgroundInsets` 等。
-
-- ZLFormRowDescriptor
-  - 表示一行：包含 `tag`、`title`、`value`、`height`、`isHiddenRow`、`cellClass`、`cellProvider`（block）等属性。
-  - 推荐通过工厂方法创建：`ZLFormRowDescriptor.formRowDescriptor(tag:)`。库中对直接 alloc/init 有保护以避免误用。
-
-5. 常见操作
-------------
-
-添加/删除/插入 section：
+DifferenceKit 的 `reload(using:with:setData:)` 会分多个阶段执行 diff，每个阶段都需要数据源处于正确的中间状态。如果你提前把 `formSections` 改成最终状态，DifferenceKit 检测到不一致会**回退到 `reloadData()` 整表刷新**，所有动画失效。
 
 ```swift
-// append
-form.append(sectionDescriptor: section)
+// ❌ 错误
+formSections = newData
+tableView.reload(using: changeset, with: .fade) { _ in }
 
-// insert
-form.insert(sectionDescriptor: newSection, at: 1)
-
-// remove
-form.remove(sectionDescriptor: section)
-```
-
-添加/删除/插入 row（对 section 的变更请调用 section 的 notify 方法或直接更新后调用 form.syncAndReloadSection(section)）：
-
-```swift
-section.formRows.append(newRow)
-form.syncAndReloadSection(section)
-```
-
-6. DifferenceKit 差量刷新使用要点
--------------------------------
-
-核心规则（非常重要）：
-
-- 在调用 `tableView.reload(using: changeset, with: animation) { data in ... }` 前，不要提前修改 `formSections`。必须把 `target`（最终显示数组）传入，DifferenceKit 会在 `setData` 闭包中按阶段把当前阶段的数据回写给 `formSections`。
-- 如果在调用前你已经把 `formSections` 改为目标状态，DifferenceKit 会检测到数据不一致并回退到 `reloadData()`，导致整表刷新，丢失增量动画效果。
-
-典型用法：
-
-```swift
-let target = buildVisibleTarget() // 从 allSections 构造只包含可见项的 ArraySection 数组
-let changeset = StagedChangeset(source: formSections, target: target)
-tableView.reload(using: changeset, with: .automatic) { data in
-	self.formSections = data
+// ✅ 正确（库内部已这样实现）
+let target = buildVisibleTarget()
+tableView.reload(using: StagedChangeset(source: formSections, target: target), with: .fade) { [weak self] data in
+    self?.formSections = data
 }
 ```
 
-关于内容变化（content reload）和相同 cell 实例的问题：
+### ⚠️ 2. 不要同时实现 `UITableViewDataSource` / `UITableViewDelegate`
 
-- DifferenceKit 会对 `isContentEqual(to:)` 返回 false 的元素产生 reload 动作（调用 `reloadRows(at:with:)`）。
-- 如果你的实现强持有并复用同一个 cell 实例（非 dequeue），UIKit 在 reload 动画期间对同一个 view 做淡入淡出可能导致不可见或其它渲染异常（表现为滑动后恢复）。
+`formDescriptor.tableView = tableView` 会接管这两个协议。如果你自己再实现并覆盖，会导致 `numberOfRows` 等返回错误数据，引发 `EXC_BAD_ACCESS`（访问无效内存）。
 
-解决方案：
+如果需要监听 tableView 事件，请通过 `formDescriptor.delegate` 协议回调，而不是直接占用 dataSource/delegate。
 
-1. 优先使用 `dequeueReusableCell` 模式（推荐），让 reload 能创建新实例。
-2. 或者让 DifferenceKit 不对内容变化触发 reload（让 `isContentEqual` 返回 true），在 diff 完成后手动调用 `tableView.reloadRows(at: indexPaths, with: .none)` 来触发 `cellForRowAt`，并用自定义动画（如 crossfade）更新内容。
+### ⚠️ 3. KVO 使用 `NSKeyValueObservation` 无需手动移除
 
-7. 隐藏 / 显示 与 排序（tag）
---------------------------------
+库内使用 Swift 4+ 的 `observe(\.keyPath)` 方式，`deinit` 时会自动移除观察，不需要在 `dealloc` 调 `removeObserver`。
 
-隐藏优先级：组隐藏 > 行隐藏。
+### ⚠️ 4. SnapKit 是 Swift only
 
-实现策略：
+OC 文件中无法使用 SnapKit。如果你写 OC Cell，请用 `NSLayoutConstraint` 或 Masonry。
 
-- `allSections` 保存完整数据（包括被隐藏的项）。
-- `buildVisibleTarget()` 根据 `isHiddenSection` 和 `isHiddenRow` 生成只包含可见项的 `[ArraySection<Model, Element>]`。
-- 将这个 `target` 交给 `performDiffUpdate(target:)`，DifferenceKit 会在 tableView 上做增量动画。
+### ⚠️ 5. `isContentEqual` 不要永远返回 `false`
 
-按 tag 排序：
+会导致 DifferenceKit 对每个 row 执行 reload 动画，由于本库不走 dequeue（同一 cell 对象），fade 动画会让 cell `alpha = 0` 看起来消失。需要强制刷新某行时，请用 `forceUpdateFlag += 1`。
 
-- 若 `formDescriptor.sortByTag = true`，在构建 target 前会对 `allSections` 以及每个 section 的 `formRows` 原地排序（修改底层数组顺序以保持一致性）。
+### ⚠️ 6. Cell 引用避免循环
 
-注意：排序会改变底层数组顺序（persist），因此后续 insert/remove 等操作会基于排序后的数组。
+`rowDescriptor` 已经强引用 `_cell`，cell 内 `rowDescriptor` 属性是 weak 或受 row 生命周期约束的 strong（库内已处理）。**自定义 cell 不要再额外 strong 引用 row 之外的 ZLForm 对象。**
 
-8. 自定义 Cell（cellProvider / cellClass）
-------------------------------------
+### ⚠️ 7. 自动高度必须确保约束完整
 
-优先级：
-
-1. `cellProvider`：一个 block，外部可直接创建并返回一个 cell 实例（最高优先）。
-2. `cellClass`：提供一个类引用（Swift 或 ObjC），框架将使用类创建 cell。
-3. fallback：默认使用 `ZLFormBaseCell`。
-
-示例：
+使用 `UITableView.automaticDimension` 时，cell 的 `contentView` 内所有子视图必须有完整的 top→bottom 约束链，否则会出现高度为 0 或异常。
 
 ```swift
-row.cellProvider = { row in
-	let cell = MyCustomCell(style: .default, reuseIdentifier: row.tag)
-	return cell
+// ✅ 正确
+titleLabel.snp.makeConstraints { make in
+    make.top.equalToSuperview().offset(10)
+    make.leading.trailing.equalToSuperview().inset(16)
+    make.bottom.equalToSuperview().offset(-10)  // 关键！
 }
-
-// 或者：
-row.cellClass = MyCustomCell.self
 ```
 
-ObjC 示例：
+### ⚠️ 8. tag 必须唯一
+
+`tag` 是 DifferenceKit 的 `differenceIdentifier`，**同一表单内 row/section 的 tag 必须唯一**，否则 diff 计算异常，可能导致动画错乱或崩溃。
+
+### ⚠️ 9. `addFormSection` / `addFormRow` 之前要先关联
+
+新建的 section 没加进 descriptor 之前调用 `addFormRow` 不会触发 UI 更新（因为没关联 tableView）。**先建好父子关系再操作 row**，或者在加完后再调用 `reloadVisibility()`。
+
+```swift
+// ✅ 推荐
+let section = ZLFormSectionDescriptor.formSection()
+section.addFormRow(row1)
+section.addFormRow(row2)
+formDescriptor.addFormSection(section)   // 最后一次性加入
+
+// ⚠️ 也可以但会触发多次 diff
+formDescriptor.addFormSection(section)
+section.addFormRow(row1)   // 触发 diff
+section.addFormRow(row2)   // 又触发 diff
+```
+
+### ⚠️ 10. 修改 `value` 不会自动刷新 UI
+
+`value` 改变只是数据层变化。如需 UI 同步，要么 cell 内监听 row 属性（KVO），要么手动 `forceUpdateFlag += 1` 后调 `syncAndReloadSection`。
+
+### ⚠️ 11. `syncAndReloadSection` 是同步执行
+
+调用后 `formSections` 立即更新，tableView 的 section/row 数也同步变化。动画只是视觉过渡。如需在动画结束后做事，使用 `CATransaction.setCompletionBlock`。
+
+### ⚠️ 12. Section 背景 view 不要自己 addSubview 到 tableView
+
+`section.sectionBackgroundView = bgView` 后，库会自动管理它的添加/移除/布局。**不要自己再 addSubview**，否则会出现重复或位置错乱。
+
+### ⚠️ 13. OC 中不要直接访问 `formSections`
+
+`formSections` 的类型是 Swift 泛型 `[ArraySection<...>]`，OC 无法访问。需要遍历 section 请用 `sectionDescriptors`。
 
 ```objc
-row.cellClass = [ZLTableViewCell class];
+// ❌ 报错
+self.formDescriptor.formSections;
+
+// ✅ 正确
+NSArray<ZLFormSectionDescriptor *> *sections = self.formDescriptor.sectionDescriptors;
 ```
 
-提示：若 Swift 中无法识别 ObjC 类，确认该 ObjC 头已加入桥接头且文件被加入 Example target。
+---
 
-9. 自动高度与固定高度优先级
---------------------------------
+## 常见问题 FAQ
 
-- 若外部设置了 `row.height > 0`，则使用该固定高度（优先）。
-- 否则返回 `UITableView.automaticDimension`，让 Auto Layout 决定高度。
-- 同时实现 `estimatedHeightForRowAt`、`estimatedHeightForHeader/Footer` 来提升滚动性能。
+**Q1：添加 row 时整张表都刷新了？**
+A：检查是否在 `setData` 之外提前修改了 `formSections`，或者你重写的 `isContentEqual` 总是返回 false。详见注意事项 1 / 5。
 
-10. 组背景视图（背景始终在 cell 下面的策略）
--------------------------------------------
+**Q2：选中行时 `EXC_BAD_ACCESS`？**
+A：通常是 dataSource 被双重设置或 `formRows` 与 `formSections.elements` 行数不一致。**移除你自己实现的 UITableViewDataSource**，让 `formDescriptor` 接管。
 
-需求：有时希望每组有一个圆角白卡背景，背景跟随组的行数量动态变高/变低，并且永远在 cell 下面，不遮挡 cell 内容。
+**Q3：隐藏 row 后背景 view 没缩小？**
+A：库内 `performDiffUpdate` 和 `syncAndReloadSection` 完成后会调用 `layoutAllSectionBackgroundViews()`。如果你自定义了刷新逻辑，记得也要调一下。
 
-实现要点：
+**Q4：OC 中 `[ZLFormRowDescriptor alloc]` 不报错？**
+A：导入 `ZLFormRowDescriptor+Unavailable.h` 即可在编译期阻止。
 
-1. 每个 `ZLFormSectionDescriptor` 支持 `sectionBackgroundView` 和 `sectionBackgroundInsets`。
-2. 在 `willDisplay cell`、`willDisplayHeaderView`、`willDisplayFooterView` 等回调中重新计算该组所有可见行的 union rect，然后更新背景 view 的 frame。
-3. 因为 UITableView 的内部会调整 subviews 布局，单次 `insertSubview(bgView, at: 0)` 不足以保证背景永远在底层。建议每次布局时调用 `tableView.sendSubviewToBack(bgView)` 或把所有背景都 `sendSubviewToBack` 一次，确保背景在渲染层级中处于最底部。
+**Q5：自动高度 cell 显示高度为 0？**
+A：检查 cell 内约束是否完整。`UITableView.automaticDimension` 需要从 contentView.top 到 contentView.bottom 有完整约束链。
 
-11. Demo（AutoHeight / TagSort / Background）如何接入工程
------------------------------------------------------
+**Q6：自定义 cell 没生效，显示成了默认样式？**
+A：检查 `cellClass` 是否设置正确，或者 `cellProvider` 是否返回了非 nil 的 cell。**`cellProvider` 优先级高于 `cellClass`**。
 
-- 新增 .m/.h/.swift 文件后请在 Xcode 的 File Inspector 中勾选 Example target（Target Membership）。
-- Swift 文件若要访问 ObjC 类型，请在桥接头 import 相应的头文件并在 Build Settings 设置桥接头路径。
+**Q7：tag 排序后顺序不稳定？**
+A：确保所有 row 的 tag 唯一且字符串可比较。库内用 `String <` 排序。
 
-如果你将 demo 文件手动复制到工程中但出现找不到类或符号的错误，请检查：
+**Q8：编译报 `unknown type name 'nonnull'`？**
+A：这是 Swift 生成 `-Swift.h` 时的格式问题。把 `#import <ZLForm/ZLForm-Swift.h>` 从 `.h` 移到 `.m` 文件即可。或用条件编译：
 
-1. 文件是否真的在 Example target 的 Compile Sources 中；
-2. 如果是 Swift 文件，是否正确设置了 bridging header 导入需要的 ObjC 头；
-3. 是否使用 workspace 打开工程（不是 xcodeproj）。
+```objc
+#if __has_include(<ZLForm/ZLForm-Swift.h>)
+#import <ZLForm/ZLForm-Swift.h>
+#endif
+```
 
-12. 常见问题与排查建议
-----------------------
+**Q9：`isHiddenRow` 设置了但 UI 没变化？**
+A：必须显式调用 `formDescriptor.reloadVisibility()`，库不会自动 KVO 监听该属性。
 
-Q：`titleLabel.text = row.title` 为什么崩溃 EXC_BAD_ACCESS？
+**Q10：能否在 cell 内部直接修改 `rowDescriptor.value`？**
+A：可以。但如果需要表单其他 row 联动（比如某行改变后另一行隐藏），需要在 cell 的 value 变化回调里调用 `formDescriptor.reloadVisibility()`。
 
-A：常见原因：
+**Q11：删除当前正在编辑的 row 会崩溃吗？**
+A：库内部用 DifferenceKit 安全分阶段更新，不会崩。但如果 cell 内部还在用 `rowDescriptor`，请加 `guard let row = rowDescriptor else { return }`。
 
-- cell 对象被提前释放（使用了弱引用或没有被 tableView 正确持有）；
-- tableView 的 dataSource/delegate 在多个对象上实现，造成数据来源不一致；
-- 你在调用 diff 刷新前就修改了 `formSections`，导致数据不一致和数组越界；
-- cell 被错误地 typecast 或者 header/footer 与 cell 的重用冲突。
+**Q12：可以一个 tableView 关联多个 formDescriptor 吗？**
+A：不可以。一个 tableView 只能由一个 formDescriptor 接管，否则 dataSource/delegate 互相覆盖。
 
-排查步骤：
+---
 
-1. 确认 `formDescriptor` 是 tableView 的唯一 dataSource/delegate；
-2. 搜索项目中是否有直接访问 `formSections` 并在 `reload(using:)` 之前修改它的代码；
-3. 在崩溃时查看崩溃堆栈，定位到哪一行的访问导致 EXC_BAD_ACCESS（通常是消息发送到已释放对象）。
-
-Q：我强制把 `isContentEqual` 返回 false，然后调用 `syncAndReloadSection`，为什么 cell 消失了但滑动后又出现？
-
-A：DifferenceKit 会把内容变更的元素标记为需要 reload，进而调用 `reloadRows(at:with:)`。如果你在 descriptor 中强持有并复用同一个 cell 实例，UIKit 对同一 view 做 reload 动画会产生渲染异常（淡出/淡入同一个 view）。滑动时 tableView 会重新请求 cell 并恢复显示。
-
-解决：
-
-- 不要在 `isContentEqual` 中盲目返回 false；仅在内容真正变化需要由系统 reload 时才返回 false；
-- 或在 diff 完成后对需要刷新的 indexPaths 手动调用 `reloadRows(at:with:.none)`，并在 `cellForRowAt` 中正确更新内容。
-
-Q：KVO 的观察需要手动移除吗？
-
-A：如果使用 Swift 的 `observe` 返回的 `NSKeyValueObservation` 对象，只要把该对象保存在属性上（不要被提前释放），系统会在该观察对象释放时自动注销 KVO；无需手动 `removeObserver`。
-
-Q：如何编译时阻止 ObjC 调用 `[[ZLFormRowDescriptor alloc] init]`？
-
-A：Swift 的 `@available(*, unavailable)` 能阻止 Swift 层调用，但 ObjC 端仍然可以编译并调用。为了在 ObjC 编译期禁止调用，需要在 ObjC 头中把 `-init`、`+new` 标记为 `NS_UNAVAILABLE`。另外运行时也应加断言或 `fatalError` 做兜底。
-
-13. 进阶技巧与最佳实践
-----------------------
-
-- 建议使用 dequeue 机制并尽量避免在 descriptor 中强持有 cell 对象，以免与系统的 reload/动画机制冲突。
-- 将 `allSections` 作为权威数据，`formSections` 仅作为 UI 的可见快照，这样能更容易支持隐藏、排序与撤销操作。
-- 对于频繁更新（大量 insert/delete）的场景，考虑分组构建 target 并尽量减少不必要的 content reload（只做 insert/delete/move）。
-
-14. 联系与贡献
-----------------
-
-如果你希望我为仓库：
-
-- 添加一个 <50 行的快速上手示例；
-- 自动扫描代码找出在 `setData` 之外修改 `formSections` 的位置并提出修复建议；
-- 将 README 输出为 PDF 或制作中/英文双语版本；
-
-请告诉我你需要的项，我会继续为你实现并提交修改。
-
--- 结束 --
 
